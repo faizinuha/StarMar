@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('title'); // Tambahkan kolom title
-            $table->string('video'); // Kolom video untuk URL atau path video
-            $table->string('image')->nullable(); // Kolom image untuk URL atau path gambar
+            $table->string('video')->nullable();  // Kolom video bisa kosong (nullable)
+            $table->string('image')->nullable();  // Kolom image bisa kosong (nullable)
             $table->string('content'); // Kolom content untuk teks postingan
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
+        
         
     }
 

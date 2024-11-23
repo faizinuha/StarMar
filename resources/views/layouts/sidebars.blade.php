@@ -46,22 +46,41 @@
                             <span>Notifications</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="{{ route('profile.edit') }}" class="flex items-center space-x-3 py-2 px-4 rounded-lg hover:bg-blue-700">
-                            <i class="fas fa-user text-lg"></i>
-                            <span>Profile</span>
-                        </a>
-                    </li>
 
+                    <!-- Profile Dropdown -->
                     @auth
-                    <li>
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button type="submit" class="flex items-center space-x-3 py-2 px-4 w-full text-left rounded-lg hover:bg-blue-700">
-                                <i class="fas fa-sign-out-alt text-lg"></i>
-                                <span>Logout</span>
-                            </button>
-                        </form>
+                    <li class="relative">
+                        <button class="flex items-center space-x-3 py-2 px-4 w-full rounded-lg hover:bg-blue-700">
+                            <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center text-white font-semibold">
+                                {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                            </div>
+                            <span>{{ auth()->user()->name }}</span>
+                            <i class="fas fa-caret-down ml-2"></i>
+                        </button>
+
+                        <!-- Dropdown Menu -->
+                        <div class="absolute left-0 mt-2 w-full bg-white shadow-lg rounded-lg hidden group-hover:block">
+                            <ul class="space-y-2">
+                                <li>
+                                    <a href="{{ route('profile.edit') }}" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg">
+                                        <i class="fas fa-user-circle mr-2"></i> Profile
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg">
+                                        <i class="fas fa-cogs mr-2"></i> Settings
+                                    </a>
+                                </li>
+                                <li>
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <button type="submit" class="w-full text-left py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg">
+                                            <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                                        </button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                     @endauth
                 </ul>

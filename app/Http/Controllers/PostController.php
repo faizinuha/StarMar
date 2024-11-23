@@ -31,7 +31,6 @@ class PostController extends Controller
         ]);
 
         // Proses penyimpanan gambar jika ada
-        $imagePath = null;
         if ($request->hasFile('image')) {
             // Menyimpan gambar ke storage
             $imagePath = $request->file('image')->store('images', 'public');
