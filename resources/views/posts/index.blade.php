@@ -41,7 +41,6 @@
                                 <p class="text-gray-800 mb-4">{{ $post->content }}</p>
                                 
                                 <!-- Tombol Ellipsis untuk Hapus Gambar -->
-                                <!-- Tombol Ellipsis untuk Hapus Gambar -->
                                 <form action="{{ route('posts.destroy', $post->id) }}" method="POST" style="display: none;"
                                     id="delete-form-{{ $post->id }}">
                                     @csrf
@@ -51,8 +50,8 @@
                                     onclick="confirmDelete({{ $post->id }})">
                                     <i class="fas fa-ellipsis-h"></i> <!-- Icon titik tiga -->
                                 </button>
-
                             </div>
+
                             <!-- Menampilkan Video jika ada -->
                             @if ($post->video)
                                 <div class="mb-4">
@@ -76,7 +75,7 @@
                                     <i class="fas fa-comment"></i> Comment
                                 </button>
                                 <!-- Share Button (Icon) -->
-                                <button class="text-gray-600 hover:text-blue-500">
+                                <button class="text-gray-600 hover:text-blue-500" onclick="openShareModal('{{ $post->id }}')">
                                     <i class="fas fa-share-alt"></i> Share
                                 </button>
                             </div>
@@ -91,16 +90,66 @@
             </div>
         </div>
 
+        <!-- Modal Share -->
+        <div id="shareModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 hidden flex justify-center items-center">
+            <div class="bg-white p-6 rounded-lg shadow-lg w-1/3">
+                <h2 class="text-lg font-bold mb-4">Bagikan ke Platform</h2>
+                <div class="flex space-x-4">
+                    <button class="text-blue-500" onclick="generateLink('instagram')">Instagram</button>
+                    <button class="text-blue-500" onclick="generateLink('facebook')">Facebook</button>
+                    <button class="text-blue-500" onclick="generateLink('twitter')">Twitter</button>
+                    <button class="text-blue-500" onclick="generateLink('whatsapp')">WhatsApp</button>
+                </div>
+                <div class="mt-4">
+                    <p id="shareLink" class="text-sm text-gray-600"></p>
+                </div>
+                <button class="mt-4 text-red-500" onclick="closeShareModal()">Tutup</button>
+            </div>
+        </div>
+
         <script>
             function confirmDelete(postId) {
-                // Menampilkan konfirmasi penghapusan gambar
                 if (confirm("Apakah Anda yakin ingin menghapus gambar ini?")) {
-                    // Mengirim permintaan DELETE untuk menghapus gambar
                     document.getElementById('delete-form-' + postId).submit();
                 }
             }
-        </script>
 
+            function openShareModal(postId) {
+                document.getElementById('shareModal').classList.remove('hidden');
+                // Simpan ID post untuk digunakan saat generate link
+                window.currentPostId = postId;
+            }
+
+            function closeShareModal() {
+                document.getElementById('shareModal').classList.add('hidden');
+            }
+
+            function generateLink(platform) {
+                const postId = window.currentPostId;
+                let url = '';
+
+                // Logika untuk mengenerate link sesuai platform
+                switch (platform) {
+                    case 'instagram':
+                        url = `https://www.instagram.com/?url={{ url('posts') }}/${postId}`;
+                        break;
+                    case 'facebook':
+                        url = `https://www.facebook.com/sharer/sharer.php?u={{ url('posts') }}/${postId}`;
+                        break;
+                    case 'twitter':
+                        url = `https://twitter.com/intent/tweet?url={{ url('posts') }}/${postId}`;
+                        break;
+                    case 'whatsapp':
+                        url = `https://wa.me/?text={{ url('posts') }}/${postId}`;
+                        break;
+                    default:
+                        url = `https://www.example.com/${postId}`;
+                }
+
+                // Tampilkan URL di dalam modal
+                document.getElementById('shareLink').textContent = `Link berbagi: ${url}`;
+            }
+        </script>
 
     </body>
 
