@@ -34,13 +34,13 @@
 
                         <!-- Konten Postingan -->
                         <div class="p-4">
-                            
+
                             <!-- Menampilkan Gambar jika ada -->
                             <div class="mb-4 relative">
-                                <img src="{{ asset('storage/' . $post->image) }}" alt="Post Image"
-                                    class="w-full h-auto rounded-lg shadow-md">
-                                    <p class="text-gray-800 mb-4">{{ $post->content }}</p>
-                               
+                                <img src="{{ asset('storage/' . $post->image) }}" alt="Post Image">
+                                <p class="text-gray-800 mb-4">{{ $post->content }}</p>
+                                
+                                <!-- Tombol Ellipsis untuk Hapus Gambar -->
                                 <!-- Tombol Ellipsis untuk Hapus Gambar -->
                                 <form action="{{ route('posts.destroy', $post->id) }}" method="POST" style="display: none;"
                                     id="delete-form-{{ $post->id }}">

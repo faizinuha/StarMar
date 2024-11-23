@@ -13,13 +13,15 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::with('user')->latest()->get();
+        // dd(Post::latest()->first());
         return view('posts.index', compact('posts'));
     }
+
     public function create()
     {
         return view('posts.create');
     }
-    // Menyimpan postingan baru
+
     // Menyimpan postingan baru
     public function store(Request $request)
     {
@@ -31,9 +33,10 @@ class PostController extends Controller
         ]);
 
         // Proses penyimpanan gambar jika ada
+        $imagePath = null;
         if ($request->hasFile('image')) {
-            // Menyimpan gambar ke storage
-            $imagePath = $request->file('image')->store('images', 'public');
+            // Menyimpan gambar ke folder 'img' di storage
+            $imagePath = $request->file('image')->store('img', 'public');
         }
 
         // Proses penyimpanan video jika ada
@@ -46,13 +49,12 @@ class PostController extends Controller
         Post::create([
             'user_id' => Auth::id(),
             'video' => $videoPath,
-            'image' => $imagePath, // Menyimpan path gambar
+            'image' => $imagePath,
             'content' => $request->content,
         ]);
-
+    
         return redirect()->route('posts.index')->with('success', 'Post berhasil ditambahkan!');
     }
-
 
     // Menampilkan halaman edit (opsional)
     public function edit($id)
@@ -66,7 +68,6 @@ class PostController extends Controller
     {
         // Validasi input
         $request->validate([
-            'title' => 'required|string|max:255',
             'content' => 'required|string|max:255',
             'video' => 'nullable|url',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validasi gambar
@@ -82,8 +83,8 @@ class PostController extends Controller
             if ($imagePath && Storage::exists('public/' . $imagePath)) {
                 Storage::delete('public/' . $imagePath);
             }
-            // Simpan gambar baru
-            $imagePath = $request->file('image')->store('images', 'public');
+            // Simpan gambar baru ke folder 'img' di storage
+            $imagePath = $request->file('public')->store('img', 'public');
         }
 
         // Proses penyimpanan video jika ada
@@ -94,7 +95,6 @@ class PostController extends Controller
 
         // Update postingan
         $post->update([
-            'title' => $request->title,
             'video' => $videoPath,
             'image' => $imagePath, // Menyimpan path gambar baru
             'content' => $request->content,

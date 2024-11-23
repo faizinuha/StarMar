@@ -26,7 +26,7 @@
                 <!-- Dashboard -->
                 <!-- =================== -->
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="index-2.html" aria-expanded="false">
+                    <a class="sidebar-link" href="{{route('posts.index')}}" aria-expanded="false">
                         <span>
                             <i class="ti ti-aperture"></i>
                         </span>
@@ -77,5 +77,6 @@
         </nav>
         <!-- End Sidebar navigation -->
     </div>
+    
     <!-- End Sidebar scroll-->
 </aside>
