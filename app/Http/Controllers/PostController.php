@@ -6,6 +6,8 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Hashtag;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -30,6 +32,7 @@ class PostController extends Controller
             'content' => 'required|string|max:255',
             'video' => 'nullable|url',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validasi gambar
+            'hashtags' => 'nullable|string|max:255',
         ]);
 
         // Proses penyimpanan gambar jika ada
@@ -46,15 +49,29 @@ class PostController extends Controller
         }
 
         // Membuat postingan baru
-        Post::create([
+        $post = Post::create([
             'user_id' => Auth::id(),
             'video' => $videoPath,
             'image' => $imagePath,
             'content' => $request->content,
         ]);
-    
+
+        // Proses Hashtag
+        if ($request->hashtags) {
+            $hashtags = explode(',', $request->hashtags); // Misal: "wallpapers,art"
+            foreach ($hashtags as $tag) {
+                $tag = Str::slug(trim($tag), '-'); // Normalisasi
+                $hashtag = Hashtag::firstOrCreate(
+                    ['name' => $tag],
+                    ['user_id' => Auth::id()]
+                );
+                $post->hashtags()->attach($hashtag->id);
+            }
+        }
+
         return redirect()->route('posts.index')->with('success', 'Post berhasil ditambahkan!');
     }
+
 
     // Menampilkan halaman edit (opsional)
     public function edit($id)

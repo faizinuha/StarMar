@@ -39,7 +39,10 @@
                             <div class="mb-4 relative">
                                 <img src="{{ asset('storage/' . $post->image) }}" alt="Post Image">
                                 <p class="text-gray-800 mb-4">{{ $post->content }}</p>
-                                
+                                @foreach ($post->hashtags as $hashtag)
+                                    <p>#{{ $hashtag->name }}</p>
+                                @endforeach
+
                                 <!-- Tombol Ellipsis untuk Hapus Gambar -->
                                 <form action="{{ route('posts.destroy', $post->id) }}" method="POST" style="display: none;"
                                     id="delete-form-{{ $post->id }}">
@@ -75,7 +78,8 @@
                                     <i class="fas fa-comment"></i> Comment
                                 </button>
                                 <!-- Share Button (Icon) -->
-                                <button class="text-gray-600 hover:text-blue-500" onclick="openShareModal('{{ $post->id }}')">
+                                <button class="text-gray-600 hover:text-blue-500"
+                                    onclick="openShareModal('{{ $post->id }}')">
                                     <i class="fas fa-share-alt"></i> Share
                                 </button>
                             </div>

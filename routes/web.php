@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
-
+use App\Http\Controllers\HashtagController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,7 +11,7 @@ use App\Http\Controllers\ProfileController;
 */
 
 // Autentikasi Laravel Breeze
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 // Rute untuk halaman utama feed
 Route::get('/', [PostController::class, 'index'])->name('posts.index')->middleware('auth');
 // Rute untuk menampilkan halaman form create (GET)
@@ -32,3 +32,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
+
+Route::get('/hashtags/suggest', [HashtagController::class, 'suggest'])->name('hashtags.suggest');
