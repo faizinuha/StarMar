@@ -18,7 +18,8 @@ Route::get('/', [PostController::class, 'index'])->name('posts.index')->middlewa
 Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create')->middleware('auth');
 // Rute untuk menyimpan postingan baru (POST)
 Route::post('/posts', [PostController::class, 'store'])->name('posts.store')->middleware('auth');
-
+// Route yang sudah ada
+Route::delete('/posts/{id}', [PostController::class, 'destroy'])->name('posts.destroy')->middleware('auth');
 
 // Dashboard (default dari Breeze)
 Route::get('/dashboard', function () {

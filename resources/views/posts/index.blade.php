@@ -34,12 +34,25 @@
 
                         <!-- Konten Postingan -->
                         <div class="p-4">
-                            <p class="text-gray-800 mb-4">{{ $post->content }}</p>
-                            <!-- Menampilkan Gambar jika ada -->                    
-                                <div class="mb-4">
-                                    <img src="{{ asset('storage/' . $post->image) }}" alt="Post Image"
-                                        class="w-full h-auto rounded-lg shadow-md">
-                                </div>
+                            
+                            <!-- Menampilkan Gambar jika ada -->
+                            <div class="mb-4 relative">
+                                <img src="{{ asset('storage/' . $post->image) }}" alt="Post Image"
+                                    class="w-full h-auto rounded-lg shadow-md">
+                                    <p class="text-gray-800 mb-4">{{ $post->content }}</p>
+                               
+                                <!-- Tombol Ellipsis untuk Hapus Gambar -->
+                                <form action="{{ route('posts.destroy', $post->id) }}" method="POST" style="display: none;"
+                                    id="delete-form-{{ $post->id }}">
+                                    @csrf
+                                    @method('DELETE')
+                                </form>
+                                <button class="absolute top-2 right-2 text-gray-600 hover:text-blue-500"
+                                    onclick="confirmDelete({{ $post->id }})">
+                                    <i class="fas fa-ellipsis-h"></i> <!-- Icon titik tiga -->
+                                </button>
+
+                            </div>
                             <!-- Menampilkan Video jika ada -->
                             @if ($post->video)
                                 <div class="mb-4">
@@ -77,6 +90,17 @@
                 @endforeach
             </div>
         </div>
+
+        <script>
+            function confirmDelete(postId) {
+                // Menampilkan konfirmasi penghapusan gambar
+                if (confirm("Apakah Anda yakin ingin menghapus gambar ini?")) {
+                    // Mengirim permintaan DELETE untuk menghapus gambar
+                    document.getElementById('delete-form-' + postId).submit();
+                }
+            }
+        </script>
+
 
     </body>
 
