@@ -23,14 +23,14 @@
             <nav class="mt-8">
                 <ul class="space-y-4 px-6">
                     <li>
-                        <a href="{{ route('posts.index') }}"
+                        <a href="{{ route('beranda') }}"
                             class="flex items-center space-x-3 py-2 px-4 rounded-lg hover:bg-blue-700">
                             <i class="fas fa-home text-lg"></i>
                             <span>Home</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="flex items-center space-x-3 py-2 px-4 rounded-lg hover:bg-blue-700">
+                        <a href="{{route('dashboard')}}" class="flex items-center space-x-3 py-2 px-4 rounded-lg hover:bg-blue-700">
                             <i class="fas fa-search text-lg"></i>
                             <span>Explore</span>
                         </a>
