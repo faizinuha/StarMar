@@ -30,7 +30,7 @@
 
                 <!-- Data Postingan -->
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="index2.html" aria-expanded="false">
+                    <a class="sidebar-link" href="{{route('posts.index')}}" aria-expanded="false">
                         <span><i class="ti ti-package"></i></span>
                         <span class="hide-menu">Data Postingan</span>
                     </a>

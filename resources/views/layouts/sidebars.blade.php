@@ -18,7 +18,7 @@
         <aside class="w-64 bg-blue-600 text-white flex-shrink-0">
             <div class="p-6 flex items-center justify-center space-x-3">
                 <i class="fab fa-instagram text-3xl"></i>
-                <h2 class="text-2xl font-bold">Media Sosial</h2>
+                <h2 class="text-2xl font-bold">StartMar</h2>
             </div>
             <nav class="mt-8">
                 <ul class="space-y-4 px-6">
