@@ -19,6 +19,7 @@
     <meta name="MobileOptimized" content="width" />
     <meta name="description" content="Mordenize" />
     <meta name="author" content="" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="keywords" content="Mordenize" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
@@ -73,20 +74,20 @@
     <!-- ---------------------------------------------- -->
     <!-- Customizer -->
     <!-- ---------------------------------------------- -->
- <!--  Search Bar -->
- <div class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-lg">
-        <div class="modal-content rounded-1">
-            <div class="modal-header border-bottom">
-                <input type="search" class="form-control fs-3" placeholder="Search here" id="search" />
-                <span data-bs-dismiss="modal" class="lh-1 cursor-pointer">
-                    <i class="ti ti-x fs-5 ms-3"></i>
-                </span>
-            </div>
+    <!--  Search Bar -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg">
+            <div class="modal-content rounded-1">
+                <div class="modal-header border-bottom">
+                    <input type="search" class="form-control fs-3" placeholder="Search here" id="search" />
+                    <span data-bs-dismiss="modal" class="lh-1 cursor-pointer">
+                        <i class="ti ti-x fs-5 ms-3"></i>
+                    </span>
+                </div>
 
+            </div>
         </div>
     </div>
-</div>
     <!-- ---------------------------------------------- -->
     <!-- Import Js Files -->
     <!-- ---------------------------------------------- -->

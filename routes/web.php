@@ -5,11 +5,16 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HashtagController;
+use App\Http\Controllers\LikesController;
+use App\Models\Post;
+use App\Models\user;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
 */
+
 Route::get('/', [BerandaController::class, 'index'])->name('beranda');
 // Autentikasi Laravel Breeze
 require __DIR__ . '/auth.php';
@@ -22,14 +27,19 @@ Route::post('/posts', [PostController::class, 'store'])->name('posts.store')->mi
 // Route yang sudah ada
 Route::delete('/posts/{id}', [PostController::class, 'destroy'])->name('posts.destroy')->middleware('auth');
 
-use App\Models\Post;
-use App\Models\user;
+// LIKE
+Route::post('/like', [LikesController::class, 'likePost'])->name('post.like');
+
+
+
+
+
 Route::get('/dashboard', function () {
     // Ambil semua data postingan dari tabel posts
     $posts = Post::all()->count();
     $user = User::all()->count();
     // Kirim data ke view dashboard
-    return view('dashboard', compact('posts','user'));
+    return view('dashboard', compact('posts', 'user'));
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 // Route untuk Profile

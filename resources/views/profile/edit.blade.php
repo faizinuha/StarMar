@@ -130,8 +130,9 @@
                     <div class="col-lg-4">
                         <div class="card shadow-none border">
                             <div class="card-body">
-                                <h4 class="fw-semibold mb-3">Introduction</h4>
-                                <p>Hello, I am Mathew Anderson. I love making websites and graphics. Lorem ipsum dolor sit
+                                <h4 class="fw-semibold mb-3">Personal Info</h4>
+                                <p>Hello, I am {{ Auth::user()->name }}. I love making websites and graphics. Lorem ipsum
+                                    dolor sit
                                     amet, consectetur adipiscing elit.</p>
                                 <ul class="list-unstyled mb-0">
                                     <li class="d-flex align-items-center gap-3 mb-4">
@@ -206,6 +207,21 @@
                                 @csrf
                                 @method('patch')
                                 <div class="card-body p-4">
+                                    <div class="mb-4">
+                                        <label for="bio" class="form-label fw-semibold">Bio</label>
+                                        <div class="input-group border rounded-1">
+                                            <span class="input-group-text bg-transparent px-6 border-0" id="basic-addon1">
+                                                <i class="ti ti-user fs-6"></i>
+                                            </span>
+                                            <input type="text" class="form-control border-0 ps-2" id="bio"
+                                                name="bio" value="{{ old('bio', $user->bio) }}"
+                                                placeholder="Masukkan bio Anda">
+                                        </div>
+                                        @error('bio')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+
                                     <div class="mb-4">
                                         <label for="exampleInputPassword1" class="form-label fw-semibold">Nama</label>
                                         <div class="input-group border rounded-1">

@@ -14,78 +14,86 @@
     <body class="bg-gray-100 text-gray-800">
 
         <div class="container mx-auto max-w-3xl py-8">
-            <h1 class="text-3xl font-bold text-center text-blue-600 mb-6">Media Sosial Sederhana</h1>
-    
+            <h1 class="text-3xl font-bold text-center text-blue-600 mb-6">StarMar</h1>
+
             <!-- Daftar Postingan -->
             <div class="space-y-8">
                 @foreach ($posts as $post)
-                <div class="bg-white shadow-md rounded-lg overflow-hidden">
-                    <!-- Header Postingan (Nama Pengguna & Tanggal) -->
-                    <div class="flex items-center space-x-4 p-4 border-b">
-                        <div class="w-10 h-10 bg-blue-200 rounded-full flex items-center justify-center text-white font-semibold">
-                            {{ strtoupper(substr($post->user->name, 0, 1)) }}
+                    <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                        <!-- Header Postingan (Nama Pengguna & Tanggal) -->
+                        <div class="flex items-center space-x-4 p-4 border-b">
+                            <div
+                                class="w-10 h-10 bg-blue-200 rounded-full flex items-center justify-center text-white font-semibold">
+                                {{ strtoupper(substr($post->user->name, 0, 1)) }}
+                            </div>
+                            <div>
+                                <h5 class="font-semibold text-lg text-gray-800">{{ $post->user->name }}</h5>
+                                <p class="text-sm text-gray-500">{{ $post->created_at->diffForHumans() }}</p>
+                            </div>
                         </div>
-                        <div>
-                            <h5 class="font-semibold text-lg text-gray-800">{{ $post->user->name }}</h5>
-                            <p class="text-sm text-gray-500">{{ $post->created_at->diffForHumans() }}</p>
-                        </div>
-                    </div>
-    
-                    <!-- Konten Postingan -->
-                    <div class="p-4">
-                        <!-- Menampilkan Gambar jika ada -->
-                        @if ($post->image)
-                        <div class="mb-4 relative">
-                            <img src="{{ asset('storage/' . $post->image) }}" alt="Post Image" class="mb-4">
-                        </div>
-                        @endif
-    
-                        <!-- Konten dengan fitur Read More -->
-                        <div class="relative">
-                            <p class="text-gray-800">
-                                <span class="short-content">
-                                    {{ Str::limit($post->content, 100, '') }} <!-- Menampilkan hanya 100 karakter pertama -->
-                                </span>
-                                <span class="long-content hidden">
-                                    {{ $post->content }} <!-- Menampilkan semua konten -->
-                                </span>
-                            </p>
-                            @if (strlen($post->content) > 100)
-                            <button class="read-more text-blue-500 text-sm mt-2">Read More</button>
+
+                        <!-- Konten Postingan -->
+                        <div class="p-4">
+                            <!-- Menampilkan Gambar jika ada -->
+                            @if ($post->image)
+                                <div class="mb-4 relative">
+                                    <img src="{{ asset('storage/' . $post->image) }}" alt="Post Image" class="mb-4">
+                                </div>
                             @endif
+
+                            <!-- Konten dengan fitur Read More -->
+                            <div class="relative">
+                                <p class="text-gray-800">
+                                    <span class="short-content">
+                                        {{ Str::limit($post->content, 100, '') }}
+                                        <!-- Menampilkan hanya 100 karakter pertama -->
+                                    </span>
+                                    <span class="long-content hidden">
+                                        {{ $post->content }} <!-- Menampilkan semua konten -->
+                                    </span>
+                                </p>
+                                @if (strlen($post->content) > 100)
+                                    <button class="read-more text-blue-500 text-sm mt-2">Read More</button>
+                                @endif
+                            </div>
+
+                            <!-- Menampilkan hashtag -->
+                            <div class="mt-2">
+                                @foreach ($post->hashtags as $hashtag)
+                                    <span class="text-sm text-blue-500">#{{ $hashtag->name }}</span>
+                                @endforeach
+                            </div>
                         </div>
-    
-                        <!-- Menampilkan hashtag -->
-                        <div class="mt-2">
-                            @foreach ($post->hashtags as $hashtag)
-                            <span class="text-sm text-blue-500">#{{ $hashtag->name }}</span>
-                            @endforeach
+
+                        <!-- Footer Postingan (Tombol Like, Comment, Share) -->
+                        <div class="flex items-center justify-between p-4 border-t">
+                            <div class="flex items-center space-x-6">
+                                <!-- Like Button (Icon) -->
+                                @php
+                                    $isLiked = $post->likedByUsers->contains(auth()->id());
+                                @endphp
+
+                                <button class="like-button {{ $isLiked ? 'liked' : '' }}"
+                                    data-post-id="{{ $post->id }}">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                                <span class="like-count">{{ $post->likedByUsers->count() }}</span>
+                                <!-- Comment Button (Icon) -->
+                                <button class="text-gray-600 hover:text-blue-500">
+                                    <i class="fas fa-comment"></i> Comment
+                                </button>
+                                <!-- Share Button (Icon) -->
+                                <button class="text-gray-600 hover:text-blue-500">
+                                    <i class="fas fa-share-alt"></i> Share
+                                </button>
+                            </div>
+                            <div>
+                                <button class="text-gray-600 hover:text-blue-500">
+                                    <i class="fas fa-bookmark"></i> Save
+                                </button>
+                            </div>
                         </div>
                     </div>
-    
-                    <!-- Footer Postingan (Tombol Like, Comment, Share) -->
-                    <div class="flex items-center justify-between p-4 border-t">
-                        <div class="flex items-center space-x-6">
-                            <!-- Like Button (Icon) -->
-                            <button class="text-gray-600 hover:text-blue-500">
-                                <i class="fas fa-heart"></i> Like
-                            </button>
-                            <!-- Comment Button (Icon) -->
-                            <button class="text-gray-600 hover:text-blue-500">
-                                <i class="fas fa-comment"></i> Comment
-                            </button>
-                            <!-- Share Button (Icon) -->
-                            <button class="text-gray-600 hover:text-blue-500">
-                                <i class="fas fa-share-alt"></i> Share
-                            </button>
-                        </div>
-                        <div>
-                            <button class="text-gray-600 hover:text-blue-500">
-                                <i class="fas fa-bookmark"></i> Save
-                            </button>
-                        </div>
-                    </div>
-                </div>
                 @endforeach
             </div>
         </div>
@@ -114,7 +122,65 @@
             .read-more {
                 cursor: pointer;
             }
+
+            .like-button.liked i {
+                color: red;
+            }
+
+            .like-button {
+                display: inline-flex;
+                align-items: center;
+                margin-right: 1px;
+            }
+
+            .like-count {
+                font-size: 14px;
+                color: #888;
+                margin-left: 1px;
+                vertical-align: middle;
+            }
         </style>
+
+        {{-- like --}}
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const likeButtons = document.querySelectorAll('.like-button');
+
+                likeButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const postId = this.dataset.postId;
+                        const likeCountElement = this
+                            .nextElementSibling; // Ambil elemen setelah tombol (jumlah like)
+
+                        fetch('/like', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': document.querySelector(
+                                        'meta[name="csrf-token"]').getAttribute('content')
+                                },
+                                body: JSON.stringify({
+                                    post_id: postId
+                                })
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.status === 'liked') {
+                                    this.classList.add('liked');
+                                } else if (data.status === 'unliked') {
+                                    this.classList.remove('liked');
+                                }
+                                // Update jumlah like
+                                likeCountElement.textContent = data.like_count;
+                            })
+                            .catch(error => console.error('Error:', error));
+                    });
+                });
+            });
+        </script>
+
+
         <script>
             document.addEventListener('DOMContentLoaded', () => {
                 const readMoreButtons = document.querySelectorAll('.read-more');

@@ -4,9 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Media Sosial Sederhana</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
 </head>
 
 <body class="bg-gray-100 text-gray-800">
@@ -30,7 +32,8 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{route('dashboard')}}" class="flex items-center space-x-3 py-2 px-4 rounded-lg hover:bg-blue-700">
+                        <a href="{{ route('dashboard') }}"
+                            class="flex items-center space-x-3 py-2 px-4 rounded-lg hover:bg-blue-700">
                             <i class="fas fa-search text-lg"></i>
                             <span>Explore</span>
                         </a>
@@ -61,7 +64,8 @@
                         </button>
 
                         <!-- Dropdown Menu -->
-                        <div class="absolute left-0 mt-2 w-full bg-white shadow-lg rounded-lg hidden group-hover:block transition-all duration-300 transform scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100">
+                        <div
+                            class="absolute left-0 mt-2 w-full bg-white shadow-lg rounded-lg hidden group-hover:block transition-all duration-300 transform scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100">
                             <ul class="space-y-2">
                                 <li>
                                     <a href="{{ route('profile.edit') }}"
@@ -90,29 +94,29 @@
                 </ul>
             </nav>
         </aside>
-<style>
-    .hidden {
-    display: none;
-}
-.group-hover\:block {
-    display: block;
-}
-.transition-all {
-    transition: all 0.3s ease-in-out;
-}
+        <style>
+            .hidden {
+                display: none;
+            }
 
-</style>
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-    const dropdownButton = document.querySelector('.dropdown-button');
-    const dropdownMenu = document.querySelector('.dropdown-menu');
+            .group-hover\:block {
+                display: block;
+            }
 
-    dropdownButton.addEventListener('click', () => {
-        dropdownMenu.classList.toggle('hidden');
-    });
-});
+            .transition-all {
+                transition: all 0.3s ease-in-out;
+            }
+        </style>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const dropdownButton = document.querySelector('.dropdown-button');
+                const dropdownMenu = document.querySelector('.dropdown-menu');
 
-</script>
+                dropdownButton.addEventListener('click', () => {
+                    dropdownMenu.classList.toggle('hidden');
+                });
+            });
+        </script>
         <!-- Main Content -->
         @yield('side')
     </div>

@@ -20,6 +20,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'bio',
         'email',
         'password',
     ];
@@ -53,5 +54,10 @@ class User extends Authenticatable
     public function createdHashtags()
     {
         return $this->hasMany(Hashtag::class);
+    }
+
+    public function likedPosts()
+    {
+        return $this->belongsToMany(Post::class, 'post_user_like')->withTimestamps();
     }
 }

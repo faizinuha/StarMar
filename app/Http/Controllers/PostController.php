@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Hashtag;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use App\Models\Hashtag;
-use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -72,6 +72,24 @@ class PostController extends Controller
         return redirect()->route('posts.index')->with('success', 'Post berhasil ditambahkan!');
     }
 
+    public function likePost(Request $request)
+    {
+        $post = Post::find($request->post_id);
+        $user = Auth::user();
+
+        if (!$post || !$user) {
+            return response()->json(['error' => 'Data not found'], 404);
+        }
+
+        // Cek apakah user sudah menyukai postingan
+        if ($post->likedByUsers()->where('user_id', $user->id)->exists()) {
+            $post->likedByUsers()->detach($user->id); // Hapus like
+            return response()->json(['status' => 'unliked']);
+        } else {
+            $post->likedByUsers()->attach($user->id); // Tambahkan like
+            return response()->json(['status' => 'liked']);
+        }
+    }
 
     // Menampilkan halaman edit (opsional)
     public function edit($id)
