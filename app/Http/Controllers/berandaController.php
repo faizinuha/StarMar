@@ -6,17 +6,20 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Models\Posts;
 use App\Models\User;
+
+
 class berandaController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    
+
     public function index()
     {
+
         $posts = Post::all();
         $users = User::all();
-        return view('home.beranda',compact('posts','users'));
+        return view('home.beranda', compact('posts', 'users'));
     }
 
     /**
