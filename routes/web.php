@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\BerandaController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HashtagController;
@@ -55,6 +56,7 @@ Route::delete('/posts/{id}', [PostController::class, 'destroy'])->name('posts.de
 ============================= */
 // Rute untuk menyukai postingan
 Route::post('/like', [LikesController::class, 'likePost'])->name('post.like');
+Route::resource('comments', CommentController::class);
 
 /* ============================
 |  DASHBOARD
@@ -76,7 +78,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     |  Account Backup
     ============================= */
     Route::get('/Account', [AccountController::class, 'index'])->name('Account.index');
-    
+
     // Rute untuk menampilkan halaman edit profil
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 

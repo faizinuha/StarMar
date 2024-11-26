@@ -17,7 +17,7 @@ class berandaController extends Controller
     public function index()
     {
 
-        $posts = Post::all();
+        $posts = Post::with(['comments.replies', 'comments.user'])->get(); // Include nested relations
         $users = User::all();
         return view('home.beranda', compact('posts', 'users'));
     }
