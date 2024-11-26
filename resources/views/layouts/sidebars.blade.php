@@ -24,6 +24,15 @@
             </div>
             <nav class="mt-8">
                 <ul class="space-y-4 px-6">
+                    @if (Auth::check() && Auth::user()->hasRole('admin'))
+                    <li>
+                        <a href="{{ route('dashboard') }}"
+                            class="flex items-center space-x-3 py-2 px-4 rounded-lg hover:bg-blue-700">
+                            <i class="fas fa-home text-lg"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                @else
                     <li>
                         <a href="{{ route('beranda') }}"
                             class="flex items-center space-x-3 py-2 px-4 rounded-lg hover:bg-blue-700">
@@ -31,8 +40,8 @@
                             <span>Home</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="{{ route('dashboard') }}"
+                @endif
+                        <a href="#"
                             class="flex items-center space-x-3 py-2 px-4 rounded-lg hover:bg-blue-700">
                             <i class="fas fa-search text-lg"></i>
                             <span>Explore</span>

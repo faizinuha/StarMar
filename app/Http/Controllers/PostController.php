@@ -69,7 +69,7 @@ class PostController extends Controller
             }
         }
 
-        return redirect()->route('posts.index')->with('success', 'Post berhasil ditambahkan!');
+        return redirect()->route('beranda')->with('success', 'Post berhasil ditambahkan!');
     }
 
     public function likePost(Request $request)
@@ -119,7 +119,7 @@ class PostController extends Controller
                 Storage::delete('public/' . $imagePath);
             }
             // Simpan gambar baru ke folder 'img' di storage
-            $imagePath = $request->file('public')->store('img', 'public');
+            $imagePath = $request->file('image')->store('img', 'public');
         }
 
         // Proses penyimpanan video jika ada
@@ -135,7 +135,7 @@ class PostController extends Controller
             'content' => $request->content,
         ]);
 
-        return redirect()->route('posts.index')->with('success', 'Post berhasil diperbarui!');
+        return redirect()->route('beranda')->with('success', 'Post berhasil diperbarui!');
     }
 
     // Menghapus postingan
@@ -151,6 +151,6 @@ class PostController extends Controller
         // Hapus postingan dari database
         $post->delete();
 
-        return redirect()->route('posts.index')->with('success', 'Post berhasil dihapus!');
+        return redirect()->route('beranda')->with('success', 'Post berhasil dihapus!');
     }
 }
