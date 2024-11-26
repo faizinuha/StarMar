@@ -54,7 +54,7 @@
 
                 <!-- Account -->
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="index5.html" aria-expanded="false">
+                    <a class="sidebar-link" href="{{ route('Account.index') }}" aria-expanded="false">
                         <span><i class="ti ti-user"></i></span>
                         <span class="hide-menu">Account</span>
                     </a>

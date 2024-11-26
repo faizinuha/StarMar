@@ -57,7 +57,7 @@
                     <i class="ti ti-user fs-2 text-info"></i>
                     <h5 class="card-title mt-3">Account</h5>
                     <p class="card-text">Data Account:{{ $user }}.</p>
-                    <a href="index5.html" class="btn btn-info btn-sm">Manage Account</a>
+                    <a href="{{route('Account.index')}}" class="btn btn-info btn-sm">Manage Account</a>
                 </div>
             </div>
         </div>

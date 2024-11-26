@@ -1,12 +1,12 @@
 <?php
 
-use App\Http\Controllers\berandaController;
-use App\Http\Controllers\CommentController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AccountController;
+use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HashtagController;
 use App\Http\Controllers\LikesController;
+use Illuminate\Support\Facades\Route;
 use App\Models\Post;
 use App\Models\User;
 
@@ -50,13 +50,11 @@ Route::put('/posts/{id}', [PostController::class, 'update'])->name('posts.update
 // Rute untuk menghapus postingan (DELETE)
 Route::delete('/posts/{id}', [PostController::class, 'destroy'])->name('posts.destroy')->middleware('auth');
 
-
 /* ============================
 |  LIKE
 ============================= */
 // Rute untuk menyukai postingan
 Route::post('/like', [LikesController::class, 'likePost'])->name('post.like');
-Route::resource('comments', CommentController::class);
 
 /* ============================
 |  DASHBOARD
@@ -73,6 +71,12 @@ Route::get('/dashboard', function () {
 |  PROFILE
 ============================= */
 Route::middleware(['auth', 'verified'])->group(function () {
+
+    /* ============================
+    |  Account Backup
+    ============================= */
+    Route::get('/Account', [AccountController::class, 'index'])->name('Account.index');
+    
     // Rute untuk menampilkan halaman edit profil
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 
