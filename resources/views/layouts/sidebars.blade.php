@@ -9,7 +9,11 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  
+    <!-- Cropper.js CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
+    <!-- Cropper.js JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+
 </head>
 
 <body class="bg-gray-100 text-gray-800">
@@ -26,25 +30,24 @@
             <nav class="mt-8">
                 <ul class="space-y-4 px-6">
                     @if (Auth::check() && Auth::user()->hasRole('admin'))
-                    <li>
-                        <a href="{{ route('dashboard') }} "
-                            class="flex items-center space-x-3 py-2 px-4 rounded-lg hover:bg-blue-700">
-                            <i class="fas fa-home text-lg"></i>
-                            <span>Dashboard</span>
-                        </a>
-                    </li>
+                        <li>
+                            <a href="{{ route('dashboard') }} "
+                                class="flex items-center space-x-3 py-2 px-4 rounded-lg hover:bg-blue-700">
+                                <i class="fas fa-home text-lg"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
                     @else
-                    <li>
-                        <a href="{{ route('beranda') }} "
-                            class="flex items-center space-x-3 py-2 px-4 rounded-lg hover:bg-blue-700">
-                            <i class="fas fa-home text-lg"></i>
-                            <span>Home</span>
-                        </a>
-                    </li>
+                        <li>
+                            <a href="{{ route('beranda') }} "
+                                class="flex items-center space-x-3 py-2 px-4 rounded-lg hover:bg-blue-700">
+                                <i class="fas fa-home text-lg"></i>
+                                <span>Home</span>
+                            </a>
+                        </li>
                     @endif
                     <li>
-                        <a href="#"
-                            class="flex items-center space-x-3 py-2 px-4 rounded-lg hover:bg-blue-700">
+                        <a href="#" class="flex items-center space-x-3 py-2 px-4 rounded-lg hover:bg-blue-700">
                             <i class="fas fa-search text-lg"></i>
                             <span>Explore</span>
                         </a>
@@ -66,8 +69,10 @@
 
                     <!-- Profile Dropdown -->
                     <li class="relative">
-                        <button id="dropdown-button" class="flex items-center space-x-3 py-2 px-4 w-full rounded-lg hover:bg-blue-700">
-                            <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center text-white font-semibold">
+                        <button id="dropdown-button"
+                            class="flex items-center space-x-3 py-2 px-4 w-full rounded-lg hover:bg-blue-700">
+                            <div
+                                class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center text-white font-semibold">
                                 {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
                             </div>
                             <span>{{ auth()->user()->name }}</span>
@@ -75,7 +80,8 @@
                         </button>
 
                         <!-- Dropdown Menu -->
-                        <div id="dropdown-menu" class="absolute left-0 mt-2 w-full bg-white shadow-lg rounded-lg hidden">
+                        <div id="dropdown-menu"
+                            class="absolute left-0 mt-2 w-full bg-white shadow-lg rounded-lg hidden">
                             <ul class="space-y-2">
                                 <li>
                                     <a href="{{ route('profile.edit') }}"
@@ -118,17 +124,17 @@
     </style>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const dropdownButton = document.getElementById('dropdown-button');
             const dropdownMenu = document.getElementById('dropdown-menu');
 
             // Toggle the dropdown menu when the button is clicked
-            dropdownButton.addEventListener('click', function () {
+            dropdownButton.addEventListener('click', function() {
                 dropdownMenu.classList.toggle('hidden');
             });
 
             // Close the dropdown menu if clicked outside of it
-            document.addEventListener('click', function (e) {
+            document.addEventListener('click', function(e) {
                 if (!dropdownButton.contains(e.target) && !dropdownMenu.contains(e.target)) {
                     dropdownMenu.classList.add('hidden');
                 }

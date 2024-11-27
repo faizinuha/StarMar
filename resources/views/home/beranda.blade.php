@@ -99,6 +99,7 @@
                 <div class="p-4 border-t">
                     <!-- List Komentar -->
                     <div class="comments space-y-4">
+                        @foreach ($posts as $post)
                         @foreach ($post->comments as $comment)
                             <div class="comment" id="comment-{{ $comment->id }}">
                                 <div class="flex space-x-4">
@@ -113,7 +114,7 @@
                                         <p class="text-gray-800">{{ $comment->content }}</p>
                                     </div>
                                 </div>
-
+                    
                                 <!-- Tampilkan Balasan -->
                                 <div class="replies ml-10 space-y-4">
                                     @foreach ($comment->replies as $reply)
@@ -124,32 +125,30 @@
                                             </div>
                                             <div>
                                                 <h5 class="font-semibold text-gray-800">{{ $reply->user->name }}</h5>
-                                                <p class="text-sm text-gray-500">{{ $reply->created_at->diffForHumans() }}
-                                                </p>
+                                                <p class="text-sm text-gray-500">{{ $reply->created_at->diffForHumans() }}</p>
                                                 <p class="text-gray-800">{{ $reply->content }}</p>
                                             </div>
                                         </div>
                                     @endforeach
                                 </div>
-
+                    
                                 <!-- Tombol balasan -->
                                 <button class="reply-btn text-sm text-blue-500 mt-2" data-comment-id="{{ $comment->id }}">
                                     Reply
                                 </button>
-
+                    
                                 <!-- Form Balasan (akan muncul setelah klik tombol Reply) -->
                                 <form class="reply-form hidden mt-4" data-comment-id="{{ $comment->id }}">
                                     @csrf
                                     <input type="hidden" name="post_id" value="{{ $post->id }}">
                                     <input type="hidden" name="parent_id" value="{{ $comment->id }}">
                                     <textarea name="content" class="w-full border rounded-lg p-2 text-gray-800" placeholder="Add a reply..."></textarea>
-                                    <button type="submit"
-                                        class="bg-green-500 text-white px-4 py-2 mt-2 rounded-lg">Reply</button>
+                                    <button type="submit" class="bg-green-500 text-white px-4 py-2 mt-2 rounded-lg">Reply</button>
                                 </form>
                             </div>
                         @endforeach
                     </div>
-
+                    
                     <!-- Form Komentar Baru -->
                     <form class="comment-form mt-4" data-post-id="{{ $post->id }}">
                         @csrf
@@ -159,6 +158,7 @@
                         <textarea name="content" class="w-full border rounded-lg p-2 text-gray-800" placeholder="Add a comment..."></textarea>
                         <button type="submit" class="bg-blue-500 text-white px-4 py-2 mt-2 rounded-lg">Comment</button>
                     </form>
+                    @endforeach                    
                 </div>
 
             </div>

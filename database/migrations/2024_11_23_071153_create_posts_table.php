@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('video')->nullable();  // Kolom video bisa kosong (nullable)
+            $table->string('video_short')->nullable();
+            $table->string('filter')->nullable();
+            $table->string('crop')->nullable();
             $table->string('image')->nullable();  // Kolom image bisa kosong (nullable)
             $table->string('content'); // Kolom content untuk teks postingan
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

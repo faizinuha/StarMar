@@ -32,6 +32,7 @@ class PostController extends Controller
             'content' => 'required|string|max:255',
             'video' => 'nullable|url',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validasi gambar
+            'video_short' => 'nullable|file|mimes:mp4|max:9999999',
             'hashtags' => 'nullable|string|max:255',
         ]);
 
@@ -48,10 +49,17 @@ class PostController extends Controller
             $videoPath = $request->video;
         }
 
+        // proses video short
+        $video_short = null;
+        if($request->has('video_short')){
+            $video_short = $request->video_short;
+        }
+
         // Membuat postingan baru
         $post = Post::create([
             'user_id' => Auth::id(),
             'video' => $videoPath,
+            'video_short' => $video_short,
             'image' => $imagePath,
             'content' => $request->content,
         ]);
