@@ -11,10 +11,30 @@
     </head>
 
     <body class="bg-gray-100 text-gray-800">
-
         <div class="container mx-auto py-8">
             <h1 class="text-3xl font-bold text-center mb-6 text-blue-600">Account Users</h1>
 
+            <!-- Filter Section -->
+            <div class="flex justify-between items-center mb-6">
+                <form action="{{route('Account.index')}}" method="GET" class="flex items-center space-x-4">
+                    <label for="filter" class="text-gray-700 font-semibold">Filter:</label>
+                    <select name="filter" id="filter" class="px-4 py-2 border rounded-lg">
+                        <option value="" {{ request('filter') == '' ? 'selected' : '' }}>All</option>
+                        <option value="admin" {{ request('filter') == 'admin' ? 'selected' : '' }}>Admin</option>
+                        <option value="user" {{ request('filter') == 'user' ? 'selected' : '' }}>User</option>
+                    </select>
+                    <button type="submit"
+                        class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">
+                        Apply
+                    </button>
+                </form>
+                <a href="#"
+                    class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition">
+                    Add User
+                </a>
+            </div>
+
+            <!-- Table Section -->
             <div class="overflow-x-auto">
                 <table class="table-auto w-full bg-white shadow-md rounded-lg">
                     <thead>
@@ -28,17 +48,15 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
-                        @foreach ($users as $index => $p)
+                        @forelse ($users as $index => $p)
                             <tr class="hover:bg-blue-50">
                                 <td class="px-6 py-3">{{ $index + 1 }}</td> <!-- Menggunakan indeks untuk ID -->
                                 <td class="px-6 py-3">{{ $p->name }}</td>
-                                <td class="px-6 py-3">{{ $p->bio }}</td>
+                                <td class="px-6 py-3">{{ $p->bio ?? 'N/A' }}</td>
                                 <td class="px-6 py-3">
                                     @if ($p->hasRole('admin'))
-                                        <!-- Memeriksa apakah pengguna adalah admin -->
                                         <span class="bg-blue-500 text-white px-3 py-1 rounded-full text-sm">Admin</span>
                                     @elseif ($p->hasRole('user'))
-                                        <!-- Memeriksa apakah pengguna adalah user -->
                                         <span class="bg-green-500 text-white px-3 py-1 rounded-full text-sm">User</span>
                                     @else
                                         <span class="bg-gray-500 text-white px-3 py-1 rounded-full text-sm">Unknown</span>
@@ -47,13 +65,15 @@
                                 <td class="px-6 py-3">{{ $p->email }}</td>
                                 <td class="px-6 py-3">{{ $p->created_at->format('d-m-Y H:i') }}</td>
                             </tr>
-                        @endforeach
+                        @empty
+                            <tr>
+                                <td colspan="6" class="text-center text-gray-500 py-4">No users found.</td>
+                            </tr>
+                        @endforelse
                     </tbody>
-
                 </table>
             </div>
         </div>
-
     </body>
 
     </html>

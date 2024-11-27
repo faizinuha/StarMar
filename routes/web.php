@@ -22,7 +22,6 @@ use App\Models\User;
 ============================= */
 
 Route::get('/', [BerandaController::class, 'index'])->name('beranda')->middleware('auth');
-
 /* ============================
 |  AUTENTIKASI (Laravel Breeze)
 ============================= */

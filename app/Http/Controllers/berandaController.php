@@ -21,7 +21,6 @@ class berandaController extends Controller
         $users = User::all();
         return view('home.beranda', compact('posts', 'users'));
     }
-
     /**
      * Show the form for creating a new resource.
      */
