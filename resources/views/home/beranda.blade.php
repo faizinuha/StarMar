@@ -34,12 +34,39 @@
 
                         <!-- Konten Postingan -->
                         <div class="p-4">
+
                             <!-- Menampilkan Gambar jika ada -->
                             @if ($post->image)
                                 <div class="mb-4 relative">
-                                    <img src="{{ asset('storage/' . $post->image) }}" alt="Post Image" class="mb-4">
+                                    <img src="{{ asset('storage/' . $post->image) }}" alt="Post Image" loading="lazy"
+                                        class="mb-4"
+                                        style="
+            @if ($post->filter) filter: {{ $post->filter }}; @endif
+            @if ($post->crop) object-position: {{ $post->crop }}; @endif
+        ">
+
+                                    <!-- Cek apakah yang login adalah pemilik postingan -->
+                                    @if (Auth::id() === $post->user_id)
+                                        <!-- Tombol Edit Gambar -->
+                                        <a href="{{ route('posts.edit', $post->id) }}"
+                                            class="absolute top-0 right-0 p-2 bg-white rounded-full shadow-md hover:bg-gray-200">
+                                            <i class="fas fa-edit text-xl text-gray-600"></i> <!-- Ikon Edit -->
+                                        </a>
+
+                                        <!-- Tombol Hapus Gambar -->
+                                        <form action="{{ route('posts.destroy', $post->id) }}" method="POST"
+                                            class="absolute top-0 right-10 p-2 bg-white rounded-full shadow-md hover:bg-gray-200">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="text-xl text-red-600">
+                                                <i class="fas fa-trash"></i> <!-- Ikon Hapus -->
+                                            </button>
+                                        </form>
+                                    @endif
                                 </div>
                             @endif
+
+
 
                             <!-- Konten dengan fitur Read More -->
                             <div class="relative">
@@ -83,7 +110,8 @@
                                     <i class="fas fa-comment"></i> Comment
                                 </button>
                                 <!-- Share Button (Icon) -->
-                                <button class="text-gray-600 hover:text-blue-500">
+                                <button class="text-gray-600 hover:text-blue-500"
+                                    onclick="openShareModal({{ $post->id }})">
                                     <i class="fas fa-share-alt"></i> Share
                                 </button>
                             </div>
@@ -100,55 +128,59 @@
                     <!-- List Komentar -->
                     <div class="comments space-y-4">
                         @foreach ($posts as $post)
-                        @foreach ($post->comments as $comment)
-                            <div class="comment" id="comment-{{ $comment->id }}">
-                                <div class="flex space-x-4">
-                                    <!-- Profil pengguna komentar -->
-                                    <div
-                                        class="w-8 h-8 bg-blue-200 rounded-full flex items-center justify-center text-white font-semibold">
-                                        {{ strtoupper(substr($comment->user->name, 0, 1)) }}
-                                    </div>
-                                    <div>
-                                        <h5 class="font-semibold text-gray-800">{{ $comment->user->name }}</h5>
-                                        <p class="text-sm text-gray-500">{{ $comment->created_at->diffForHumans() }}</p>
-                                        <p class="text-gray-800">{{ $comment->content }}</p>
-                                    </div>
-                                </div>
-                    
-                                <!-- Tampilkan Balasan -->
-                                <div class="replies ml-10 space-y-4">
-                                    @foreach ($comment->replies as $reply)
-                                        <div class="flex space-x-4">
-                                            <div
-                                                class="w-8 h-8 bg-green-200 rounded-full flex items-center justify-center text-white font-semibold">
-                                                {{ strtoupper(substr($reply->user->name, 0, 1)) }}
-                                            </div>
-                                            <div>
-                                                <h5 class="font-semibold text-gray-800">{{ $reply->user->name }}</h5>
-                                                <p class="text-sm text-gray-500">{{ $reply->created_at->diffForHumans() }}</p>
-                                                <p class="text-gray-800">{{ $reply->content }}</p>
-                                            </div>
+                            @foreach ($post->comments as $comment)
+                                <div class="comment" id="comment-{{ $comment->id }}">
+                                    <div class="flex space-x-4">
+                                        <!-- Profil pengguna komentar -->
+                                        <div
+                                            class="w-8 h-8 bg-blue-200 rounded-full flex items-center justify-center text-white font-semibold">
+                                            {{ strtoupper(substr($comment->user->name, 0, 1)) }}
                                         </div>
-                                    @endforeach
+                                        <div>
+                                            <h5 class="font-semibold text-gray-800">{{ $comment->user->name }}</h5>
+                                            <p class="text-sm text-gray-500">{{ $comment->created_at->diffForHumans() }}
+                                            </p>
+                                            <p class="text-gray-800">{{ $comment->content }}</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Tampilkan Balasan -->
+                                    <div class="replies ml-10 space-y-4">
+                                        @foreach ($comment->replies as $reply)
+                                            <div class="flex space-x-4">
+                                                <div
+                                                    class="w-8 h-8 bg-green-200 rounded-full flex items-center justify-center text-white font-semibold">
+                                                    {{ strtoupper(substr($reply->user->name, 0, 1)) }}
+                                                </div>
+                                                <div>
+                                                    <h5 class="font-semibold text-gray-800">{{ $reply->user->name }}</h5>
+                                                    <p class="text-sm text-gray-500">
+                                                        {{ $reply->created_at->diffForHumans() }}</p>
+                                                    <p class="text-gray-800">{{ $reply->content }}</p>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+
+                                    <!-- Tombol balasan -->
+                                    <button class="reply-btn text-sm text-blue-500 mt-2"
+                                        data-comment-id="{{ $comment->id }}">
+                                        Reply
+                                    </button>
+
+                                    <!-- Form Balasan (akan muncul setelah klik tombol Reply) -->
+                                    <form class="reply-form hidden mt-4" data-comment-id="{{ $comment->id }}">
+                                        @csrf
+                                        <input type="hidden" name="post_id" value="{{ $post->id }}">
+                                        <input type="hidden" name="parent_id" value="{{ $comment->id }}">
+                                        <textarea name="content" class="w-full border rounded-lg p-2 text-gray-800" placeholder="Add a reply..."></textarea>
+                                        <button type="submit"
+                                            class="bg-green-500 text-white px-4 py-2 mt-2 rounded-lg">Reply</button>
+                                    </form>
                                 </div>
-                    
-                                <!-- Tombol balasan -->
-                                <button class="reply-btn text-sm text-blue-500 mt-2" data-comment-id="{{ $comment->id }}">
-                                    Reply
-                                </button>
-                    
-                                <!-- Form Balasan (akan muncul setelah klik tombol Reply) -->
-                                <form class="reply-form hidden mt-4" data-comment-id="{{ $comment->id }}">
-                                    @csrf
-                                    <input type="hidden" name="post_id" value="{{ $post->id }}">
-                                    <input type="hidden" name="parent_id" value="{{ $comment->id }}">
-                                    <textarea name="content" class="w-full border rounded-lg p-2 text-gray-800" placeholder="Add a reply..."></textarea>
-                                    <button type="submit" class="bg-green-500 text-white px-4 py-2 mt-2 rounded-lg">Reply</button>
-                                </form>
-                            </div>
-                        @endforeach
+                            @endforeach
                     </div>
-                    
+
                     <!-- Form Komentar Baru -->
                     <form class="comment-form mt-4" data-post-id="{{ $post->id }}">
                         @csrf
@@ -158,26 +190,29 @@
                         <textarea name="content" class="w-full border rounded-lg p-2 text-gray-800" placeholder="Add a comment..."></textarea>
                         <button type="submit" class="bg-blue-500 text-white px-4 py-2 mt-2 rounded-lg">Comment</button>
                     </form>
-                    @endforeach                    
+                    @endforeach
                 </div>
 
             </div>
 
         </div>
-        <!-- Modal Share -->
-        <div id="shareModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 hidden flex justify-center items-center">
+        <div id="shareModal-{{ $post->id }}"
+            class="fixed inset-0 bg-gray-800 bg-opacity-50 hidden flex justify-center items-center">
             <div class="bg-white p-6 rounded-lg shadow-lg w-1/3">
                 <h2 class="text-lg font-bold mb-4">Bagikan ke Platform</h2>
                 <div class="flex space-x-4">
-                    <button class="text-blue-500" onclick="generateLink('instagram')">Instagram</button>
-                    <button class="text-blue-500" onclick="generateLink('facebook')">Facebook</button>
-                    <button class="text-blue-500" onclick="generateLink('twitter')">Twitter</button>
-                    <button class="text-blue-500" onclick="generateLink('whatsapp')">WhatsApp</button>
+                    <button class="text-blue-500"
+                        onclick="generateLink('instagram', {{ $post->id }})">Instagram</button>
+                    <button class="text-blue-500"
+                        onclick="generateLink('facebook', {{ $post->id }})">Facebook</button>
+                    <button class="text-blue-500" onclick="generateLink('twitter', {{ $post->id }})">Twitter</button>
+                    <button class="text-blue-500"
+                        onclick="generateLink('whatsapp', {{ $post->id }})">WhatsApp</button>
                 </div>
                 <div class="mt-4">
-                    <p id="shareLink" class="text-sm text-gray-600"></p>
+                    <p id="shareLink-{{ $post->id }}" class="text-sm text-gray-600"></p>
                 </div>
-                <button class="mt-4 text-red-500" onclick="closeShareModal()">Tutup</button>
+                <button class="mt-4 text-red-500" onclick="closeShareModal({{ $post->id }})">Tutup</button>
             </div>
         </div>
         <!-- CSS -->

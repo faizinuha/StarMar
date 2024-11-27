@@ -15,20 +15,20 @@ class berandaController extends Controller
      * Display a listing of the resource.
      */
 
-
-    public function index()
-    {
-        // Cache query posts selama 10 menit
-        $posts = Cache::remember('posts', 600, function () {
-            return Post::with(['comments.replies', 'comments.user'])->get();
-        });
-
-        $users = Cache::remember('users', 600, function () {
-            return User::all();
-        });
-
-        return view('home.beranda', compact('posts', 'users'));
-    }
+     public function index()
+     {
+         // Ambil data posts terbaru beserta komentar dan reply-nya
+         $posts = Post::with(['comments.replies', 'comments.user'])
+                      ->orderBy('created_at', 'desc')
+                      ->get();
+     
+         // Ambil semua pengguna
+         $users = User::all();
+     
+         // Kirim data ke view
+         return view('home.beranda', compact('posts', 'users'));
+     }
+     
 
     /**
      * Show the form for creating a new resource.

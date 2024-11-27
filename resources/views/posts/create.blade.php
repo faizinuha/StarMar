@@ -36,8 +36,8 @@
                             onchange="previewImage(event)">
                     </div>
 
-                    <!-- Preview Gambar -->
-                    <div id="imagePreviewContainer" class="mb-4" style="display: none;">
+                    <!-- Preview Gambar dengan Filter dan Crop menggunakan CSS -->
+                    <div class="mb-4" style="display: none;" id="imagePreviewContainer">
                         <h3 class="text-lg font-semibold mb-2">Preview Gambar</h3>
                         <img id="imagePreview" class="rounded-lg max-w-full shadow-lg" alt="Preview Gambar">
                         <div class="mt-4">
@@ -53,7 +53,6 @@
                                     data-filter="blur(2px)">Blur</button>
                             </div>
                         </div>
-                        <!-- Hidden Input untuk Filter -->
                         <input type="hidden" name="filter" id="selectedFilter">
                     </div>
                     <!-- Preview Gambar -->

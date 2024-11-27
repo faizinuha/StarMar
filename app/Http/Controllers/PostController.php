@@ -34,12 +34,13 @@ class PostController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validasi gambar
             'video_short' => 'nullable|file|mimes:mp4|max:9999999',
             'hashtags' => 'nullable|string|max:255',
+            'filter' => 'nullable|string|max:255',  // Validasi filter
+            'crop' => 'nullable|string|max:255',    // Validasi crop
         ]);
 
         // Proses penyimpanan gambar jika ada
         $imagePath = null;
         if ($request->hasFile('image')) {
-            // Menyimpan gambar ke folder 'img' di storage
             $imagePath = $request->file('image')->store('img', 'public');
         }
 
@@ -49,11 +50,15 @@ class PostController extends Controller
             $videoPath = $request->video;
         }
 
-        // proses video short
+        // Proses video short
         $video_short = null;
-        if($request->has('video_short')){
+        if ($request->has('video_short')) {
             $video_short = $request->video_short;
         }
+
+        // Menyimpan filter dan crop
+        $filter = $request->filter;  // Menyimpan filter
+        $crop = $request->crop;      // Menyimpan crop
 
         // Membuat postingan baru
         $post = Post::create([
@@ -62,6 +67,8 @@ class PostController extends Controller
             'video_short' => $video_short,
             'image' => $imagePath,
             'content' => $request->content,
+            'filter' => $filter,  // Menyimpan filter
+            'crop' => $crop,      // Menyimpan crop
         ]);
 
         // Proses Hashtag
@@ -79,7 +86,6 @@ class PostController extends Controller
 
         return redirect()->route('beranda')->with('success', 'Post berhasil ditambahkan!');
     }
-
     public function likePost(Request $request)
     {
         $post = Post::find($request->post_id);
