@@ -60,6 +60,4 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     // Halaman Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/Account', [AccountController::class, 'index'])->name('Account.index');
-    Route::get('/Account/export-pdf', [AccountController::class, 'exportPdf'])->name('Account.exportPdf');
-
 });
