@@ -22,18 +22,20 @@ use Illuminate\Support\Facades\Route;
 
 // Rute untuk autentikasi (Laravel Breeze)
 require __DIR__ . '/auth.php';
-Route::get('/', [BerandaController::class, 'index'])->name('beranda')->middleware('auth.session');
-// Rute untuk menyukai postingan
-Route::post('/like', [LikesController::class, 'likePost'])->name('post.like');
-// Rute untuk manajemen komentar
-Route::resource('comments', CommentController::class);
-// Rute untuk mendapatkan saran hashtag
-Route::get('/hashtags/suggest', [HashtagController::class, 'suggest'])->name('hashtags.suggest');
+Route::middleware('auth')->group(function () {
+    Route::get('/', [BerandaController::class, 'index'])->name('beranda')->middleware('auth.session');
+    // Rute untuk menyukai postingan
+    Route::post('/like', [LikesController::class, 'likePost'])->name('post.like');
+    // Rute untuk manajemen komentar
+    Route::resource('comments', CommentController::class);
+    // Rute untuk mendapatkan saran hashtag
+    Route::get('/hashtags/suggest', [HashtagController::class, 'suggest'])->name('hashtags.suggest');
+});
 
 /* ============================
 |  KHUSUS USERS
 ============================= */
-Route::middleware(['auth','verified'])->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     // Halaman Beranda
 
     // Manajemen Postingan

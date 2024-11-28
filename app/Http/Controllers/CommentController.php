@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CommentRequest;
 use App\Models\Comment;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,10 +13,17 @@ class CommentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $postId = $request->query('post_id'); // Ambil ID post dari query string
+        $post = Post::findOrFail($postId);
+
+        // Ambil komentar utama beserta reply dan user terkait
+        $comments = $post->comments()->with('user', 'replies.user')->latest()->get();
+
+        return response()->json($comments);
     }
+
 
     /**
      * Show the form for creating a new resource.
