@@ -3,7 +3,7 @@
     <div>
         <!-- Brand Logo -->
         <div class="brand-logo d-flex align-items-center justify-content-between">
-            <a href="{{route('dashboard')}}" class="text-nowrap logo-img">
+            <a href="{{ route('dashboard') }}" class="text-nowrap logo-img">
                 <i class="ti ti-dashboard" style="font-size: 36px; color: #4F46E5;"></i>
                 <span class="ms-2 fw-bold" style="font-size: 20px;">Your Brand</span>
             </a>
@@ -22,15 +22,15 @@
 
                 <!-- Dashboard -->
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{route('beranda')}}" aria-expanded="false">
+                    <a class="sidebar-link" href="{{ route('dashboard') }}" aria-expanded="false">
                         <span><i class="ti ti-home"></i></span>
-                        <span class="hide-menu">Home</span>
+                        <span class="hide-menu">Beranda</span>
                     </a>
                 </li>
 
                 <!-- Data Postingan -->
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{route('posts.index')}}" aria-expanded="false">
+                    <a class="sidebar-link" href="{{ route('posts.index') }}" aria-expanded="false">
                         <span><i class="ti ti-package"></i></span>
                         <span class="hide-menu">Data Postingan</span>
                     </a>

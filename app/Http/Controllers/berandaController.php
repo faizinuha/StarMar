@@ -15,20 +15,24 @@ class berandaController extends Controller
      * Display a listing of the resource.
      */
 
-     public function index()
-     {
-         // Ambil data posts terbaru beserta komentar dan reply-nya
-         $posts = Post::with(['comments.replies', 'comments.user'])
-                      ->orderBy('created_at', 'desc')
-                      ->get();
-     
-         // Ambil semua pengguna
-         $users = User::all();
-     
-         // Kirim data ke view
-         return view('home.beranda', compact('posts', 'users'));
-     }
-     
+    public function index()
+    {
+        // Ambil data posts terbaru beserta komentar dan reply-nya
+        $posts = Post::with(['comments.replies', 'comments.user'])
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        // Ambil semua pengguna
+        $users = User::all();
+
+        // if (auth()->user()->role === 'admin') {
+        //     return view('dashboard');
+        // }
+        // Kirim data ke view
+        // return view('dashboard');
+        return view('home.beranda', compact('posts', 'users'));
+    }
+
 
     /**
      * Show the form for creating a new resource.

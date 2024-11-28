@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HashtagController;
@@ -21,7 +22,10 @@ use App\Models\User;
 |  BERANDA
 ============================= */
 
-Route::get('/', [BerandaController::class, 'index'])->name('beranda')->middleware('auth');
+Route::middleware('role:user')->group(function () {
+    Route::get('/', [BerandaController::class, 'index'])->name('beranda');
+});
+
 /* ============================
 |  AUTENTIKASI (Laravel Breeze)
 ============================= */
@@ -60,13 +64,14 @@ Route::resource('comments', CommentController::class);
 /* ============================
 |  DASHBOARD
 ============================= */
-Route::get('/dashboard', function () {
-    // Ambil jumlah total data dari tabel posts dan user
-    $posts = Post::all()->count();
-    $user = User::all()->count();
-    // Kirim data ke view dashboard
-    return view('dashboard', compact('posts', 'user'));
-})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('role:admin')->group(function () {
+    Route::prefix('admin')->group(function () {
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    });
+});
+
+
 
 /* ============================
 |  PROFILE
