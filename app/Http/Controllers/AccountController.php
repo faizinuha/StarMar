@@ -32,4 +32,5 @@ class AccountController extends Controller
         // Kirim data ke view
         return view('account-users.Database', compact('users'));
     }
+    
 }

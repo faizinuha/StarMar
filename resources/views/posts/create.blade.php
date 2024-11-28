@@ -58,8 +58,16 @@
                     <!-- Preview Gambar -->
                     <div id="imagePreviewContainer" class="mb-4" style="display: none;">
                         <h3 class="text-lg font-semibold mb-2">Crop Gambar</h3>
-                        <div class="w-full max-w-sm mx-auto">
-                            <img id="imageToCrop" class="rounded-lg max-w-full shadow-lg" alt="Gambar untuk Crop">
+                        <canvas id="imageCanvas" class="rounded-lg max-w-full shadow-lg"></canvas>
+                        <div class="mt-4">
+                            <label>
+                                Width:
+                                <input type="number" id="cropWidth" class="border border-gray-300 p-1 rounded" value="300">
+                            </label>
+                            <label>
+                                Height:
+                                <input type="number" id="cropHeight" class="border border-gray-300 p-1 rounded" value="300">
+                            </label>
                         </div>
                         <div class="mt-4">
                             <button type="button" id="cropImageButton"
@@ -68,6 +76,7 @@
                             </button>
                         </div>
                     </div>
+
 
                     <!-- Input Video -->
                     <div class="mb-4">
@@ -102,62 +111,75 @@
 
     </body>
     <script>
-        let cropper;
+        let originalImage = null;
 
         function previewImage(event) {
-            const previewContainer = document.getElementById('imagePreviewContainer');
-            const imageToCrop = document.getElementById('imageToCrop');
             const file = event.target.files[0];
-
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    imageToCrop.src = e.target.result;
-                    previewContainer.style.display = 'block';
+                    const canvas = document.getElementById('imageCanvas');
+                    const ctx = canvas.getContext('2d');
+                    const image = new Image();
 
-                    // Inisialisasi Cropper.js
-                    if (cropper) {
-                        cropper.destroy(); // Hancurkan instance sebelumnya
-                    }
-                    cropper = new Cropper(imageToCrop, {
-                        aspectRatio: 1, // Ratio 1:1 (bisa disesuaikan)
-                        viewMode: 2,
-                    });
+                    image.onload = function() {
+                        originalImage = image; // Simpan gambar asli
+                        canvas.width = image.width;
+                        canvas.height = image.height;
+                        ctx.drawImage(image, 0, 0);
+                        document.getElementById('imagePreviewContainer').style.display = 'block';
+                    };
+
+                    image.src = e.target.result;
                 };
                 reader.readAsDataURL(file);
             }
         }
 
         document.getElementById('cropImageButton').addEventListener('click', function() {
-            if (cropper) {
-                const canvas = cropper.getCroppedCanvas({
-                    width: 500, // Dimensi hasil crop
-                    height: 500,
-                });
+            const canvas = document.getElementById('imageCanvas');
+            const ctx = canvas.getContext('2d');
 
-                // Kirim hasil crop ke server sebagai Base64
-                canvas.toBlob(function(blob) {
-                    const formData = new FormData();
-                    formData.append('croppedImage', blob);
+            // Ambil ukuran crop dari input
+            const cropWidth = parseInt(document.getElementById('cropWidth').value) || 300;
+            const cropHeight = parseInt(document.getElementById('cropHeight').value) || 300;
 
-                    // Kirim ke server menggunakan Fetch API
-                    fetch('{{ route('posts.store') }}', {
-                            method: 'POST',
-                            headers: {
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                            },
-                            body: formData
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            alert('Gambar berhasil diunggah!');
-                            window.location.href = '{{ route('beranda') }}';
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                        });
-                });
-            }
+            // Buat canvas baru untuk hasil crop
+            const croppedCanvas = document.createElement('canvas');
+            const croppedCtx = croppedCanvas.getContext('2d');
+
+            croppedCanvas.width = cropWidth;
+            croppedCanvas.height = cropHeight;
+
+            // Gambar bagian gambar yang ingin di-crop
+            croppedCtx.drawImage(
+                canvas, // Sumber gambar
+                0, 0, cropWidth, cropHeight, // Koordinat crop
+                0, 0, cropWidth, cropHeight // Dimensi hasil crop
+            );
+
+            // Convert canvas ke blob untuk upload
+            croppedCanvas.toBlob(function(blob) {
+                const formData = new FormData();
+                formData.append('croppedImage', blob);
+
+                // Upload ke server
+                fetch('{{ route('posts.store') }}', {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        },
+                        body: formData,
+                    })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        alert('Gambar berhasil diunggah!');
+                        window.location.href = '{{ route('beranda') }}';
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    });
+            });
         });
     </script>
 

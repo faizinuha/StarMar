@@ -9,8 +9,6 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HashtagController;
 use App\Http\Controllers\LikesController;
 use Illuminate\Support\Facades\Route;
-use App\Models\Post;
-use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,82 +17,49 @@ use App\Models\User;
 */
 
 /* ============================
-|  BERANDA
+|  UMUM (GENERAL)
 ============================= */
 
-Route::middleware('role:user')->group(function () {
-    Route::get('/', [BerandaController::class, 'index'])->name('beranda');
-});
-
-/* ============================
-|  AUTENTIKASI (Laravel Breeze)
-============================= */
+// Rute untuk autentikasi (Laravel Breeze)
 require __DIR__ . '/auth.php';
-
-/* ============================
-|  POSTINGAN
-============================= */
-// Rute untuk halaman utama feed
-Route::get('/posts', [PostController::class, 'index'])->name('posts.index')->middleware('auth');
-// Rute untuk halaman utama feed (index)
-Route::get('/posts', [PostController::class, 'index'])->name('posts.index')->middleware('auth');
-
-// Rute untuk menampilkan halaman form create (GET)
-Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create')->middleware('auth');
-
-// Rute untuk menyimpan postingan baru (POST)
-Route::post('/posts', [PostController::class, 'store'])->name('posts.store')->middleware('auth');
-
-// Rute untuk menampilkan form edit (GET)
-Route::get('/posts/edit/{id}', [PostController::class, 'edit'])->name('posts.edit')->middleware('auth');
-
-// Rute untuk update postingan (PUT/PATCH)
-Route::put('/posts/{id}', [PostController::class, 'update'])->name('posts.update')->middleware('auth');
-
-// Rute untuk menghapus postingan (DELETE)
-Route::delete('/posts/{id}', [PostController::class, 'destroy'])->name('posts.destroy')->middleware('auth');
-
-/* ============================
-|  LIKE
-============================= */
+Route::get('/', [BerandaController::class, 'index'])->name('beranda')->middleware('auth.session');
 // Rute untuk menyukai postingan
 Route::post('/like', [LikesController::class, 'likePost'])->name('post.like');
+// Rute untuk manajemen komentar
 Route::resource('comments', CommentController::class);
-
-/* ============================
-|  DASHBOARD
-============================= */
-
-Route::middleware('role:admin')->group(function () {
-    Route::prefix('admin')->group(function () {
-        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    });
-});
-
-
-
-/* ============================
-|  PROFILE
-============================= */
-Route::middleware(['auth', 'verified'])->group(function () {
-
-    /* ============================
-    |  Account Backup
-    ============================= */
-    Route::get('/Account', [AccountController::class, 'index'])->name('Account.index');
-
-    // Rute untuk menampilkan halaman edit profil
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-
-    // Rute untuk memperbarui profil (PATCH)
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-
-    // Rute untuk menghapus profil (DELETE)
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
-/* ============================
-|  HASHTAGS
-============================= */
 // Rute untuk mendapatkan saran hashtag
 Route::get('/hashtags/suggest', [HashtagController::class, 'suggest'])->name('hashtags.suggest');
+
+/* ============================
+|  KHUSUS USERS
+============================= */
+Route::middleware(['auth','verified'])->group(function () {
+    // Halaman Beranda
+
+    // Manajemen Postingan
+    Route::prefix('posts')->group(function () {
+        Route::get('/', [PostController::class, 'index'])->name('posts.index');
+        Route::get('/create', [PostController::class, 'create'])->name('posts.create');
+        Route::post('/', [PostController::class, 'store'])->name('posts.store');
+        Route::get('/edit/{id}', [PostController::class, 'edit'])->name('posts.edit');
+        Route::put('/{id}', [PostController::class, 'update'])->name('posts.update');
+        Route::delete('/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
+    });
+    // Manajemen Profil
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // Halaman Akun
+});
+
+/* ============================
+|  KHUSUS ADMIN
+============================= */
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
+    // Halaman Dashboard
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/Account', [AccountController::class, 'index'])->name('Account.index');
+    Route::get('/Account/export-pdf', [AccountController::class, 'exportPdf'])->name('Account.exportPdf');
+
+});

@@ -15,21 +15,31 @@
             <h1 class="text-3xl font-bold text-center mb-6 text-blue-600">Account Users</h1>
 
             <!-- Filter Section -->
+            @if (session('success'))
+            <div class="bg-green-100 text-green-700 px-4 py-2 rounded-lg mb-4">
+                {{ session('success') }}
+            </div>
+        @endif
+        
+        @if ($errors->any())
+            <div class="bg-red-100 text-red-700 px-4 py-2 rounded-lg mb-4">
+                {{ implode(', ', $errors->all()) }}
+            </div>
+        @endif
+        
             <div class="flex justify-between items-center mb-6">
-                <form action="{{route('Account.index')}}" method="GET" class="flex items-center space-x-4">
+                <form action="{{ route('Account.index') }}" method="GET" class="flex items-center space-x-4">
                     <label for="filter" class="text-gray-700 font-semibold">Filter:</label>
                     <select name="filter" id="filter" class="px-4 py-2 border rounded-lg">
                         <option value="" {{ request('filter') == '' ? 'selected' : '' }}>All</option>
                         <option value="admin" {{ request('filter') == 'admin' ? 'selected' : '' }}>Admin</option>
                         <option value="user" {{ request('filter') == 'user' ? 'selected' : '' }}>User</option>
                     </select>
-                    <button type="submit"
-                        class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">
+                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">
                         Apply
                     </button>
                 </form>
-                <a href="#"
-                    class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition">
+                <a href="#" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition">
                     Add User
                 </a>
             </div>

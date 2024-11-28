@@ -3,7 +3,7 @@
     <div>
         <!-- Brand Logo -->
         <div class="brand-logo d-flex align-items-center justify-content-between">
-            <a href="{{ route('dashboard') }}" class="text-nowrap logo-img">
+            <a href="{{ route('beranda') }}" class="text-nowrap logo-img">
                 <i class="ti ti-dashboard" style="font-size: 36px; color: #4F46E5;"></i>
                 <span class="ms-2 fw-bold" style="font-size: 20px;">Your Brand</span>
             </a>
