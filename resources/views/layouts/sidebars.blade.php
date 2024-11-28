@@ -13,6 +13,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
     <!-- Cropper.js JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+    <script src="{{ asset('js/comment.js') }}"></script>
+    <script src="{{ asset('js/bagikan.js') }}"></script>
+    <script src="{{ asset('js/like.js') }}"></script>
 
 </head>
 
