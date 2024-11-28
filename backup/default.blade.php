@@ -182,7 +182,7 @@
     <script src="{{ asset('dist2/js/plugin.js') }}"></script>
     <script src="{{ asset('dist2/js/lightbox.js') }}"></script>
     <script src="{{ asset('dist2/js/scripts.js') }}"></script>
-    <script src="{{ asset('js/comment.js') }}"></script>
+    <script src="{{ asset('js/comment.js') }}"></script>>
     <script src="{{ asset('js/bagikan.js') }}"></script>
     <script src="{{ asset('js/like.js') }}"></script>
     <script>

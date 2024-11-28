@@ -21,6 +21,8 @@
     </form>
     <a href="default.html" class="p-2 text-center ms-3 menu-icon center-menu-icon"><i
             class="feather-home font-lg alert-primary btn-round-lg theme-dark-bg text-current "></i></a>
+    {{-- <a href="{{route('posts')}}" class="p-2 text-center ms-3 menu-icon center-menu-icon"><i
+            class="feather-plus font-lg alert-primary btn-round-lg theme-dark-bg text-current "></i></a> --}}
     <a href="default-storie.html" class="p-2 text-center ms-0 menu-icon center-menu-icon"><i
             class="feather-zap font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 "></i></a>
     <a href="default-video.html" class="p-2 text-center ms-0 menu-icon center-menu-icon"><i
@@ -174,5 +176,4 @@
 
     <a href="default-settings.html" class="p-0 ms-3 menu-icon"><img src="{{ asset('dist2/images/profile-4.png') }}"
             alt="user" class="w40 mt--1"></a>
-
 </div>
