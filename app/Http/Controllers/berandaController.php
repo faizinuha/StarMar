@@ -30,7 +30,7 @@ class berandaController extends Controller
         // }
         // Kirim data ke view
         // return view('dashboard');
-        return view('home.beranda', compact('posts', 'users'));
+        return view('users.app', compact('posts', 'users'));
     }
 
 

@@ -21,7 +21,7 @@
                             class="authentication-login min-vh-100 bg-body row justify-content-center align-items-center p-4">
                             <div class="col-sm-8 col-md-6 col-xl-9">
                                 <h2 class="mb-3 fs-7 fw-bolder">Welcome to StarMar</h2>
-                                <p class=" mb-9">Your Admin Dashboard</p>
+                                <p class=" mb-9">Please register to continue</p>
 
                                 <div class="position-relative text-center my-4">
                                     <span
