@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{{ asset('dist2/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('dist2/css/emoji.css') }}">
     <link rel="stylesheet" href="{{ asset('dist2/css/lightbox.css') }}">
+    
 </head>
 
 <body class="color-theme-blue mont-font">
@@ -31,20 +32,12 @@
         <!-- Navigation -->
         @include('users.components.navbar')
         @include('users.components.navleft')
+        @include('footer.footer')
 
         <!-- Main content -->
         @yield('content')
 
-        <!-- Footer -->
-        <div class="app-footer border-0 shadow-lg bg-primary-gradiant">
-            <a href="default.html" class="nav-content-bttn nav-center"><i class="feather-home"></i></a>
-            <a href="default-video.html" class="nav-content-bttn"><i class="feather-package"></i></a>
-            <a href="default-live-stream.html" class="nav-content-bttn" data-tab="chats"><i
-                    class="feather-layout"></i></a>
-            <a href="shop-2.html" class="nav-content-bttn"><i class="feather-layers"></i></a>
-            <a href="default-settings.html" class="nav-content-bttn"><img src="images/female-profile.png" alt="user"
-                    class="w30 shadow-xss"></a>
-        </div>
+      
 
     </div>
 
@@ -52,9 +45,11 @@
     <script src="{{ asset('dist2/js/plugin.js') }}"></script>
     <script src="{{ asset('dist2/js/lightbox.js') }}"></script>
     <script src="{{ asset('dist2/js/scripts.js') }}"></script>
+
     <script src="{{ asset('js/comment.js') }}"></script>
     <script src="{{ asset('js/bagikan.js') }}"></script>
     <script src="{{ asset('js/like.js') }}"></script>
+
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {

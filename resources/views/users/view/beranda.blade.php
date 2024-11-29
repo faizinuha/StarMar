@@ -1,5 +1,13 @@
 @extends('users.app')
 @section('content')
+<style>
+     .custom-circle {
+            margin-bottom: 5px;
+            width: 50px;
+            height: 50px;
+            font-size: 30px;
+        }
+</style>
     <div class="main-content right-chat-active">
         <div class="middle-sidebar-bottom">
             <div class="middle-sidebar-left">
@@ -68,30 +76,31 @@
                                 <div class="card-body p-0">
                                     <!-- Profile and time section -->
                                     <div class="d-flex align-items-center">
-                                        <div
-                                            class="custom-circle bg-info text-white rounded-circle d-flex align-items-center justify-content-center font-weight-bold">
-                                            {{ strtoupper(substr($post->user->name, 0, 1)) }}
+                                            <div
+                                                class="custom-circle bg-info text-white rounded-circle d-flex align-items-center justify-content-center font-weight-bold">
+                                                {{ strtoupper(substr($post->user->name, 0, 1)) }}
+                                            </div>
+
+
+
+                                            <!-- User Info -->
+                                            <div class="ms-3">
+                                                <h6 class="font-weight-semibold text-dark mb-0">
+                                                    {{ $post->user->name }}
+                                                </h6>
+                                                <p class="text-muted small mb-0">
+                                                    {{ $post->created_at->diffForHumans() }}</p>
+                                            </div>
                                         </div>
-
-
-
-                                        <!-- User Info -->
-                                        <div class="ms-3">
-                                            <h6 class="font-weight-semibold text-dark mb-0">{{ $post->user->name }}
-                                            </h6>
-                                            <p class="text-muted small mb-0">
-                                                {{ $post->created_at->diffForHumans() }}</p>
-                                        </div>
-                                    </div>
 
 
                                     <!-- Display image if available -->
                                     @if ($post->image)
                                         <div class="card-body p-0 me-lg-5">
-                                            <a href="{{ asset('storage/' . $post->image) }}" data-lightbox="roadtr">
+                                            
                                                 <img src="{{ asset('storage/' . $post->image) }}" class="rounded-3 w-100"
                                                     alt="Post Image">
-                                            </a>
+                                        
                                         </div>
                                     @endif
 
