@@ -1,13 +1,13 @@
 @extends('users.app')
 @section('content')
-<style>
-     .custom-circle {
+    <style>
+        .custom-circle {
             margin-bottom: 5px;
             width: 50px;
             height: 50px;
             font-size: 30px;
         }
-</style>
+    </style>
     <div class="main-content right-chat-active">
         <div class="middle-sidebar-bottom">
             <div class="middle-sidebar-left">
@@ -51,7 +51,7 @@
                                     </div>
 
                                     <!-- Bagian Go Live Video -->
-                                    <div class="mt-3">
+                                    {{-- <div class="mt-3">
                                         <label class="d-block font-xss fw-600 text-grey-500 mb-2">Live Video
                                             Broadcast</label>
                                         <button type="button"
@@ -59,7 +59,7 @@
                                             id="live-video-btn">
                                             <i class="feather-video me-2"></i> Go Live
                                         </button>
-                                    </div>
+                                    </div> --}}
 
                                     <button type="submit"
                                         class="btn btn-primary mt-3 d-flex align-items-center justify-content-center w-100 p-3 rounded-3 shadow-sm hover-shadow-lg transition-all">
@@ -76,33 +76,47 @@
                                 <div class="card-body p-0">
                                     <!-- Profile and time section -->
                                     <div class="d-flex align-items-center">
-                                            <div
-                                                class="custom-circle bg-info text-white rounded-circle d-flex align-items-center justify-content-center font-weight-bold">
-                                                {{ strtoupper(substr($post->user->name, 0, 1)) }}
-                                            </div>
-
-
-
-                                            <!-- User Info -->
-                                            <div class="ms-3">
-                                                <h6 class="font-weight-semibold text-dark mb-0">
-                                                    {{ $post->user->name }}
-                                                </h6>
-                                                <p class="text-muted small mb-0">
-                                                    {{ $post->created_at->diffForHumans() }}</p>
-                                            </div>
+                                        <div
+                                            class="custom-circle bg-info text-white rounded-circle d-flex align-items-center justify-content-center font-weight-bold">
+                                            {{ strtoupper(substr($post->user->name, 0, 1)) }}
                                         </div>
 
 
-                                    <!-- Display image if available -->
+
+                                        <!-- User Info -->
+                                        <div class="ms-3">
+                                            <h6 class="font-weight-semibold text-dark mb-0">
+                                                {{ $post->user->name }}
+                                            </h6>
+                                            <p class="text-muted small mb-0">
+                                                {{ $post->created_at->diffForHumans() }}</p>
+                                        </div>
+                                    </div>
+
+
                                     @if ($post->image)
-                                        <div class="card-body p-0 me-lg-5">
-                                            
-                                                <img src="{{ asset('storage/' . $post->image) }}" class="rounded-3 w-100"
-                                                    alt="Post Image">
-                                        
+                                        <div class="mb-4 relative">
+                                            <img src="{{ asset('storage/' . $post->image) }}" alt="Post Image"
+                                                 class="mb-4"
+                                                style="filter: {{ $post->filter ?? 'none' }};">
+                                            @if (Auth::id() === $post->user_id)
+                                                <a href="{{ route('posts.edit', $post->id) }}"
+                                                    class="absolute top-0 right-0 p-2 bg-white rounded-full shadow-md hover:bg-gray-200">
+                                                    <i class="fas fa-edit text-xl text-gray-600"></i>
+                                                </a>
+                                                <form action="{{ route('posts.destroy', $post->id) }}" method="POST"
+                                                    class="absolute top-0 right-10 p-2 bg-white rounded-full shadow-md hover:bg-gray-200">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="text-xl text-red-600">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            @endif
                                         </div>
                                     @endif
+
+
 
                                     <!-- Post content -->
                                     <div class="card-body p-0">

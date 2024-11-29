@@ -1,6 +1,4 @@
-@extends('layouts.sidebars')
 
-@section('side')
     <!DOCTYPE html>
     <html lang="en">
 
@@ -240,4 +238,3 @@
     </script>
 
     </html>
-@endsection
