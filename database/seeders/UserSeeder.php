@@ -16,29 +16,46 @@ class UserSeeder extends Seeder
     {
         $users = [
             [
-                'name' => 'User',
-                'email' => 'user@gmail.com',
-                'password' => Hash::make('password'),
-                'role' => 'user'
-            ],
-            [
-                'name' => 'Admin',
+                'first_name' => 'Admin',
+                'last_name' => 'Admin',
                 'email' => 'admin@gmail.com',
+                'phone' => null,
+                'gender' => 'male',
+                'date' => null,
                 'password' => Hash::make('password'),
                 'role' => 'admin'
             ],
             [
-                'name' => 'User2',
-                'email' => 'user2@gmail.com',
+                'first_name' => 'User',
+                'last_name' => 'User',
+                'email' => 'user@gmail.com',
+                'phone' => '089511223344',
+                'gender' => 'male',
+                'date' => null,
                 'password' => Hash::make('password'),
                 'role' => 'user'
-            ]
+            ],
+            [
+                'first_name' => 'User2',
+                'last_name' => 'User2',
+                'email' => 'user2@gmail.com',
+                'phone' => '089511223345',
+                'gender' => 'female',
+                'date' => null,
+                'password' => Hash::make('password'),
+                'role' => 'user'
+            ],
+
         ];
 
         foreach ($users as $userData) {
             $user = User::create([
-                'name' => $userData['name'],
+                'first_name' => $userData['first_name'],
+                'last_name' => $userData['last_name'],
                 'email' => $userData['email'],
+                'phone' => $userData['phone'],
+                'gender' => $userData['gender'],
+                'date' => $userData['date'],
                 'password' => $userData['password'],
             ]);
 

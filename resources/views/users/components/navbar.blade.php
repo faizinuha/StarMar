@@ -174,6 +174,6 @@
     </div>
 
 
-    <a href="default-settings.html" class="p-0 ms-3 menu-icon"><img src="{{ asset('dist2/images/profile-4.png') }}"
-            alt="user" class="w40 mt--1"></a>
+    <a href="{{ route('user.setting') }}" class="p-0 ms-3 menu-icon"><img
+            src="{{ asset('dist2/images/profile-4.png') }}" alt="user" class="w40 mt--1"></a>
 </div>

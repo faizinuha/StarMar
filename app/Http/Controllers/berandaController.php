@@ -33,6 +33,11 @@ class berandaController extends Controller
         return view('users.view.beranda', compact('posts', 'users'));
     }
 
+    public function setting()
+    {
+        return view('users.setting.default-setting');
+    }
+
 
     /**
      * Show the form for creating a new resource.

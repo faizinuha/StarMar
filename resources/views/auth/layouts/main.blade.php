@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- Mirrored from demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/html/main/authentication-login2.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 06 Jul 2023 02:01:04 GMT -->
-
 <head>
     <!--  Title -->
     <title>Mordenize</title>
@@ -15,11 +13,26 @@
     <meta name="author" content="" />
     <meta name="keywords" content="Mordenize" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!--  Favicon -->
     <link rel="shortcut icon" type="image/png"
         href="https://demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/dist/images/logos/favicon.ico" />
     <!-- Core Css -->
-    <link id="themeColors" rel="stylesheet" href="../../dist/css/style.min.css" />
+    <link id="themeColors" rel="stylesheet" href="{{ asset('dist/css/style.min.css') }}" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css">
+
+    {{-- ReCaptcha --}}
+    {!! htmlScriptTagJsApi() !!}
+
+
+    {{-- Leaflet --}}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
 </head>
 
 <body>
@@ -34,6 +47,7 @@
             alt="loader" class="lds-ripple img-fluid" />
     </div>
     <!--  Body Wrapper -->
+
     @yield('content')
 
     <!--  Import Js Files -->
@@ -47,8 +61,41 @@
     <script src="{{ asset('dist/js/sidebarmenu.js') }}"></script>
 
     <script src="{{ asset('dist/js/custom.js') }}"></script>
+
+    <script src="{{ asset('dist/libs/jquery-steps/build/jquery.steps.min.js') }}"></script>
+    <script src="{{ asset('dist/libs/jquery-validation/dist/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('dist/js/forms/form-wizard.js') }}"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
+
+    <script>
+        @if (session('success'))
+            iziToast.success({
+                title: 'Sukses!',
+                message: "{{ session('success') }}",
+                position: 'topRight'
+            });
+        @endif
+        @if (session('danger'))
+            iziToast.error({
+                title: 'Sukses!',
+                message: "{{ session('danger') }}",
+                position: 'topRight'
+            });
+        @endif
+
+        @if ($errors->any())
+            iziToast.error({
+                title: 'Erorr!',
+                message: "{{ $errors->first() }}",
+                position: 'topRight'
+            });
+        @endif
+    </script>
+
+
+
 </body>
 
-<!-- Mirrored from demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/html/main/authentication-login2.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 06 Jul 2023 02:01:04 GMT -->
 
 </html>

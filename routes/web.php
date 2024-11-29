@@ -47,6 +47,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::put('/{id}', [PostController::class, 'update'])->name('posts.update');
         Route::delete('/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
     });
+    Route::get('/user-setting', [berandaController::class, 'setting'])->name('user.setting');
     // Manajemen Profil
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

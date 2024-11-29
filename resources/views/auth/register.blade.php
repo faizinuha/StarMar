@@ -17,46 +17,153 @@
                         </div>
                     </div>
                     <div class="col-xl-5 col-xxl-4">
-                        <div
-                            class="authentication-login min-vh-100 bg-body row justify-content-center align-items-center p-4">
-                            <div class="col-sm-8 col-md-6 col-xl-9">
-                                <h2 class="mb-3 fs-7 fw-bolder">Welcome to StarMar</h2>
-                                <p class=" mb-9">Please register to continue</p>
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body wizard-content">
+                                    <h4 class="card-title">Welcome to StarMar</h4>
+                                    <p class="card-subtitle mb-3"> Please Register to Continue </p>
+                                    <form action="{{ route('register') }}" class="validation-wizard wizard-circle mt-5"
+                                        method="POST">
+                                        @csrf
+                                        <!-- Step 1 -->
+                                        <h6>Step 1</h6>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label for="first_name"> First Name : <span class="danger">*</span>
+                                                        </label>
+                                                        <input type="text"
+                                                            class="form-control @error('first_name') is-invalid @enderror"
+                                                            id="first_name" name="first_name"
+                                                            value="{{ old('first_name') }}" />
+                                                        @error('first_name')
+                                                            <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label for="last_name"> Last Name : <span class="danger">*</span>
+                                                        </label>
+                                                        <input type="text"
+                                                            class="form-control  @error('last_name') is-invalid @enderror"
+                                                            id="last_name" name="last_name"
+                                                            value="{{ old('last_name') }}" />
+                                                        @error('last_name')
+                                                            <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label for="email"> Email Address : <span class="danger">*</span>
+                                                        </label>
+                                                        <input type="email"
+                                                            class="form-control  @error('email') is-invalid @enderror"
+                                                            id="email" name="email" value="{{ old('email') }}" />
+                                                        @error('email')
+                                                            <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label for="phone">Phone Number :</label>
+                                                        <input type="tel"
+                                                            class="form-control  @error('phone') is-invalid @enderror"
+                                                            id="phone" name="phone" value="{{ old('phone') }}" />
+                                                        @error('phone')
+                                                            <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label for="gender"> Gender : <span class="danger">*</span>
+                                                        </label>
+                                                        <select class="form-select  @error('gender') is-invalid @enderror"
+                                                            id="gender" name="gender">
+                                                            <option value="">SELECT GENDER</option>
+                                                            <option value="male">Male</option>
+                                                            <option value="female">Female</option>
+                                                            <option value="custom">Custom</option>
+                                                        </select>
+                                                        @error('gender')
+                                                            <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label for="date">Date of Birth :<span
+                                                                class="danger">*</span></label>
+                                                        <input type="date"
+                                                            class="form-control  @error('date') is-invalid @enderror"
+                                                            id="date" name="date" value="{{ old('date') }}" />
+                                                        @error('date')
+                                                            <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <!-- Step 2 -->
+                                        <h6>Step 2</h6>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="mb-3">
+                                                        <label for="password">Password :<span
+                                                                class="danger">*</span></label>
+                                                        <input type="password"
+                                                            class="form-control  @error('password') is-invalid @enderror"
+                                                            id="password" name="password"
+                                                            value="{{ old('password') }}" />
+                                                        @error('password')
+                                                            <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="mb-3">
+                                                        <label for="password_confirmation">Confirm Password :<span
+                                                                class="danger">*</span></label>
+                                                        <input type="password"
+                                                            class="form-control  @error('password') is-invalid @enderror"
+                                                            id="password_confirmation" name="password_confirmation" />
+                                                        @error('password')
+                                                            <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3">
+                                                    {!! htmlFormSnippet() !!}
+                                                    @if ($errors->has('g-recaptcha-response'))
+                                                        <div>
+                                                            <small class="text-danger">
+                                                                {{ $errors->first('g-recaptcha-response') }}
+                                                            </small>
+                                                        </div>
+                                                    @endif
+                                                </div>
 
-                                <div class="position-relative text-center my-4">
-                                    <span
-                                        class="border-top w-100 position-absolute top-50 start-50 translate-middle"></span>
+                                            </div>
+                                        </section>
+                                    </form>
                                 </div>
-                                <form action="{{ route('register') }}" method="POST">
-                                    @csrf
-                                    <div class="mb-3">
-                                        <label for="name" class="form-label">Name</label>
-                                        <input type="text" class="form-control" id="name"
-                                            aria-describedby="textHelp" name="name" value="{{ old('name') }}">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="email" class="form-label">Email address</label>
-                                        <input type="email" class="form-control" id="email"
-                                            aria-describedby="emailHelp" name="email" value="{{ old('email') }}">
-                                    </div>
-                                    <div class="mb-4">
-                                        <label for="password" class="form-label">Password</label>
-                                        <input type="password" class="form-control" id="password" name="password"
-                                            value="{{ old('password') }}">
-                                    </div>
-                                    <button type="submit" class="btn btn-primary w-100 py-8 mb-4 rounded-2">Sign
-                                        Up</button>
-                                    <div class="d-flex align-items-center">
-                                        <p class="fs-4 mb-0 text-dark">Already have an Account?</p>
-                                        <a class="text-primary fw-medium ms-2" href="{{ route('register') }}">Sign In</a>
-                                    </div>
-                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
+    </div>
+
+    </div>
     </div>
 @endsection
