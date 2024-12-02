@@ -14,7 +14,7 @@
                                     <div class="nav-caption fw-600 font-xssss text-grey-500 mb-2">Genaral</div>
                                     <ul class="list-inline mb-4">
                                         <li class="list-inline-item d-block border-bottom me-0"><a
-                                                href="account-information.html"
+                                                href="{{ route('user.profile') }}"
                                                 class="pt-2 pb-2 d-flex align-items-center"><i
                                                     class="btn-round-md bg-primary-gradiant text-white feather-home font-md me-3"></i>
                                                 <h4 class="fw-600 font-xsss mb-0 mt-0">Acount Information</h4><i
