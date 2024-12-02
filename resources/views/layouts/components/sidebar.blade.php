@@ -24,7 +24,7 @@
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ route('dashboard') }}" aria-expanded="false">
                         <span><i class="ti ti-home"></i></span>
-                        <span class="hide-menu">Beranda</span>
+                        <span class="hide-menu">Dashboard</span>
                     </a>
                 </li>
 

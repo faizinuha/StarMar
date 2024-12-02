@@ -110,6 +110,8 @@
     <!-- ---------------------------------------------- -->
     <script src="{{ asset('dist/js/apps/jquery.PrintArea.js') }}"></script>
     <script src="{{ asset('dist/js/apps/invoice.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
 </body>
 
 
