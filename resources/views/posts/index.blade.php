@@ -1,74 +1,80 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container py-5">
-        <div class="card shadow-lg border-0">
-            <div class="card-header bg-gradient-primary text-white text-center">
-                <h4 class="mb-0">Data Postingan</h4>
-            </div>
-            <div class="card-body">
-                @if ($posts->isEmpty())
-                    <p class="text-center text-muted fs-5">Tidak ada data postingan.</p>
-                @else
-                    <table class="table table-hover table-bordered align-middle">
-                        <thead class="table-dark">
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdn.jsdelivr.net/npm/@tabler/icons@2.35.0/iconfont/tabler-icons.min.css" rel="stylesheet">
+
+<div class="container mx-auto py-10">
+    <div class="bg-white shadow rounded-lg overflow-hidden">
+        <div class="bg-gradient-to-r from-blue-500 to-purple-500 text-white text-center py-4">
+            <h4 class="text-lg font-semibold">Data Postingan</h4>
+        </div>
+        <div class="p-6">
+            @if ($posts->isEmpty())
+                <p class="text-center text-gray-500 text-lg">Tidak ada data postingan.</p>
+            @else
+                <div class="overflow-x-auto">
+                    <table class="min-w-full border border-gray-200 rounded-lg">
+                        <thead class="bg-blue-100">
                             <tr>
-                                <th>#</th>
-                                <th>Nama</th>
-                                <th>Gambar</th>
-                                <th>Konten</th>
-                                <th>Video</th>
-                                <th>Tanggal</th>
-                                <th>Aksi</th>
+                                <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">#</th>
+                                <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Nama</th>
+                                <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Gambar</th>
+                                <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Konten</th>
+                                <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Video</th>
+                                <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Video Pendek</th>
+                                <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Tanggal</th>
+                                <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Aksi</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="divide-y divide-gray-200">
                             @foreach ($posts as $post)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $post->user->name }}</td>
-                                    <td>
-                                        <img src="{{ asset('storage/' . $post->image) }}" alt="Gambar Postingan"
-                                            class="img-thumbnail rounded-circle"
-                                            style="width: 80px; height: 80px; object-fit: cover;">
+                                    <td class="px-4 py-3 text-sm text-gray-500">{{ $loop->iteration }}</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">{{ $post->user->first_name }}</td>
+                                    <td class="px-4 py-3">
+                                        @if ($post->image)
+                                            <img src="{{ asset('storage/' . $post->image) }}" 
+                                                 alt="Gambar Postingan" 
+                                                 class="w-12 h-12 rounded-full object-cover">
+                                        @else
+                                            <span class="text-sm text-gray-400">Tidak ada gambar</span>
+                                        @endif
                                     </td>
-                                    <td>{{ $post->filter ?: 'Tidak ada' }}</td>
-                                    <td>{{ $post->crop ?: 'Tidak ada' }}</td>
-                                    <td>
-                                        <div class="text-truncate" style="max-width: 200px;">
-                                            {{ $post->content }}
-                                        </div>
-                                    </td>
-                                    <td>
-                                        @if (!empty($post->video))
-                                            <video width="100" controls class="rounded shadow-sm">
+                                    <td class="px-4 py-3 text-sm text-gray-500">{{ Str::limit($post->content, 30, '...') }}</td>
+                                    <td class="px-4 py-3">
+                                        @if ($post->video)
+                                            <video width="80" class="rounded-lg shadow" controls>
                                                 <source src="{{ $post->video }}" type="video/mp4">
                                             </video>
                                         @else
-                                            <span class="text-muted">Tidak ada video</span>
+                                            <span class="text-sm text-gray-400">Tidak ada video</span>
                                         @endif
                                     </td>
-                                    <td>
-                                        @if (!empty($post->video_short))
-                                            <video width="100" controls class="rounded shadow-sm">
-                                                <source src="{{ asset('storage/' . $post->video_short) }}" type="video/mp4">
+                                    <td class="px-4 py-3">
+                                        @if ($post->video_short)
+                                            <video width="80" class="rounded-lg shadow" controls>
+                                                <source src="{{ asset('storage/' . $post->video_short) }}" 
+                                                        type="video/mp4">
                                             </video>
                                         @else
-                                            <span class="text-muted">Tidak ada video pendek</span>
+                                            <span class="text-sm text-gray-400">Tidak ada video pendek</span>
                                         @endif
                                     </td>
-                                    <td>{{ $post->created_at->format('d-m-Y') }}</td>
-                                    <td>
-                                        <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-sm btn-primary">
-                                            <i class="bi bi-pencil-square"></i> Edit
+                                    <td class="px-4 py-3 text-sm text-gray-500">{{ $post->created_at->format('d-m-Y') }}</td>
+                                    <td class="px-4 py-3 flex space-x-2">
+                                        <a href="{{ route('posts.edit', $post->id) }}" 
+                                           class="px-3 py-2 text-sm text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition">
+                                            <i class="ti ti-pencil"></i>
                                         </a>
-                                        <form action="{{ route('posts.destroy', $post->id) }}" method="POST"
-                                            class="d-inline">
+                                        <form action="{{ route('posts.destroy', $post->id) }}" 
+                                              method="POST" 
+                                              onsubmit="return confirm('Yakin ingin menghapus postingan ini?')">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger"
-                                                onclick="return confirm('Apakah Anda yakin ingin menghapus postingan ini?')">
-                                                <i class="bi bi-trash"></i> Hapus
+                                            <button type="submit" 
+                                                    class="px-3 py-2 text-sm text-white bg-red-500 rounded-lg hover:bg-red-600 transition">
+                                                <i class="ti ti-trash"></i>
                                             </button>
                                         </form>
                                     </td>
@@ -76,49 +82,9 @@
                             @endforeach
                         </tbody>
                     </table>
-                @endif
-            </div>
+                </div>
+            @endif
         </div>
     </div>
-
-    <style>
-        /* Gradien untuk header */
-        .bg-gradient-primary {
-            background: linear-gradient(45deg, #007bff, #6c63ff);
-        }
-
-        /* Hover efek untuk tabel */
-        .table-hover tbody tr:hover {
-            background-color: #f1f3f5;
-        }
-
-        /* Thumbnail gambar */
-        .img-thumbnail {
-            border: 2px solid #dee2e6;
-            padding: 4px;
-        }
-
-        /* Button style */
-        .btn-primary {
-            background-color: #007bff;
-            border-color: #007bff;
-        }
-
-        .btn-danger {
-            background-color: #dc3545;
-            border-color: #dc3545;
-        }
-
-        .btn-primary:hover,
-        .btn-danger:hover {
-            opacity: 0.9;
-        }
-
-        /* Untuk teks konten yang panjang */
-        .text-truncate {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-    </style>
+</div>
 @endsection

@@ -17,21 +17,22 @@ class berandaController extends Controller
 
     public function index()
     {
-        // Ambil data posts terbaru beserta komentar dan reply-nya
-        $posts = Post::with(['comments.replies', 'comments.user'])
-            ->orderBy('created_at', 'desc')
-            ->get();
+        try {
+            // Ambil data posts terbaru beserta komentar dan reply-nya
+            $posts = Post::with(['comments.replies', 'comments.user'])
+                ->orderBy('created_at', 'desc')
+                ->get();
 
-        // Ambil semua pengguna
-        $users = User::all();
+            // Cek apakah koneksi ke tabel users bermasalah
+            $users = User::all();
+        } catch (\Exception $e) {
+            // Redirect ke halaman 404 jika terjadi error
+            return view('errors.404');
+        }
 
-        // if (auth()->user()->role === 'admin') {
-        //     return view('dashboard');
-        // }
-        // Kirim data ke view
-        // return view('dashboard');
         return view('users.view.beranda', compact('posts', 'users'));
     }
+
 
     public function setting()
     {

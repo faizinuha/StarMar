@@ -9,16 +9,16 @@
                                 class="feather-tv btn-round-md bg-blue-gradiant me-3"></i><span>Newsfeed</span></a>
                     </li>
                     <li><a href="default-badge.html" class="nav-content-bttn open-font"><i
-                                class="feather-award btn-round-md bg-red-gradiant me-3"></i><span>Badges</span></a>
+                                class="feather-award btn-round-md bg-red-gradiant me-3"></i><span>Explorer</span></a>
                     </li>
                     <li><a href="default-storie.html" class="nav-content-bttn open-font"><i
-                                class="feather-globe btn-round-md bg-gold-gradiant me-3"></i><span>Explore
+                                class="feather-globe btn-round-md bg-gold-gradiant me-3"></i><span>Video
                                 Stories</span></a></li>
                     <li><a href="default-group.html" class="nav-content-bttn open-font"><i
                                 class="feather-zap btn-round-md bg-mini-gradiant me-3"></i><span>Popular
                                 Groups</span></a></li>
                     <li><a href="user-page.html" class="nav-content-bttn open-font"><i
-                                class="feather-user btn-round-md bg-primary-gradiant me-3"></i><span>Author
+                                class="feather-user btn-round-md bg-primary-gradiant me-3"></i><span>Users
                                 Profile </span></a></li>
                 </ul>
             </div>

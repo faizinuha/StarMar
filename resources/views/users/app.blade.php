@@ -9,7 +9,7 @@
 
     <link rel="stylesheet" href="{{ asset('dist2/css/themify-icons.css') }}">
     <link rel="stylesheet" href="{{ asset('dist2/css/feather.css') }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('dist2/images/favicon.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('StarMar/StarMar.png') }}" style="border-radius: 50px;">
     <link rel="stylesheet" href="{{ asset('dist2/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('dist2/css/emoji.css') }}">
     <link rel="stylesheet" href="{{ asset('dist2/css/lightbox.css') }}">

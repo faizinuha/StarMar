@@ -35,21 +35,22 @@
     </style>
     <!-- Modal -->
     <!-- Modal dengan backdrop yang dinonaktifkan -->
-    <div class="modal fade" id="postModal" tabindex="-1" aria-labelledby="postModalLabel" aria-hidden="true"
-        data-bs-backdrop="false">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="postModalLabel">Create Post</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <!-- Form to create post -->
-                    @include('posts.create')
-                </div>
+    <div class="modal fade mx-l" id="postModal" tabindex="-1" aria-labelledby="postModalLabel" aria-hidden="true"
+    data-bs-backdrop="false">
+    <div class="modal-dialog modal-lg"> <!-- Tambahkan kelas modal-lg atau modal-xl -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="postModalLabel">Create Post</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Form to create post -->
+                @include('posts.create')
             </div>
         </div>
     </div>
+</div>
+
 
 
     <a href="default-storie.html" class="p-2 text-center ms-0 menu-icon center-menu-icon"><i

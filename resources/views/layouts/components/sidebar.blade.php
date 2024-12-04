@@ -38,7 +38,7 @@
 
                 <!-- Uploads -->
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="index3.html" aria-expanded="false">
+                    <a class="sidebar-link" href="{{route('posts.create')}}" aria-expanded="false">
                         <span><i class="ti ti-upload"></i></span>
                         <span class="hide-menu">Uploads</span>
                     </a>
