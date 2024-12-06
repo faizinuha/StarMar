@@ -1,30 +1,285 @@
 @extends('users.app')
 @section('content')
-    <div class="main-content bg-lightblue theme-dark-bg right-chat-active">
+<header>
+<link rel="stylesheet" href="{{asset('css/index.css')}}">
+	<div class="container">
 
-        <div class="middle-sidebar-bottom">
-            <div class="middle-sidebar-left">
-                <div class="middle-wrap">
-                    <div class="card w-100 border-0 bg-white shadow-xs p-0 mb-4">
-                        <div class="card-body p-4 w-100 bg-current border-0 d-flex rounded-3">
-                            <a href="default-settings.html" class="d-inline-block mt-2"><i
-                                    class="ti-arrow-left font-sm text-white"></i></a>
-                            <h4 class="font-xs text-white fw-600 ms-4 mb-0 mt-2">Account Details</h4>
-                        </div>
-                        <div class="card-body p-lg-5 p-4 w-100 border-0 ">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-4 text-center">
-                                    <figure class="avatar ms-auto me-auto mb-0 mt-2 w100"><img src="images/pt-1.jpg"
-                                            alt="image" class="shadow-sm rounded-3 w-100"></figure>
-                                    <h2 class="fw-700 font-sm text-grey-900 mt-3">Surfiya Zakir</h2>
-                                    <h4 class="text-grey-500 fw-500 mb-3 font-xsss mb-4">Brooklyn</h4>
+		<div class="profile">
 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+			<div class="profile-image">
+
+				<img src="https://images.unsplash.com/photo-1513721032312-6a18a42c8763?w=152&h=152&fit=crop&crop=faces" alt="">
+
+			</div>
+
+			<div class="profile-user-settings">
+
+				<h1 class="profile-user-name">{{ Auth::user()->first_name }}_</h1>
+
+				<a href="{{route('profile.edit')}}">
+                    <button class="btn profile-edit-btn">Edit Profile</button>
+                </a>
+                <a href="{{route('user.setting')}}">
+				<button class="btn profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog" aria-hidden="true"></i></button>
+                </a>
+			</div>
+
+			<div class="profile-stats">
+
+				<ul>
+					<li><span class="profile-stat-count">164</span> posts</li>
+					<li><span class="profile-stat-count">188</span> followers</li>
+					<li><span class="profile-stat-count">206</span> following</li>
+				</ul>
+
+			</div>
+
+			<div class="profile-bio">
+
+				<p><span class="profile-real-name">Jane Doe</span> Lorem ipsum dolor sit, amet consectetur adipisicing elit 📷✈️🏕️</p>
+
+			</div>
+
+		</div>
+		<!-- End of profile section -->
+
+	</div>
+	<!-- End of container -->
+
+</header>
+
+<main>
+
+	<div class="container">
+
+		<div class="gallery">
+
+			<div class="gallery-item" tabindex="0">
+
+				<img src="https://images.unsplash.com/photo-1511765224389-37f0e77cf0eb?w=500&h=500&fit=crop" class="gallery-image" alt="">
+
+				<div class="gallery-item-info">
+
+					<ul>
+						<li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i class="fas fa-heart" aria-hidden="true"></i> 56</li>
+						<li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i class="fas fa-comment" aria-hidden="true"></i> 2</li>
+					</ul>
+
+				</div>
+
+			</div>
+
+			<div class="gallery-item" tabindex="0">
+
+				<img src="https://images.unsplash.com/photo-1497445462247-4330a224fdb1?w=500&h=500&fit=crop" class="gallery-image" alt="">
+
+				<div class="gallery-item-info">
+
+					<ul>
+						<li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i class="fas fa-heart" aria-hidden="true"></i> 89</li>
+						<li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i class="fas fa-comment" aria-hidden="true"></i> 5</li>
+					</ul>
+
+				</div>
+
+			</div>
+
+			<div class="gallery-item" tabindex="0">
+
+				<img src="https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=500&h=500&fit=crop" class="gallery-image" alt="">
+
+				<div class="gallery-item-type">
+
+					<span class="visually-hidden">Gallery</span><i class="fas fa-clone" aria-hidden="true"></i>
+
+				</div>
+
+				<div class="gallery-item-info">
+
+					<ul>
+						<li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i class="fas fa-heart" aria-hidden="true"></i> 42</li>
+						<li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i class="fas fa-comment" aria-hidden="true"></i> 1</li>
+					</ul>
+
+				</div>
+
+			</div>
+
+			<div class="gallery-item" tabindex="0">
+
+				<img src="https://images.unsplash.com/photo-1502630859934-b3b41d18206c?w=500&h=500&fit=crop" class="gallery-image" alt="">
+
+				<div class="gallery-item-type">
+
+					<span class="visually-hidden">Video</span><i class="fas fa-video" aria-hidden="true"></i>
+
+				</div>
+
+				<div class="gallery-item-info">
+
+					<ul>
+						<li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i class="fas fa-heart" aria-hidden="true"></i> 38</li>
+						<li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i class="fas fa-comment" aria-hidden="true"></i> 0</li>
+					</ul>
+
+				</div>
+
+			</div>
+
+			<div class="gallery-item" tabindex="0">
+
+				<img src="https://images.unsplash.com/photo-1498471731312-b6d2b8280c61?w=500&h=500&fit=crop" class="gallery-image" alt="">
+
+				<div class="gallery-item-type">
+
+					<span class="visually-hidden">Gallery</span><i class="fas fa-clone" aria-hidden="true"></i>
+
+				</div>
+
+				<div class="gallery-item-info">
+
+					<ul>
+						<li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i class="fas fa-heart" aria-hidden="true"></i> 47</li>
+						<li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i class="fas fa-comment" aria-hidden="true"></i> 1</li>
+					</ul>
+
+				</div>
+
+			</div>
+
+			<div class="gallery-item" tabindex="0">
+
+				<img src="https://images.unsplash.com/photo-1515023115689-589c33041d3c?w=500&h=500&fit=crop" class="gallery-image" alt="">
+
+				<div class="gallery-item-info">
+
+					<ul>
+						<li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i class="fas fa-heart" aria-hidden="true"></i> 94</li>
+						<li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i class="fas fa-comment" aria-hidden="true"></i> 3</li>
+					</ul>
+
+				</div>
+
+			</div>
+
+			<div class="gallery-item" tabindex="0">
+
+				<img src="https://images.unsplash.com/photo-1504214208698-ea1916a2195a?w=500&h=500&fit=crop" class="gallery-image" alt="">
+
+				<div class="gallery-item-type">
+
+					<span class="visually-hidden">Gallery</span><i class="fas fa-clone" aria-hidden="true"></i>
+
+				</div>
+
+				<div class="gallery-item-info">
+
+					<ul>
+						<li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i class="fas fa-heart" aria-hidden="true"></i> 52</li>
+						<li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i class="fas fa-comment" aria-hidden="true"></i> 4</li>
+					</ul>
+
+				</div>
+
+			</div>
+
+			<div class="gallery-item" tabindex="0">
+
+				<img src="https://images.unsplash.com/photo-1515814472071-4d632dbc5d4a?w=500&h=500&fit=crop" class="gallery-image" alt="">
+
+				<div class="gallery-item-info">
+
+					<ul>
+						<li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i class="fas fa-heart" aria-hidden="true"></i> 66</li>
+						<li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i class="fas fa-comment" aria-hidden="true"></i> 2</li>
+					</ul>
+
+				</div>
+
+			</div>
+
+			<div class="gallery-item" tabindex="0">
+
+				<img src="https://images.unsplash.com/photo-1511407397940-d57f68e81203?w=500&h=500&fit=crop" class="gallery-image" alt="">
+
+				<div class="gallery-item-type">
+
+					<span class="visually-hidden">Gallery</span><i class="fas fa-clone" aria-hidden="true"></i>
+
+				</div>
+
+				<div class="gallery-item-info">
+
+					<ul>
+						<li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i class="fas fa-heart" aria-hidden="true"></i> 45</li>
+						<li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i class="fas fa-comment" aria-hidden="true"></i> 0</li>
+					</ul>
+
+				</div>
+
+			</div>
+
+			<div class="gallery-item" tabindex="0">
+
+				<img src="https://images.unsplash.com/photo-1518481612222-68bbe828ecd1?w=500&h=500&fit=crop" class="gallery-image" alt="">
+
+				<div class="gallery-item-info">
+
+					<ul>
+						<li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i class="fas fa-heart" aria-hidden="true"></i> 34</li>
+						<li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i class="fas fa-comment" aria-hidden="true"></i> 1</li>
+					</ul>
+
+				</div>
+
+			</div>
+
+			<div class="gallery-item" tabindex="0">
+
+				<img src="https://images.unsplash.com/photo-1505058707965-09a4469a87e4?w=500&h=500&fit=crop" class="gallery-image" alt="">
+
+				<div class="gallery-item-info">
+
+					<ul>
+						<li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i class="fas fa-heart" aria-hidden="true"></i> 41</li>
+						<li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i class="fas fa-comment" aria-hidden="true"></i> 0</li>
+					</ul>
+
+				</div>
+
+			</div>
+
+			<div class="gallery-item" tabindex="0">
+
+				<img src="https://images.unsplash.com/photo-1423012373122-fff0a5d28cc9?w=500&h=500&fit=crop" class="gallery-image" alt="">
+
+				<div class="gallery-item-type">
+
+					<span class="visually-hidden">Video</span><i class="fas fa-video" aria-hidden="true"></i>
+
+				</div>
+
+				<div class="gallery-item-info">
+
+					<ul>
+						<li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i class="fas fa-heart" aria-hidden="true"></i> 30</li>
+						<li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i class="fas fa-comment" aria-hidden="true"></i> 2</li>
+					</ul>
+
+				</div>
+
+			</div>
+
+		</div>
+		<!-- End of gallery -->
+
+		<div class="loader"></div>
+
+	</div>
+	<!-- End of container -->
+
+</main>
+<style>
+    
+</style>
 @endsection

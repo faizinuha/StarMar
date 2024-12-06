@@ -19,7 +19,7 @@
                 class="bg-grey border-0 lh-32 pt-2 pb-2 ps-5 pe-3 font-xssss fw-500 rounded-xl w350 theme-dark-bg">
         </div>
     </form>
-    <a href="default.html" class="p-2 text-center ms-3 menu-icon center-menu-icon"><i
+    <a href="{{route('beranda')}}" class="p-2 text-center ms-3 menu-icon center-menu-icon"><i
             class="feather-home font-lg alert-primary btn-round-lg theme-dark-bg text-current "></i></a>
     <!-- Tombol yang memicu modal -->
     <a href="javascript:void(0);" class="p-2 text-center ms-3 menu-icon center-menu-icon" data-bs-toggle="modal"
