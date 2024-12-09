@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use App\models\user;
+use App\Models\Post;
 
 class ProfileController extends Controller
 {
@@ -21,13 +23,44 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function users(Request $request): View
+
+    // ProfileController.phppublic function users($id): View
+    public function users($id): View
     {
-        return view('users.setting.profile.user-profile', [
-            'user' => $request->user(),
-        ]);
+        $user = User::findOrFail($id); // Ambil data pengguna berdasarkan ID
+        $followersCount = $user->followers()->count();
+        $followingCount = $user->followings()->count();
+    
+        // Mengambil semua post milik pengguna
+        $posts = Post::where('user_id', $user->id)->get(); // Ambil post berdasarkan user_id
+    
+        // Menghitung jumlah post yang dimiliki oleh pengguna
+        $postCount = $posts->count(); // Menghitung jumlah post
+    
+        return view('users.setting.profile.user-profile',
+        compact('user', 'posts','postCount','followersCount','followingCount'));
     }
 
+    public function profile()
+    {
+        $user = Auth::user(); // Ambil pengguna yang sedang login
+    
+        // Mengambil jumlah followers dan following
+        $followersCount = $user->followers()->count();
+        $followingCount = $user->followings()->count();
+    
+        // Mengambil semua post milik pengguna
+        $posts = Post::where('user_id', $user->id)->get(); // Ambil post berdasarkan user_id
+    
+        // Menghitung jumlah post yang dimiliki oleh pengguna
+        $postCount = $posts->count(); // Menghitung jumlah post
+    
+        return view('users.setting.profile.user-profile', 
+        compact('followersCount', 'postCount', 'followingCount', 'posts', 'user'));
+    }
+    
+    
+    
     /**
      * Update the user's profile information.
      */

@@ -61,7 +61,7 @@
                         @forelse ($users as $index => $p)
                             <tr class="hover:bg-blue-50">
                                 <td class="px-6 py-3">{{ $index + 1 }}</td> <!-- Menggunakan indeks untuk ID -->
-                                <td class="px-6 py-3">{{ $p->name }}</td>
+                                <td class="px-6 py-3">{{ $p->first_name }}</td>
                                 <td class="px-6 py-3">{{ $p->bio ?? 'N/A' }}</td>
                                 <td class="px-6 py-3">
                                     @if ($p->hasRole('admin'))

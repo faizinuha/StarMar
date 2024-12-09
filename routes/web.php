@@ -8,6 +8,8 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HashtagController;
 use App\Http\Controllers\LikesController;
+use App\Http\Controllers\FollowController;
+use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,21 +25,21 @@ use Illuminate\Support\Facades\Route;
 // Rute untuk autentikasi (Laravel Breeze)
 require __DIR__ . '/auth.php';
 Route::middleware('auth')->group(function () {
-    Route::get('/', [BerandaController::class, 'index'])->name('beranda')->middleware('auth.session');
-    // Rute untuk menyukai postingan
+    Route::get('/', [BerandaController::class, 'index'])->name('beranda');
     Route::post('/like', [LikesController::class, 'likePost'])->name('post.like');
-    // Rute untuk manajemen komentar
     Route::resource('comments', CommentController::class);
-    // Rute untuk mendapatkan saran hashtag
+    Route::post('/follow/{user}', [FollowController::class, 'follow'])->name('follow');
+    Route::post('/unfollow/{user}', [FollowController::class, 'unfollow'])->name('unfollow');
     Route::get('/hashtags/suggest', [HashtagController::class, 'suggest'])->name('hashtags.suggest');
 });
+Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+Route::post('/notifications/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
 
 /* ============================
 |  KHUSUS USERS
 ============================= */
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth',])->group(function () {
     // Halaman Beranda
-
     // Manajemen Postingan
     Route::prefix('posts')->group(function () {
         Route::get('/', [PostController::class, 'index'])->name('posts.index');
@@ -52,9 +54,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/user-profile', [ProfileController::class, 'users'])->name('user.profile');
-
-
+    Route::get('/user-profile/{id}', [ProfileController::class, 'users'])->name('user.profile');
+    Route::get('Profile', [ProfileController::class, 'profile'])->name('profile');
     // Halaman Akun
 });
 

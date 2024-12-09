@@ -69,4 +69,18 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comment::class)->whereNull('parent_id');
     }
+   
+    
+    // Pengguna yang diikuti oleh user ini
+    public function followings()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'follower_id', 'following_id');
+    }
+
+    // Pengguna yang mengikuti user ini
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'following_id', 'follower_id');
+    }
+
 }

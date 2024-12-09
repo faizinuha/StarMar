@@ -75,18 +75,20 @@
                             <div class="card w-100 shadow-xss rounded-xxl border-0 ps-4 pt-4 pe-4 pb-3 mb-3">
                                 <div class="card-body p-0">
                                     <!-- Profile and time section -->
+
+
                                     <div class="d-flex align-items-center">
-                                        <div
-                                            class="custom-circle bg-info text-white rounded-circle d-flex align-items-center justify-content-center font-weight-bold">
-                                            {{ strtoupper(substr($post->user->name, 0, 1)) }}
-                                        </div>
-
-
-
+                                        <!-- Link ke profil pengguna -->
+                                        <a href="{{ route('user.profile', $post->user->id) }}">
+                                            <div
+                                                class="custom-circle bg-info text-white rounded-circle d-flex align-items-center justify-content-center font-weight-bold">
+                                                {{ strtoupper(substr($post->user->first_name, 0, 1)) }}
+                                            </div>
+                                        </a>
                                         <!-- User Info -->
                                         <div class="ms-3">
                                             <h6 class="font-weight-semibold text-dark mb-0">
-                                                {{ $post->user->name }}
+                                                {{ $post->user->first_name }}
                                             </h6>
                                             <p class="text-muted small mb-0">
                                                 {{ $post->created_at->diffForHumans() }}</p>
@@ -97,8 +99,7 @@
                                     @if ($post->image)
                                         <div class="mb-4 relative">
                                             <img src="{{ asset('storage/' . $post->image) }}" alt="Post Image"
-                                                 class="mb-4"
-                                                style="filter: {{ $post->filter ?? 'none' }};">
+                                                class="mb-4" style="filter: {{ $post->filter ?? 'none' }};">
                                             @if (Auth::id() === $post->user_id)
                                                 <a href="{{ route('posts.edit', $post->id) }}"
                                                     class="absolute top-0 right-0 p-2 bg-white rounded-full shadow-md hover:bg-gray-200">

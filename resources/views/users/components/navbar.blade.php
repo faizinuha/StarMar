@@ -19,7 +19,7 @@
                 class="bg-grey border-0 lh-32 pt-2 pb-2 ps-5 pe-3 font-xssss fw-500 rounded-xl w350 theme-dark-bg">
         </div>
     </form>
-    <a href="{{route('beranda')}}" class="p-2 text-center ms-3 menu-icon center-menu-icon"><i
+    <a href="{{ route('beranda') }}" class="p-2 text-center ms-3 menu-icon center-menu-icon"><i
             class="feather-home font-lg alert-primary btn-round-lg theme-dark-bg text-current "></i></a>
     <!-- Tombol yang memicu modal -->
     <a href="javascript:void(0);" class="p-2 text-center ms-3 menu-icon center-menu-icon" data-bs-toggle="modal"
@@ -63,37 +63,38 @@
             class="feather-shopping-bag font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 "></i></a>
 
     <a href="#" class="p-2 text-center ms-auto menu-icon" id="dropdownMenu3" data-bs-toggle="dropdown"
-        aria-expanded="false"><span class="dot-count bg-warning"></span><i
-            class="feather-bell font-xl text-current"></i></a>
+        aria-expanded="false">
+        @if (Auth::user()->unreadNotifications->count() > 0)
+            <span class="badge bg-danger">
+                {{ Auth::user()->unreadNotifications->count() }}
+            </span>
+        @endif
+        <i class="feather-bell font-xl text-current"></i>
+    </a>
     <div class="dropdown-menu dropdown-menu-end p-4 rounded-3 border-0 shadow-lg" aria-labelledby="dropdownMenu3">
 
         <h4 class="fw-700 font-xss mb-4">Notification</h4>
+
+        @foreach (Auth::user()->unreadNotifications as $notification)
         <div class="card bg-transparent-card w-100 border-0 ps-5 mb-3">
             <img src="{{ asset('dist2/images/user-8.png') }}" alt="user" class="w40 position-absolute left-0">
-            <h5 class="font-xsss text-grey-900 mb-1 mt-0 fw-700 d-block">Hendrix Stamp <span
-                    class="text-grey-400 font-xsssss fw-600 float-right mt-1"> 3 min</span></h5>
-            <h6 class="text-grey-500 fw-500 font-xssss lh-4">There are many variations of pass..</h6>
+            <h5 class="font-xsss text-grey-900 mb-1 mt-0 fw-700 d-block">
+                {{ $notification->data['follower_name'] }}
+                <span class="text-grey-400 font-xsssss fw-600 float-right mt-1"> 3 min</span>
+            </h5>
+            <h6 class="text-grey-500 fw-500 font-xssss lh-4">
+                {{ $notification->data['message'] ?? 'Anda memiliki pengikut baru.' }}
+            </h6>
         </div>
-        <div class="card bg-transparent-card w-100 border-0 ps-5 mb-3">
-            <img src="{{ asset('dist2/images/user-4.png') }}" alt="user" class="w40 position-absolute left-0">
-            <h5 class="font-xsss text-grey-900 mb-1 mt-0 fw-700 d-block">Goria Coast <span
-                    class="text-grey-400 font-xsssss fw-600 float-right mt-1"> 2 min</span></h5>
-            <h6 class="text-grey-500 fw-500 font-xssss lh-4">Mobile Apps UI Designer is require..</h6>
-        </div>
+    @endforeach
+    
 
-        <div class="card bg-transparent-card w-100 border-0 ps-5 mb-3">
-            <img src="images/user-7.png" alt="user" class="w40 position-absolute left-0">
-            <h5 class="font-xsss text-grey-900 mb-1 mt-0 fw-700 d-block">Surfiya Zakir <span
-                    class="text-grey-400 font-xsssss fw-600 float-right mt-1"> 1 min</span></h5>
-            <h6 class="text-grey-500 fw-500 font-xssss lh-4">Mobile Apps UI Designer is require..</h6>
-        </div>
-        <div class="card bg-transparent-card w-100 border-0 ps-5">
-            <img src="images/user-6.png" alt="user" class="w40 position-absolute left-0">
-            <h5 class="font-xsss text-grey-900 mb-1 mt-0 fw-700 d-block">Victor Exrixon <span
-                    class="text-grey-400 font-xsssss fw-600 float-right mt-1"> 30 sec</span></h5>
-            <h6 class="text-grey-500 fw-500 font-xssss lh-4">Mobile Apps UI Designer is require..</h6>
-        </div>
+        @if (Auth::user()->unreadNotifications->isEmpty())
+            <p class="text-grey-500">Tidak ada notifikasi baru.</p>
+        @endif
+
     </div>
+
     <a href="#" class="p-2 text-center ms-3 menu-icon chat-active-btn"><i
             class="feather-message-square font-xl text-current"></i></a>
     <div class="p-2 text-center ms-3 position-relative dropdown-menu-icon menu-icon cursor-pointer">
@@ -104,8 +105,7 @@
             <ul>
                 <li>
                     <label class="item-radio item-content">
-                        <input type="radio" name="color-radio" value="red" checked=""><i
-                            class="ti-check"></i>
+                        <input type="radio" name="color-radio" value="red" checked=""><i class="ti-check"></i>
                         <span class="circle-color bg-red" style="background-color: #ff3b30;"></span>
                     </label>
                 </li>
@@ -128,54 +128,6 @@
                         <span class="circle-color bg-pink" style="background-color: #ff2d55;"></span>
                     </label>
                 </li>
-                <li>
-                    <label class="item-radio item-content">
-                        <input type="radio" name="color-radio" value="yellow"><i class="ti-check"></i>
-                        <span class="circle-color bg-yellow" style="background-color: #ffcc00;"></span>
-                    </label>
-                </li>
-                <li>
-                    <label class="item-radio item-content">
-                        <input type="radio" name="color-radio" value="orange"><i class="ti-check"></i>
-                        <span class="circle-color bg-orange" style="background-color: #ff9500;"></span>
-                    </label>
-                </li>
-                <li>
-                    <label class="item-radio item-content">
-                        <input type="radio" name="color-radio" value="gray"><i class="ti-check"></i>
-                        <span class="circle-color bg-gray" style="background-color: #8e8e93;"></span>
-                    </label>
-                </li>
-
-                <li>
-                    <label class="item-radio item-content">
-                        <input type="radio" name="color-radio" value="brown"><i class="ti-check"></i>
-                        <span class="circle-color bg-brown" style="background-color: #D2691E;"></span>
-                    </label>
-                </li>
-                <li>
-                    <label class="item-radio item-content">
-                        <input type="radio" name="color-radio" value="darkgreen"><i class="ti-check"></i>
-                        <span class="circle-color bg-darkgreen" style="background-color: #228B22;"></span>
-                    </label>
-                </li>
-                <li>
-                    <label class="item-radio item-content">
-                        <input type="radio" name="color-radio" value="deeppink"><i class="ti-check"></i>
-                        <span class="circle-color bg-deeppink" style="background-color: #FFC0CB;"></span>
-                    </label>
-                </li>
-                <li>
-                    <label class="item-radio item-content">
-                        <input type="radio" name="color-radio" value="cadetblue"><i class="ti-check"></i>
-                        <span class="circle-color bg-cadetblue" style="background-color: #5f9ea0;"></span>
-                    </label>
-                </li>
-                <li>
-                    <label class="item-radio item-content">
-                        <input type="radio" name="color-radio" value="darkorchid"><i class="ti-check"></i>
-                        <span class="circle-color bg-darkorchid" style="background-color: #9932cc;"></span>
-                    </label>
                 </li>
             </ul>
 
