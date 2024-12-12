@@ -47,6 +47,19 @@
                             </button>
                         </div>
 
+                        <!-- Daftar Filter -->
+                        <div id="filterOptions"
+                            class="absolute top-12 right-2 bg-white shadow-lg p-4 rounded-lg space-y-2 hidden z-50">
+                            <button type="button" class="filter-btn bg-gray-200 px-4 py-2 rounded-lg"
+                                data-filter="none">None</button>
+                            <button type="button" class="filter-btn bg-gray-200 px-4 py-2 rounded-lg"
+                                data-filter="grayscale(1)">Grayscale</button>
+                            <button type="button" class="filter-btn bg-gray-200 px-4 py-2 rounded-lg"
+                                data-filter="sepia(1)">Sepia</button>
+                            <button type="button" class="filter-btn bg-gray-200 px-4 py-2 rounded-lg"
+                                data-filter="contrast(2)">High Contrast</button>
+                        </div>
+
                         <!-- Area Gambar -->
                         <img id="imagePreview" class="rounded-lg max-w-full shadow-lg" alt="Preview Gambar">
 
@@ -58,6 +71,7 @@
                             </button>
                         </div>
                     </div>
+
                     <input type="hidden" name="filter" id="selectedFilter">
                     <input type="hidden" id="croppedImageData" name="cropped_image">
                 </div>
@@ -102,13 +116,13 @@
     <script>
         let cropper;
         let filterMode = false; // Menandakan jika filter mode aktif
-    
+
         // Preview Gambar
         function previewImage(event) {
             const file = event.target.files[0];
             const previewContainer = document.getElementById('imagePreviewContainer');
             const previewImage = document.getElementById('imagePreview');
-    
+
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
@@ -118,11 +132,12 @@
                 reader.readAsDataURL(file);
             }
         }
-    
+
         // Toggle Crop Mode
-        document.getElementById('toggleCrop').addEventListener('click', () => {
+        document.getElementById('toggleCrop').addEventListener('click', (event) => {
+            event.preventDefault(); // Mencegah relog saat tombol ditekan
             const image = document.getElementById('imagePreview');
-    
+
             if (filterMode) {
                 // Jika filter mode aktif, matikan filter terlebih dahulu
                 const filterButtons = document.querySelectorAll('.filter-btn');
@@ -131,7 +146,7 @@
                 document.getElementById('selectedFilter').value = 'none';
                 filterMode = false; // Nonaktifkan mode filter
             }
-    
+
             if (!cropper) {
                 cropper = new Cropper(image, {
                     aspectRatio: 1,
@@ -144,46 +159,51 @@
                 alert('Mode crop dinonaktifkan!');
             }
         });
-    
+
         // Toggle Filter Mode
-        document.getElementById('toggleFilter').addEventListener('click', () => {
+        document.getElementById('toggleFilter').addEventListener('click', (event) => {
+            event.preventDefault(); // Mencegah relog saat tombol ditekan
+            const filterOptions = document.getElementById('filterOptions');
+            filterOptions.classList.toggle('hidden'); // Tampilkan atau sembunyikan daftar filter
+
+            // Tambahkan event listener ke setiap tombol filter
+            document.querySelectorAll('.filter-btn').forEach((btn) => {
+                btn.addEventListener('click', function() {
+                    const selectedFilter = this.getAttribute('data-filter');
+                    const image = document.getElementById('imagePreview');
+                    image.style.filter = selectedFilter;
+                    document.getElementById('selectedFilter').value = selectedFilter;
+                });
+            });
+        });
+
+        // Apply Changes (Save Filter/Crop)
+        document.getElementById('applyChanges').addEventListener('click', (event) => {
+            event.preventDefault(); // Mencegah relog saat tombol ditekan
             const image = document.getElementById('imagePreview');
-    
+            const croppedImageInput = document.getElementById('croppedImageData');
+
             if (cropper) {
-                // Jika crop mode aktif, matikan crop terlebih dahulu
+                const canvas = cropper.getCroppedCanvas();
+                croppedImageInput.value = canvas.toDataURL('image/jpeg'); // Simpan base64 hasil crop
+                alert('Hasil crop berhasil disimpan!');
                 cropper.destroy();
                 cropper = null;
-                alert('Mode crop dinonaktifkan!');
-            }
-    
-            // Aktifkan atau matikan mode filter
-            filterMode = !filterMode;
-    
-            if (filterMode) {
-                alert('Mode filter diaktifkan! Pilih filter di bawah:');
-                const filterButtons = document.querySelectorAll('.filter-btn');
-                filterButtons.forEach(button => {
-                    button.addEventListener('click', function() {
-                        const selectedFilter = this.getAttribute('data-filter');
-                        image.style.filter = selectedFilter;
-                        document.getElementById('selectedFilter').value = selectedFilter;
-                    });
-                });
             } else {
-                image.style.filter = ''; // Reset filter
-                document.getElementById('selectedFilter').value = 'none';
+                alert('Hasil filter disimpan!');
             }
         });
-    
+
+
         // Apply Changes (Save Filter/Crop)
         document.getElementById('applyChanges').addEventListener('click', () => {
             const image = document.getElementById('imagePreview');
-    
+
             if (cropper) {
                 const canvas = cropper.getCroppedCanvas();
                 document.getElementById('croppedImageData').value = canvas.toDataURL('image/jpeg');
                 alert('Hasil crop berhasil disimpan!');
-    
+
                 // Setelah perubahan disimpan, nonaktifkan mode crop dan filter
                 cropper.destroy();
                 cropper = null;
@@ -192,7 +212,7 @@
                 image.style.filter = ''; // Reset filter
             } else {
                 alert('Simpan filter berhasil!');
-                
+
                 // Jika hanya filter yang disimpan, matikan mode filter
                 filterMode = false;
                 cropper = false;
@@ -201,7 +221,7 @@
             }
         });
     </script>
-    
+
 
 </body>
 

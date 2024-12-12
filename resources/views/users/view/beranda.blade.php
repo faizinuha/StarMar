@@ -13,6 +13,18 @@
             <div class="middle-sidebar-left">
                 <div class="row feed-body">
                     <div class="col-xl-8 col-xxl-9 col-lg-8">
+                        @if (Auth::user() && !Auth::user()->hasVerifiedEmail())
+                            <div class="alert alert-warning">
+                                Silakan verifikasi email Anda untuk melanjutkan.
+                                <form method="POST" action="{{ route('verification.send') }}">
+                                    @csrf
+                                    <button type="submit"
+                                        class="btn btn-primary w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                                        Kirim Ulang Tautan
+                                    </button>
+                                </form>
+                            </div>
+                        @endif
 
                         <!-- Form for creating a new post -->
                         <div class="card w-100 shadow-lg rounded-xxl border-0 ps-4 pt-4 pe-4 pb-3 mb-3">

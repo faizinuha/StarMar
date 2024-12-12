@@ -7,16 +7,16 @@
                 <div class="row">
                     <div class="col-xl-7 col-xxl-8">
                         <a href="index-2.html" class="text-nowrap logo-img d-block px-4 py-9 w-100">
-                            <img src="https://demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/dist/images/logos/dark-logo.svg"
-                                width="180" alt="">
+                            <img src="{{asset('StarMar/StarMar-.png')}}"
+                                width="50" style="border-radius: 50px" alt="">
                         </a>
                         <div class="d-none d-xl-flex align-items-center justify-content-center"
-                            style="height: calc(100vh - 80px);">
-                            <img src="https://demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/dist/images/backgrounds/login-security.svg"
-                                alt="" class="img-fluid" width="500">
+                            style="height: calc(100vh - 100px);">
+                            <img src="{{asset('StarMar/StarMar-.png')}}"
+                                alt="" class="img-fluid" width="400">
                         </div>
                     </div>
-                    <div class="col-xl-5 col-xxl-4">
+                <div class="col-xl-5 mt-3  col-xxl-4">
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body wizard-content">

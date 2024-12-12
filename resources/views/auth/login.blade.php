@@ -10,8 +10,8 @@
                         <div class="card mb-0">
                             <div class="card-body">
                                 <a href="index-2.html" class="text-nowrap logo-img text-center d-block mb-5 w-100">
-                                    <img src="https://demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/dist/images/logos/dark-logo.svg"
-                                        width="180" alt="">
+                                    <img src="{{asset('StarMar/StarMar.png')}}"
+                                        width="100" alt="">
                                 </a>
 
                                 <div class="position-relative text-center my-4">
@@ -49,11 +49,12 @@
                                     </div>
                                     <button type="submit" class="btn btn-primary w-100 py-8 mb-4 rounded-2">SIgn
                                         In</button>
-                                    <div class="d-flex align-items-center justify-content-center">
-                                        <p class="fs-4 mb-0 fw-medium">New to Modernize?</p>
-                                        <a class="text-primary fw-medium ms-2" href="{{ route('register') }}">Create an
-                                            account</a>
-                                    </div>
+                                        <div class="d-flex align-items-center justify-content-center gap-2">
+                                            <a class="text-primary fw-medium" href="{{ route('register') }}">Create an account</a>
+                                            <div class="text-muted">
+                                                <a class="text-primary fw-medium" href="{{ route('password.request') }}">Reset Password</a>
+                                            </div>
+                                        </div>                                                                              
                                 </form>
                             </div>
                         </div>
