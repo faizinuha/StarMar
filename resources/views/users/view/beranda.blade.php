@@ -1,4 +1,12 @@
 @extends('users.app')
+
+@push('css')
+    @livewireStyles
+@endpush
+@push('js')
+    @livewireScripts
+@endpush
+
 @section('content')
     <style>
         .custom-circle {
@@ -139,21 +147,32 @@
 
                                     <!-- Post interactions -->
                                     <div class="card-body d-flex p-0">
+                                        @php
+                                            $isLiked = $post->likedByUsers->contains(auth()->id());
+                                        @endphp
+
+                                        <button class="like-button {{ $isLiked ? 'liked' : '' }}"
+                                            data-post-id="{{ $post->id }}">
+                                            <i class="fas fa-heart"></i> <span
+                                                class="like-count">{{ $post->likedByUsers->count() }}</span>
+                                        </button>
+
+
                                         <a href="#"
                                             class="emoji-bttn d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss me-2">
                                             <i
                                                 class="feather-thumbs-up text-white bg-primary-gradiant me-1 btn-round-xs font-xss"></i>
                                             <i
-                                                class="feather-heart text-white bg-red-gradiant me-2 btn-round-xs font-xss"></i>2.8K
+                                                class="feather-heart text-white bg-red-gradiant me-2 btn-round-xs font-xss"></i>{{ $post->likedByUsers->count() }}
                                             Like
                                         </a>
-                                        <a href="javascript:void(0);" class="comment-icon"
-                                            data-post-id="{{ $post->id }}"
-                                            data-image-src="{{ asset('storage/' . $post->image) }}">
-                                            <i
-                                                class="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg"></i>
-                                            <span>{{ $post->comments->count() }} Comment</span>
-                                        </a>
+
+                                        <i class="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg"></i>
+                                        <span>{{ $post->comments->count() }} Comment</span>
+
+
+
+
                                         <a href="#"
                                             class="ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss">
                                             <i
@@ -161,10 +180,11 @@
                                                 class="d-none-xs">Share</span>
                                         </a>
                                     </div>
+                                    @livewire('posts.comment', ['postId' => $post->id])
+
                                 </div>
                             </div>
                         @endforeach
-
                         <!-- Loading spinner if needed -->
                         <div class="card w-100 text-center shadow-xss rounded-xxl border-0 p-4 mb-3 mt-3">
                             <div class="snippet mt-2 ms-auto me-auto" data-title=".dot-typing">
@@ -184,6 +204,34 @@
     <script src="{{ asset('js/bagikan.js') }}"></script>
     <script src="{{ asset('js/like.js') }}"></script>
 
+    <!-- CSS -->
+    <style>
+        .hidden {
+            display: none;
+        }
+
+        .read-more {
+            cursor: pointer;
+        }
+
+        .like-button.liked i {
+            color: red;
+        }
+
+        .like-button {
+            display: inline-flex;
+            align-items: center;
+            margin-right: 1px;
+        }
+
+        .like-count {
+            font-size: 14px;
+            color: #888;
+            margin-left: 1px;
+            vertical-align: middle;
+        }
+    </style>
+
     <script>
         document.querySelectorAll('.image-video-preview').forEach(function(element) {
             element.addEventListener('click', function() {
@@ -200,5 +248,75 @@
         });
     </script>
 
-    {{-- modal komentar --}}
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const likeButtons = document.querySelectorAll('.like-button');
+
+            likeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const postId = this.dataset.postId;
+                    const likeCountElement = this.querySelector(
+                        '.like-count'); // Get the like count element within the button
+                    const isLiked = this.classList.contains('liked'); // Check if the post is liked
+
+                    fetch('/like', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector(
+                                    'meta[name="csrf-token"]').getAttribute('content')
+                            },
+                            body: JSON.stringify({
+                                post_id: postId,
+                                action: isLiked ? 'unlike' :
+                                    'like' // Toggle action based on the current state
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.status === 'liked') {
+                                this.classList.add('liked');
+                            } else if (data.status === 'unliked') {
+                                this.classList.remove('liked');
+                            }
+                            // Update the like count
+                            likeCountElement.textContent = `${data.like_count} Like`;
+                        })
+                        .catch(error => console.error('Error:', error));
+                });
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const commentPopup = document.getElementById('commentPopup');
+            const btnComment = document.querySelector('.btn-comment');
+            const closePopup = document.getElementById('closePopup');
+
+            // Event untuk membuka popup
+            btnComment.addEventListener('click', () => {
+                commentPopup.classList.remove('hidden');
+            });
+
+            // Event untuk menutup popup
+            closePopup.addEventListener('click', () => {
+                commentPopup.classList.add('hidden');
+            });
+        });
+    </script>
+
+    <script>
+        // Fungsi untuk menampilkan/menyembunyikan form balas komentar
+        function toggleReplyForm(commentId) {
+            const replyForm = document.getElementById(`reply-form-${commentId}`);
+            if (replyForm.style.display === 'none') {
+                replyForm.style.display = 'block';
+            } else {
+                replyForm.style.display = 'none';
+            }
+        }
+    </script>
 @endsection

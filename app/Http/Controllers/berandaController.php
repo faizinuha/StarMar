@@ -56,6 +56,8 @@ class berandaController extends Controller
         return view('users.view.beranda', compact('posts', 'users'));
     }
 
+
+
     /**
      * Fungsi untuk memeriksa apakah error terkait jaringan/koneksi.
      */
@@ -69,7 +71,7 @@ class berandaController extends Controller
     public function setting()
     {
         $user = User::all();
-        return view('users.setting.default-setting',compact('user'));
+        return view('users.setting.default-setting', compact('user'));
     }
 
 
