@@ -63,7 +63,12 @@ class ProfileController extends Controller
         compact('followersCount', 'postCount','pos', 'followingCount', 'posts', 'user'));
     }
     public function showcontent(){
-        return view('users.setting.profile.user-profile')
+                $user = Auth::user(); // Ambil pengguna yang sedang login
+        $pos = Post::with('user')
+        ->where('user_id', $user->id)
+        ->select('image', 'video', 'video_short', 'filter', 'crop', 'content')
+        ->get();
+        return view('users.setting.profile.user-profile');
     }
     /**
      * Update the user's profile information.
