@@ -181,7 +181,6 @@
                                         </a>
                                     </div>
                                     @livewire('posts.comment', ['postId' => $post->id])
-
                                 </div>
                             </div>
                         @endforeach
