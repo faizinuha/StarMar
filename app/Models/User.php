@@ -83,4 +83,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(User::class, 'follows', 'following_id', 'follower_id');
     }
 
+    // verify
+    public function sendEmailVerificationNotification()
+{
+    $this->notify(new \App\Notifications\CustomVerifyEmail());
+}
+
 }

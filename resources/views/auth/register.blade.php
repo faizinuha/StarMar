@@ -118,17 +118,57 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="mb-3">
-                                                        <label for="password">Password :<span
-                                                                class="danger">*</span></label>
-                                                        <input type="password"
-                                                            class="form-control  @error('password') is-invalid @enderror"
+                                                        <label for="password">Password :<span class="danger">*</span></label>
+                                                        <input type="password" autocomplete="true"
+                                                            class="form-control @error('password') is-invalid @enderror"
                                                             id="password" name="password"
-                                                            value="{{ old('password') }}" />
+                                                            value="{{ old('password') }}" oninput="checkPasswordStrength()" />
                                                         @error('password')
                                                             <div class="text-danger">{{ $message }}</div>
                                                         @enderror
+                                                        <!-- Strength Meter -->
+                                                        <div id="password-strength" class="mt-2">
+                                                            <small class="text-muted" id="strength-text"></small>
+                                                            <div class="progress">
+                                                                <div class="progress-bar" id="strength-bar" role="progressbar"></div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
+                                                
+                                                <script>
+                                                    function checkPasswordStrength() {
+                                                        const password = document.getElementById("password").value;
+                                                        const strengthBar = document.getElementById("strength-bar");
+                                                        const strengthText = document.getElementById("strength-text");
+                                                
+                                                        let strength = 0;
+                                                
+                                                        // Check password criteria
+                                                        if (password.length >= 8) strength++; // Minimum 8 characters
+                                                        if (/[A-Z]/.test(password)) strength++; // Contains uppercase
+                                                        if (/[a-z]/.test(password)) strength++; // Contains lowercase
+                                                        if (/[0-9]/.test(password)) strength++; // Contains numbers
+                                                        if (/[@$!%*?&]/.test(password)) strength++; // Contains special characters
+                                                
+                                                        // Update progress bar and text based on strength
+                                                        const strengthLabels = ["Weak", "Fair", "Good", "Strong", "Very Strong"];
+                                                        const strengthColors = ["#dc3545", "#ffc107", "#17a2b8", "#28a745", "#007bff"];
+                                                
+                                                        // Calculate strength percentage
+                                                        const strengthPercentage = (strength / 5) * 100;
+                                                
+                                                        strengthBar.style.width = strengthPercentage + "%";
+                                                        strengthBar.style.backgroundColor = strengthColors[strength - 1] || "#dc3545";
+                                                        strengthText.textContent = strengthLabels[strength - 1] || "Too Weak";
+                                                
+                                                        // Reset if no password
+                                                        if (!password) {
+                                                            strengthBar.style.width = "0%";
+                                                            strengthText.textContent = "";
+                                                        }
+                                                    }
+                                                </script>                                                
                                                 <div class="col-md-12">
                                                     <div class="mb-3">
                                                         <label for="password_confirmation">Confirm Password :<span

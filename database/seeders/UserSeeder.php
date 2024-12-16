@@ -16,37 +16,39 @@ class UserSeeder extends Seeder
     {
         $users = [
             [
-                'first_name' => 'Admin',
-                'last_name' => 'Admin',
-                'email' => 'admin@gmail.com',
+                'first_name' => 'Cahaya',
+                'last_name' => 'Putri',
+                'email' => 'cahaya@gmail.com',
                 'phone' => null,
                 'gender' => 'male',
                 'date' => null,
                 'password' => Hash::make('password'),
-                'role' => 'admin'
+                'role' => 'admin',
+                'email_verified_at' => now(),  // Tanggal hari ini
             ],
             [
-                'first_name' => 'User',
-                'last_name' => 'User',
-                'email' => 'user@gmail.com',
+                'first_name' => 'putri',
+                'last_name' => 'Melani',
+                'email' => 'putri@gmail.com',
                 'phone' => '089511223344',
                 'gender' => 'male',
                 'date' => null,
                 'password' => Hash::make('password'),
-                'role' => 'user'
+                'role' => 'user',
+                'email_verified_at' => now()->subDay(),  // Tanggal kemarin
             ],
             [
-                'first_name' => 'User2',
-                'last_name' => 'User2',
-                'email' => 'user2@gmail.com',
+                'first_name' => 'saskia',
+                'last_name' => 'Putri',
+                'email' => 'saskia@gmail.com',
                 'phone' => '089511223345',
                 'gender' => 'female',
                 'date' => null,
                 'password' => Hash::make('password'),
-                'role' => 'user'
+                'role' => 'user',
+                'email_verified_at' => now(),  // Tanggal hari ini
             ],
-
-        ];
+        ];        
 
         foreach ($users as $userData) {
             $user = User::create([
@@ -57,6 +59,7 @@ class UserSeeder extends Seeder
                 'gender' => $userData['gender'],
                 'date' => $userData['date'],
                 'password' => $userData['password'],
+                
             ]);
 
             // Assign role if Spatie Laravel Permission is used

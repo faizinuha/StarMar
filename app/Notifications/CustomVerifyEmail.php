@@ -7,20 +7,17 @@ use Illuminate\Notifications\Messages\MailMessage;
 
 class CustomVerifyEmail extends BaseVerifyEmail
 {
-    /**
-     * Get the email representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
+    
     public function toMail($notifiable)
     {
+        $url = $this->verificationUrl($notifiable);
+    
         return (new MailMessage)
-                    ->subject(__('notifications.verification.subject'))
-                    ->greeting(__('notifications.verification.greeting', ['name' => $notifiable->name]))
-                    ->line(__('notifications.verification.intro'))
-                    ->action(__('notifications.verification.button'), $this->verificationUrl($notifiable))
-                    ->line(__('notifications.verification.outro'))
-                    ->salutation(__('notifications.verification.thank_you'));
+            ->subject('Verifikasi Email Anda')
+            ->greeting('Halo ' . $notifiable->first_name . ',')
+            ->line('Terima kasih telah bergabung! Klik tombol di bawah untuk memverifikasi email Anda.')
+            ->action('Verifikasi Email', $url)
+            ->line('Jika Anda tidak mendaftar, abaikan email ini.');
     }
+    
 }
