@@ -204,7 +204,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    @livewire('posts.comment', ['postId' => $post->id])
 
                                 </div>
                             </div>
