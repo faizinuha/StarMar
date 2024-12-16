@@ -53,8 +53,8 @@
 
 
 
-    <a href="default-storie.html" class="p-2 text-center ms-0 menu-icon center-menu-icon"><i
-            class="feather-zap font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 "></i></a>
+    {{-- <a href="default-storie.html" class="p-2 text-center ms-0 menu-icon center-menu-icon"><i
+            class="feather-zap font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 "></i></a> --}}
     <a href="default-video.html" class="p-2 text-center ms-0 menu-icon center-menu-icon"><i
             class="feather-video font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 "></i></a>
     <a href="default-group.html" class="p-2 text-center ms-0 menu-icon center-menu-icon"><i
@@ -76,18 +76,18 @@
         <h4 class="fw-700 font-xss mb-4">Notification</h4>
 
         @foreach (Auth::user()->unreadNotifications as $notification)
-        <div class="card bg-transparent-card w-100 border-0 ps-5 mb-3">
-            <img src="{{ asset('dist2/images/user-8.png') }}" alt="user" class="w40 position-absolute left-0">
-            <h5 class="font-xsss text-grey-900 mb-1 mt-0 fw-700 d-block">
-                {{ $notification->data['follower_name'] }}
-                <span class="text-grey-400 font-xsssss fw-600 float-right mt-1"> 3 min</span>
-            </h5>
-            <h6 class="text-grey-500 fw-500 font-xssss lh-4">
-                {{ $notification->data['message'] ?? 'Anda memiliki pengikut baru.' }}
-            </h6>
-        </div>
-    @endforeach
-    
+            <div class="card bg-transparent-card w-100 border-0 ps-5 mb-3">
+                <img src="{{ asset('dist2/images/user-8.png') }}" alt="user" class="w40 position-absolute left-0">
+                <h5 class="font-xsss text-grey-900 mb-1 mt-0 fw-700 d-block">
+                    {{ $notification->data['follower_name'] }}
+                    <span class="text-grey-400 font-xsssss fw-600 float-right mt-1"> 3 min</span>
+                </h5>
+                <h6 class="text-grey-500 fw-500 font-xssss lh-4">
+                    {{ $notification->data['message'] ?? 'Anda memiliki pengikut baru.' }}
+                </h6>
+            </div>
+        @endforeach
+
 
         @if (Auth::user()->unreadNotifications->isEmpty())
             <p class="text-grey-500">Tidak ada notifikasi baru.</p>

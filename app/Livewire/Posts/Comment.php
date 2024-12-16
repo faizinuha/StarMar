@@ -2,15 +2,16 @@
 
 namespace App\Livewire\Posts;
 
-use App\Models\Comment as ModelsComment;
-use App\Models\Post;
-use Illuminate\Support\Facades\Auth;
+use Log;
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Comment as ModelsComment;
 
 class Comment extends Component
 {
 
     public $post_id;
+    public $comments = [];
     public $replyTo = null;
     public $isLiked = false;
     public $body;
@@ -19,6 +20,7 @@ class Comment extends Component
     public function mount($postId)
     {
         $this->post_id = $postId; // Set nilai post_id dari parameter mount
+        $this->loadComments($postId);
     }
 
     public function store()
@@ -33,6 +35,8 @@ class Comment extends Component
         ]);
 
         $this->reset('body', 'replyTo');
+
+        $this->loadComments($this->post_id);
     }
 
     public function toggleLike($commentId)
@@ -62,12 +66,17 @@ class Comment extends Component
 
     public function render()
     {
-        $post = Post::with('comments.user')->findOrFail($this->post_id);
+        return view('livewire.posts.comment', [
+            'comments' => $this->comments, // Kirim data komentar ke view
+        ]);
+    }
 
-        foreach ($post->comments as $comment) {
-            $comment->isLiked = $comment->likes()->where('user_id', Auth::id())->exists();
-        }
+    public function loadComments($postId)
+    {
 
-        return view('livewire.posts.comment', compact('post'));
+        $this->comments = ModelsComment::where('post_id', $postId)
+            ->with('replies.replies', 'user')
+            ->whereNull('parent_id')
+            ->get();
     }
 }
