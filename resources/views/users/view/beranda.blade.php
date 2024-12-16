@@ -186,7 +186,6 @@
                                                 class="d-none-xs">Share</span>
                                         </a>
                                     </div>
-
                                     {{-- KOMENTAR --}}
                                     <div class="modal fade mx-l" id="komentar{{ $post->id }}" tabindex="-1"
                                         aria-labelledby="komentarLabel{{ $post->id }}" aria-hidden="true"
@@ -205,6 +204,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @livewire('posts.comment', ['postId' => $post->id])
 
                                 </div>
                             </div>

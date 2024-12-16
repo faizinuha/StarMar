@@ -16,7 +16,7 @@
                 <div class="profile-user-settings">
                     <!-- Menampilkan Nama Pengguna -->
                     <h1 class="profile-user-name font-bold" >
-                        {{ $user->first_name }} <!-- Ganti Auth::user() dengan $user untuk fleksibilitas -->
+                        {{ $user->first_name }}_ <!-- Ganti Auth::user() dengan $user untuk fleksibilitas -->
                     </h1>
                 
                     <!-- Tampilkan tombol Edit Profile jika pengguna sedang melihat profil dirinya sendiri -->
@@ -82,7 +82,27 @@
         <div class="container">
 
             <div class="gallery">
+                @forelse ($pos as $p)
+                <div class="gallery-item" tabindex="0">
 
+                    <img src="{{asset('storage/'. $p->image)}}"
+                        class="gallery-image" alt="">
+
+                    <div class="gallery-item-info">
+
+                        <ul>
+                            <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i
+                                    class="fas fa-heart" aria-hidden="true"></i> 56</li>
+                            <li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i
+                                    class="fas fa-comment" aria-hidden="true"></i> 2</li>
+                        </ul>
+
+                    </div>
+
+                </div>
+                @empty
+                    
+                @endforelse
                 <div class="gallery-item" tabindex="0">
 
                     <img src="https://images.unsplash.com/photo-1511765224389-37f0e77cf0eb?w=500&h=500&fit=crop"
