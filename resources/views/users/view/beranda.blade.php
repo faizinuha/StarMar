@@ -16,6 +16,7 @@
             font-size: 30px;
         }
     </style>
+
     <div class="main-content right-chat-active">
         <div class="middle-sidebar-bottom">
             <div class="middle-sidebar-left">
@@ -155,6 +156,7 @@
                                             data-post-id="{{ $post->id }}">
                                             <i class="fas fa-heart"></i> <span
                                                 class="like-count">{{ $post->likedByUsers->count() }}</span>
+
                                         </button>
 
 
@@ -167,11 +169,15 @@
                                             Like
                                         </a>
 
-                                        <i class="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg"></i>
-                                        <span>{{ $post->comments->count() }} Comment</span>
 
-
-
+                                        {{-- <span>{{ $post->comments->count() }} Comment</span> --}}
+                                        <button type="button" data-bs-toggle="modal"
+                                            data-bs-target="#komentar{{ $post->id }}"
+                                            wire:click="loadComments({{ $post->id }})">
+                                            <i
+                                                class="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg"></i>
+                                            {{ $post->comments->count() }} Komentar
+                                        </button>
 
                                         <a href="#"
                                             class="ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss">
@@ -180,7 +186,25 @@
                                                 class="d-none-xs">Share</span>
                                         </a>
                                     </div>
-                                    @livewire('posts.comment', ['postId' => $post->id])
+
+                                    {{-- KOMENTAR --}}
+                                    <div class="modal fade mx-l" id="komentar{{ $post->id }}" tabindex="-1"
+                                        aria-labelledby="komentarLabel{{ $post->id }}" aria-hidden="true"
+                                        data-bs-backdrop="false" wire:ignore>
+                                        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="komentarLabel">Komentar</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <!-- Komentar Livewire -->
+                                                    @livewire('posts.comment', ['postId' => $post->id])
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                 </div>
                             </div>
@@ -194,10 +218,18 @@
                             </div>
                         </div>
                     </div>
+
+                    {{-- RIGHT MENU --}}
+                    @include('users.components.right-menu')
                 </div>
             </div>
         </div>
     </div>
+
+
+
+
+
 
 
     <script src="{{ asset('js/comment.js') }}"></script>
@@ -230,6 +262,10 @@
             margin-left: 1px;
             vertical-align: middle;
         }
+
+        .custom-modal .modal-backdrop {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
     </style>
 
     <script>
@@ -247,7 +283,6 @@
             alert('Live Video option is not available yet!');
         });
     </script>
-
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -309,14 +344,11 @@
     </script>
 
     <script>
-        // Fungsi untuk menampilkan/menyembunyikan form balas komentar
-        function toggleReplyForm(commentId) {
-            const replyForm = document.getElementById(`reply-form-${commentId}`);
-            if (replyForm.style.display === 'none') {
-                replyForm.style.display = 'block';
-            } else {
-                replyForm.style.display = 'none';
-            }
-        }
+        document.addEventListener('livewire:load', function() {
+            Livewire.on('openModal', () => {
+                const modal = new bootstrap.Modal(document.getElementById('komentar'));
+                modal.show();
+            });
+        });
     </script>
 @endsection
