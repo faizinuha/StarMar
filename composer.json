@@ -10,8 +10,10 @@
         "biscolab/laravel-recaptcha": "^6.1",
         "intervention/image": "^3.9",
         "laravel/framework": "^11.31",
+        "laravel/reverb": "^1.0",
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.5",
+        "munafio/chatify": "^1.6",
         "spatie/laravel-permission": "^6.10"
     },
     "require-dev": {

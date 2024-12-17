@@ -48,7 +48,29 @@ class UserSeeder extends Seeder
                 'role' => 'user',
                 'email_verified_at' => now(),  // Tanggal hari ini
             ],
-        ];        
+            [
+                'first_name' => 'admin',
+                'last_name' => 'admin',
+                'email' => 'admin@gmail.com',
+                'phone' => '089511223346',
+                'gender' => 'female',
+                'date' => null,
+                'password' => Hash::make('password'),
+                'role' => 'user',
+                'email_verified_at' => now(),  // Tanggal hari ini
+            ],
+            [
+                'first_name' => 'user',
+                'last_name' => 'user',
+                'email' => 'user@gmail.com',
+                'phone' => '089511223347',
+                'gender' => 'female',
+                'date' => null,
+                'password' => Hash::make('password'),
+                'role' => 'user',
+                'email_verified_at' => now(),  // Tanggal hari ini
+            ],
+        ];
 
         foreach ($users as $userData) {
             $user = User::create([
@@ -59,7 +81,7 @@ class UserSeeder extends Seeder
                 'gender' => $userData['gender'],
                 'date' => $userData['date'],
                 'password' => $userData['password'],
-                
+
             ]);
 
             // Assign role if Spatie Laravel Permission is used
