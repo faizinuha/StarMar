@@ -70,6 +70,17 @@ class UserSeeder extends Seeder
                 'role' => 'user',
                 'email_verified_at' => now(),  // Tanggal hari ini
             ],
+            [
+                'first_name' => 'user2',
+                'last_name' => 'user2',
+                'email' => 'user2@gmail.com',
+                'phone' => '089511223348',
+                'gender' => 'female',
+                'date' => null,
+                'password' => Hash::make('password'),
+                'role' => 'user',
+                'email_verified_at' => now(),  // Tanggal hari ini
+            ],
         ];
 
         foreach ($users as $userData) {
