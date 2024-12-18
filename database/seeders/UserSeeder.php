@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
             [
                 'first_name' => 'Cahaya',
                 'last_name' => 'Putri',
-                'email' => 'rtxalham@gmail.com',
+                'email' => 'cahaya@gmail.com',
                 'phone' => null,
                 'gender' => 'male',
                 'date' => null,
