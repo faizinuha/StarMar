@@ -23,6 +23,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'last_name',
         'bio',
         'email',
+        'photo_profile',
         'phone',
         'gender',
         'date',
@@ -51,6 +52,9 @@ class User extends Authenticatable implements MustVerifyEmail
             'password' => 'hashed',
         ];
     }
+
+
+    
     public function post()
     {
         return $this->hasMany(Post::class);

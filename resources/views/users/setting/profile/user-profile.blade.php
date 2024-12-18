@@ -1,18 +1,35 @@
 @extends('users.app')
 @section('content')
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
     <header>
         <link rel="stylesheet" href="{{ asset('css/index.css') }}">
         <div class="container">
 
             <div class="profile">
 
-                <div class="profile-image">
-
-                    <img src="https://images.unsplash.com/photo-1513721032312-6a18a42c8763?w=152&h=152&fit=crop&crop=faces"
-                        alt="">
-
+                <div class="profile-image text-center position-relative">
+                    <img 
+                        src="{{ asset('storage/' . Auth::user()->photo_profile) }}" 
+                        alt="Foto Profil" 
+                        class="rounded-circle mt-2" 
+                        style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%;"
+                    >
+                    
+                    <div class="position-absolute bottom-0 end-0 p-1">
+                        <label for="photo" class="btn btn-primary btn-sm rounded-circle">
+                            <i class="bi bi-pencil-fill"></i>
+                        </label>
+                    </div>
+                    
+                    <form action="{{ route('profile.update_picture') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <input type="file" name="photo" id="photo" accept="image/*" capture="camera" class="form-control" style="display: none;" onchange="this.form.submit()">
+                    </form>
                 </div>
-
+                
+                
+                
                 <div class="profile-user-settings">
                     <!-- Menampilkan Nama Pengguna -->
                     <h1 class="profile-user-name font-bold" >

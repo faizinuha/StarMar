@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('bio')->nullable();
             $table->string('email')->unique();
             $table->string('phone')->unique()->nullable();
+            $table->string('photo_profile')->nullable()->default('placeholder.png');
             $table->enum('gender', ['male', 'female', 'custom']);
             $table->date('date')->nullable();
             $table->timestamp('email_verified_at')->nullable();

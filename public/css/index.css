@@ -51,7 +51,7 @@ img {
 
 /* Profile Section */
 .profile {
-  padding: 100px 0; /* Setara dengan 10rem jika root font-size adalah 16px */
+  padding: 130px 0; /* Setara dengan 10rem jika root font-size adalah 16px */
 }
 
 .profile::after {
@@ -81,7 +81,7 @@ img {
 }
 
 .profile-user-settings {
-  margin-top: 1.1rem;
+  margin-top: 5rem;
 }
 
 .profile-user-name {

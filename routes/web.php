@@ -55,6 +55,7 @@ Route::middleware(['auth',])->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/user-profile/{id}', [ProfileController::class, 'users'])->name('user.profile');
+    Route::post('/profile/update-picture', [ProfileController::class, 'updateProfilePicture'])->name('profile.update_picture');
     Route::get('Profile', [ProfileController::class, 'profile'])->name('profile');
     // Halaman Akun
 });

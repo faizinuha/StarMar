@@ -9,7 +9,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\models\user;
+use App\models\Follow;
 use App\Models\Post;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -62,6 +64,39 @@ class ProfileController extends Controller
         return view('users.setting.profile.user-profile', 
         compact('followersCount', 'postCount','pos', 'followingCount', 'posts', 'user'));
     }
+    // use Illuminate\Support\Facades\Storage;
+
+    public function updateProfilePicture(Request $request)
+    {
+        $request->validate([
+            'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+    
+        $user = Auth::user();
+        $username = $user->name;
+    
+        // Buat folder berdasarkan nama user
+        $folderPath = "uploads/{$username}/";
+    
+        // Jika sebelumnya sudah ada foto, hapus
+        if ($user->photo_profile && $user->photo_profile !== 'placeholder.png') {
+            Storage::delete("public/{$user->photo_profile}");
+        }
+    
+        // Simpan gambar baru
+        $path = $request->file('photo')->store($folderPath, 'public');
+        $user->photo_profile = $path;
+        $user->save();
+    
+        return back()->with('success', 'Foto profil berhasil diperbarui.');
+    }
+    
+    public function getDefaultProfilePicture()
+    {
+        return 'https://via.placeholder.com/150'; // Foto profil default dari internet
+    }
+    
+
     public function showcontent(){
                 $user = Auth::user(); // Ambil pengguna yang sedang login
         $pos = Post::with('user')
