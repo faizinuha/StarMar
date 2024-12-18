@@ -14,7 +14,7 @@
         <div class="max-w-md w-full bg-white shadow-lg rounded-lg p-6">
             <div class="text-center mb-4">
                 <h2 class="text-2xl font-semibold text-gray-800">{{ __('Forgot your password?') }}</h2>
-                <p class="mt-2 text-sm text-gray-600">{{ __('No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}</p>
+                <p class="mt-2 text-sm text-gray-600">{{ __('Demi Keamana Bersama Mohon Untuk Memasukan Email anda Untuk.') }}</p>
             </div>
 
             <!-- Session Status -->
@@ -30,7 +30,7 @@
                 <!-- Email Address -->
                 <div class="mb-4">
                     <label for="email" class="block text-sm font-medium text-gray-700">{{ __('Email') }}</label>
-                    <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus
+                    <input id="email" type="email" name="email" value="{{ old('email') }} " placeholder="Masukan Email Anda!" required autofocus
                         class="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                     @error('email')
                         <p class="text-red-500 text-sm mt-2">{{ $message }}</p>
@@ -40,7 +40,7 @@
                 <div class="flex items-center justify-center mt-6">
                     <button type="submit"
                         class="inline-flex items-center px-6 py-3 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-200 ease-in-out">
-                        {{ __('Email Password Reset Link') }}
+                        {{ __('Reset password') }}
                     </button>
                 </div>
             </form>

@@ -12,6 +12,7 @@
 
 {{-- Intro Lines --}}
 @foreach ($introLines as $line)
+
 {{ $line }}
 
 @endforeach
@@ -31,8 +32,6 @@
 
 {{-- Outro Lines --}}
 sasd{{ $line }}
-
-@endforeach
 
 {{-- Salutation --}}
 @if (! empty($salutation))
