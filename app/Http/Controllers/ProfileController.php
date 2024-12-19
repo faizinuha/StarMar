@@ -93,7 +93,7 @@ class ProfileController extends Controller
     
     public function getDefaultProfilePicture()
     {
-        return 'https://via.placeholder.com/150'; // Foto profil default dari internet
+        return 'users/Default.jpg'; // Foto profil default dari internet
     }
     
 

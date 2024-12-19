@@ -16,6 +16,11 @@
             font-size: 30px;
         }
     </style>
+@if (session('success'))
+<div class="alert alert-success">
+    {{ session('success') }}
+</div>
+@endif
 
     <div class="main-content right-chat-active">
         <div class="middle-sidebar-bottom">
@@ -36,7 +41,7 @@
                         @endif
 
                         <!-- Form for creating a new post -->
-                        <div class="card w-100 shadow-lg rounded-xxl border-0 ps-4 pt-4 pe-4 pb-3 mb-3">
+                        {{-- <div class="card w-100 shadow-lg rounded-xxl border-0 ps-4 pt-4 pe-4 pb-3 mb-3">
                             <div class="card-body p-0">
                                 <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
@@ -71,24 +76,14 @@
                                         </div>
                                     </div>
 
-                                    <!-- Bagian Go Live Video -->
-                                    {{-- <div class="mt-3">
-                                        <label class="d-block font-xss fw-600 text-grey-500 mb-2">Live Video
-                                            Broadcast</label>
-                                        <button type="button"
-                                            class="btn btn-outline-primary w-100 d-flex align-items-center justify-content-center p-3 rounded-3 shadow-sm hover-shadow-lg transition-all"
-                                            id="live-video-btn">
-                                            <i class="feather-video me-2"></i> Go Live
-                                        </button>
-                                    </div> --}}
-
+                        
                                     <button type="submit"
                                         class="btn btn-primary mt-3 d-flex align-items-center justify-content-center w-100 p-3 rounded-3 shadow-sm hover-shadow-lg transition-all">
                                         <i class="feather-send me-2"></i> Post
                                     </button>
                                 </form>
                             </div>
-                        </div>
+                        </div> --}}
 
 
                         <!-- Display posts -->
@@ -137,8 +132,6 @@
                                             @endif
                                         </div>
                                     @endif
-
-
 
                                     <!-- Post content -->
                                     <div class="card-body p-0">

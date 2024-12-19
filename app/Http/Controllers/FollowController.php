@@ -15,18 +15,17 @@ class FollowController extends Controller
     public function follow(User $user)
     {
         $currentUser = Auth::user();
-
-        // Cek apakah pengguna sudah mengikuti
+    
         if (!$currentUser->followings->contains($user->id)) {
-            // Follow pengguna
             $currentUser->followings()->attach($user->id);
-
-            // Kirim notifikasi ke pengguna yang diikuti
-            $user->notify(new NewFollowerNotification($currentUser)); // Kirim notifikasi
+    
+            // Kirim notifikasi (opsional)
+            $user->notify(new NewFollowerNotification($currentUser));
         }
-
+    
         return redirect()->back()->with('success', 'Berhasil mengikuti pengguna.');
     }
+    
 
     /**
      * Unfollow a user.
@@ -34,17 +33,26 @@ class FollowController extends Controller
     public function unfollow(User $user)
     {
         $currentUser = Auth::user();
-
-        // Cek apakah pengguna sudah mengikuti
-        if ($currentUser->followings()->where('following_id', $user->id)->exists()) {
-            // Unfollow pengguna
+    
+        if ($currentUser->followings->where('following_id', $user->id)->exists()) {
             $currentUser->followings()->detach($user->id);
-            
-            return redirect()->back()->with('success', 'Berhasil berhenti mengikuti pengguna.');
         }
-
-        return redirect()->back()->with('info', 'Anda belum mengikuti pengguna ini.');
+    
+        return redirect()->back()->with('success', 'Berhasil berhenti mengikuti pengguna.');
     }
+    
 
     // Fungsi lainnya yang tidak digunakan dapat dihapus atau tetap dibiarkan kosong.
+    public function deleteFriend(User $user)
+    {
+        $currentUser = Auth::user();
+    
+        // Hapus pengguna dari daftar teman (menghapus hubungan)
+        if ($currentUser->followings()->where('following_id', $user->id)->exists()) {
+            $currentUser->followings()->detach($user->id);
+        }
+    
+        return redirect()->back()->with('success', 'Berhasil menghapus teman.');
+    }
+    
 }

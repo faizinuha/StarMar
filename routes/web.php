@@ -29,7 +29,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/like', [LikesController::class, 'likePost'])->name('post.like');
     Route::resource('comments', CommentController::class);
     Route::post('/follow/{user}', [FollowController::class, 'follow'])->name('follow');
-    Route::post('/unfollow/{user}', [FollowController::class, 'unfollow'])->name('unfollow');
+    Route::delete('/unfollow/{user}', [FollowController::class, 'unfollow'])->name('unfollow');
+    Route::delete('/friend/{user}', [FollowController::class, 'deleteFriend'])->name('delete.friend');
     Route::get('/hashtags/suggest', [HashtagController::class, 'suggest'])->name('hashtags.suggest');
 });
 Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');

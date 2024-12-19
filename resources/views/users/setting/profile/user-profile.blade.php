@@ -95,100 +95,103 @@
     </header>
 
     <main>
-
         <div class="container">
-
+            <!-- Bagian Story -->
+            {{-- <div class="story-container">
+                <div class="story">
+                    <img src="path/to/image1.jpg" class="story-image" alt="Story">
+                    <p>JavalDe</p>
+                </div>
+                <div class="story">
+                    <img src="path/to/image2.jpg" class="story-image" alt="Story">
+                    <p>Anime Terpisah</p>
+                </div>
+                <div class="story">
+                    <img src="path/to/image3.jpg" class="story-image" alt="Story">
+                    <p>Gambar Cute</p>
+                </div>
+                <div class="story">
+                    <img src="path/to/image4.jpg" class="story-image" alt="Story">
+                    <p>Nyaman</p>
+                </div>
+                <div class="story add-story">
+                    <i class="fas fa-plus"></i>
+                    <p>New</p>
+                </div>
+            </div> --}}
+    
+            <!-- Bagian Navigasi -->
+            <div class="profile-nav">
+                <a href="#">Posts</a>
+                <a href="#">Reels</a>
+                <a href="#">Saved</a>
+                <a href="#">Tagged</a>
+            </div>
+    
+            <!-- Bagian Gallery -->
             <div class="gallery">
                 @forelse ($pos as $p)
-                <div class="gallery-item" tabindex="0">
-
-                    <img src="{{asset('storage/'. $p->image)}}"
-                        class="gallery-image" alt="">
-
-                    <div class="gallery-item-info">
-
-                        <ul>
-                            <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i
-                                    class="fas fa-heart" aria-hidden="true"></i> 56</li>
-                            <li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i
-                                    class="fas fa-comment" aria-hidden="true"></i> 2</li>
-                        </ul>
-
+                    <div class="gallery-item-info" tabindex="0">
+                        <img src="{{asset('storage/'. $p->image)}}" class="gallery-image" alt="">
+                        <div class="gallery-item-info">
+                            <ul>
+                                <li><i class="fas fa-heart"></i> 56</li>
+                                <li><i class="fas fa-comment"></i> 2</li>
+                            </ul>
+                        </div>
                     </div>
-
-                </div>
                 @empty
-                    
+                    <p>No posts available</p>
                 @endforelse
-                <div class="gallery-item" tabindex="0">
-
-                    <img src="https://images.unsplash.com/photo-1511765224389-37f0e77cf0eb?w=500&h=500&fit=crop"
-                        class="gallery-image" alt="">
-
-                    <div class="gallery-item-info">
-
-                        <ul>
-                            <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i
-                                    class="fas fa-heart" aria-hidden="true"></i> 56</li>
-                            <li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i
-                                    class="fas fa-comment" aria-hidden="true"></i> 2</li>
-                        </ul>
-
-                    </div>
-
-                </div>
-
-                <div class="gallery-item" tabindex="0">
-
-                    <img src="https://images.unsplash.com/photo-1497445462247-4330a224fdb1?w=500&h=500&fit=crop"
-                        class="gallery-image" alt="">
-
-                    <div class="gallery-item-info">
-
-                        <ul>
-                            <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i
-                                    class="fas fa-heart" aria-hidden="true"></i> 89</li>
-                            <li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i
-                                    class="fas fa-comment" aria-hidden="true"></i> 5</li>
-                        </ul>
-
-                    </div>
-
-                </div>
-
-                <div class="gallery-item" tabindex="0">
-
-                    <img src="https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=500&h=500&fit=crop"
-                        class="gallery-image" alt="">
-
-                    <div class="gallery-item-type">
-
-                        <span class="visually-hidden">Gallery</span><i class="fas fa-clone" aria-hidden="true"></i>
-
-                    </div>
-
-                    <div class="gallery-item-info">
-
-                        <ul>
-                            <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i
-                                    class="fas fa-heart" aria-hidden="true"></i> 42</li>
-                            <li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i
-                                    class="fas fa-comment" aria-hidden="true"></i> 1</li>
-                        </ul>
-
-                    </div>
-
-                </div>
             </div>
-        <!-- End of gallery -->
-
-            <div class="loader"></div>
-
         </div>
-        <!-- End of container -->
-
     </main>
+    
     <style>
+/* Container Utama */
+.container {
+    width: 80%;
+    margin: auto;
+}
+
+
+/* Navigasi */
+.profile-nav {
+    display: flex;
+    justify-content: space-evenly;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 15px;
+}
+
+.profile-nav a {
+    text-decoration: none;
+    color: #333;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.profile-nav a:hover {
+    color: #d6249f;
+}
+
+/* Gallery */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.gallery-item {
+    position: relative;
+}
+
+.gallery-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 
     </style>
 @endsection
