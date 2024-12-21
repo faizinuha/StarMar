@@ -27,6 +27,6 @@ class DashboardController extends Controller
 
         $months = ['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-        return view('dashboard', compact('posts', 'user', 'maleCount', 'femaleCount', 'postsPerMonth', 'months'));
+        return view('Admin.dashboard', compact('posts', 'user', 'maleCount', 'femaleCount', 'postsPerMonth', 'months'));
     }
 }

@@ -46,7 +46,7 @@
 
                 <!-- Notification Reports -->
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="index4.html" aria-expanded="false">
+                    <a class="sidebar-link" href="{{route('admin.reports')}}" aria-expanded="false">
                         <span><i class="ti ti-bell"></i></span>
                         <span class="hide-menu">Notification Reports</span>
                     </a>

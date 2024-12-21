@@ -9,8 +9,10 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HashtagController;
 use App\Http\Controllers\LikesController;
 use App\Http\Controllers\FollowController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,3 +71,11 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/Account', [AccountController::class, 'index'])->name('Account.index');
 });
+
+// Rute untuk menampilkan form laporan
+Route::get('/report/{type}/{id}', [ReportController::class, 'create'])->name('report.create');
+
+// Rute untuk mengirim laporan
+Route::post('/report', [ReportController::class, 'store'])->name('report.store');
+Route::get('/admin/reports', [AdminController::class, 'reports'])->name('admin.reports');
+Route::post('/admin/reports/{report}', [AdminController::class, 'takeAction'])->name('admin.reports.action');
