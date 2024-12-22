@@ -73,9 +73,9 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
 });
 
 // Rute untuk menampilkan form laporan
-Route::get('/report/{type}/{id}', [ReportController::class, 'create'])->name('report.create');
-
 // Rute untuk mengirim laporan
+Route::get('/report/{type}/{id}', [ReportController::class, 'create'])->name('report.create');
 Route::post('/report', [ReportController::class, 'store'])->name('report.store');
 Route::get('/admin/reports', [AdminController::class, 'reports'])->name('admin.reports');
-Route::post('/admin/reports/{report}', [AdminController::class, 'takeAction'])->name('admin.reports.action');
+Route::post('admin/reports/{report}/action', [AdminController::class, 'takeAction'])->name('admin.reports.action');
+Route::get('admin/reports/{report}/action', [AdminController::class, 'actionPage'])->name('admin.reports.actionPage');

@@ -14,4 +14,21 @@ class Report extends Model
         'description',
         'status',
     ];
+
+    public function reporter()
+    {
+        return $this->belongsTo(User::class, 'reporter_id');
+    }
+
+    // Relasi ke User yang dilaporkan
+    public function reportedUser()
+    {
+        return $this->belongsTo(User::class, 'reported_user_id');
+    }
+
+    // Relasi ke Post yang dilaporkan
+    public function reportedPost()
+    {
+        return $this->belongsTo(Post::class, 'reported_post_id');
+    }
 }

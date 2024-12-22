@@ -54,7 +54,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
 
-    
+
     public function post()
     {
         return $this->hasMany(Post::class);
@@ -73,8 +73,8 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Comment::class)->whereNull('parent_id');
     }
-   
-    
+
+
     // Pengguna yang diikuti oleh user ini
     public function followings()
     {
@@ -89,8 +89,9 @@ class User extends Authenticatable implements MustVerifyEmail
 
     // verify
     public function sendEmailVerificationNotification()
-{
-    $this->notify(new \App\Notifications\CustomVerifyEmail());
-}
+    {
+        $this->notify(new \App\Notifications\CustomVerifyEmail());
+    }
+
 
 }
