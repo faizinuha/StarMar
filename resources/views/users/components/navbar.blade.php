@@ -37,7 +37,7 @@
     <!-- Modal dengan backdrop yang dinonaktifkan -->
     <div class="modal fade mx-l" id="postModal" tabindex="-1" aria-labelledby="postModalLabel" aria-hidden="true"
         data-bs-backdrop="false">
-        <div class="modal-dialog modal-lg"> <!-- Tambahkan kelas modal-lg atau modal-xl -->
+        <div class="modal-dialog modal-lg modal-dialog-scrollable"> <!-- Tambahkan kelas modal-lg atau modal-xl -->
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="postModalLabel">Create Post</h5>
