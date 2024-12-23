@@ -9,7 +9,7 @@ class Post extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'content', 'image','video', 'video_short','crop','filter'];
+    protected $fillable = ['user_id', 'content', 'image', 'video', 'video_short', 'crop', 'filter'];
 
     public function user()
     {
@@ -19,12 +19,17 @@ class Post extends Model
     {
         return $this->belongsToMany(Hashtag::class, 'hashtag_post');
     }
-    public function likedByUsers()
-    {
-        return $this->belongsToMany(User::class, 'post_user_like')->withTimestamps();
-    }
+    // public function likedByUsers()
+    // {
+    //     return $this->belongsToMany(User::class, 'post_user_like')->withTimestamps();
+    // }
     public function comments()
     {
         return $this->hasMany(Comment::class)->whereNull('parent_id')->with('replies');
+    }
+
+    public function likes()
+    {
+        return $this->belongsToMany(User::class, 'post_user_like')->withTimestamps();
     }
 }

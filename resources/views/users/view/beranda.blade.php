@@ -16,18 +16,18 @@
             font-size: 30px;
         }
     </style>
-@if (session('success'))
-<div class="alert alert-success">
-    {{ session('success') }}
-</div>
-@endif
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
 
     <div class="main-content right-chat-active">
         <div class="middle-sidebar-bottom">
             <div class="middle-sidebar-left">
                 <div class="row feed-body">
                     <div class="col-xl-8 col-xxl-9 col-lg-8">
-                       
+
 
                         <!-- Form for creating a new post -->
                         {{-- <div class="card w-100 shadow-lg rounded-xxl border-0 ps-4 pt-4 pe-4 pb-3 mb-3">
@@ -102,47 +102,53 @@
 
 
                                     @if ($post->image)
-                                    <div class="mb-4 relative">
-                                        <img src="{{ asset('storage/' . $post->image) }}" alt="Post Image" class="mb-4"
-                                            style="filter: {{ $post->filter ?? 'none' }};">            
-                                        @if (Auth::check())
-                                            <div class="absolute top-0 right-0 p-2">
-                                                <div class="dropdown">
-                                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                                        <i class="fas fa-ellipsis-v text-xl text-gray-600"></i>
-                                                    </button>
-                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                        @if (Auth::id() === $post->user_id)
-                                                            <!-- Edit Button -->
+                                        <div class="mb-4 relative">
+                                            <img src="{{ asset('storage/' . $post->image) }}" alt="Post Image"
+                                                class="mb-4" style="filter: {{ $post->filter ?? 'none' }};">
+                                            @if (Auth::check())
+                                                <div class="absolute top-0 right-0 p-2">
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-secondary dropdown-toggle" type="button"
+                                                            id="dropdownMenuButton" data-bs-toggle="dropdown"
+                                                            aria-expanded="false">
+                                                            <i class="fas fa-ellipsis-v text-xl text-gray-600"></i>
+                                                        </button>
+                                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                            @if (Auth::id() === $post->user_id)
+                                                                <!-- Edit Button -->
+                                                                <li>
+                                                                    <a class="dropdown-item"
+                                                                        href="{{ route('posts.edit', $post->id) }}">
+                                                                        <i class="fas fa-edit text-gray-600"></i> Edit
+                                                                    </a>
+                                                                </li>
+                                                                <!-- Delete Button -->
+                                                                <li>
+                                                                    <form action="{{ route('posts.destroy', $post->id) }}"
+                                                                        method="POST">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button type="submit"
+                                                                            class="dropdown-item text-red-600">
+                                                                            <i class="fas fa-trash"></i> Delete
+                                                                        </button>
+                                                                    </form>
+                                                                </li>
+                                                            @endif
+                                                            <!-- Report Button (visible to all authenticated users) -->
                                                             <li>
-                                                                <a class="dropdown-item" href="{{ route('posts.edit', $post->id) }}">
-                                                                    <i class="fas fa-edit text-gray-600"></i> Edit
+                                                                <a class="dropdown-item"
+                                                                    href="{{ route('report.create', ['type' => 'post', 'id' => $post->id]) }}">
+                                                                    <i class="fas fa-flag text-warning"></i> Laporkan
                                                                 </a>
                                                             </li>
-                                                            <!-- Delete Button -->
-                                                            <li>
-                                                                <form action="{{ route('posts.destroy', $post->id) }}" method="POST">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="submit" class="dropdown-item text-red-600">
-                                                                        <i class="fas fa-trash"></i> Delete
-                                                                    </button>
-                                                                </form>
-                                                            </li>
-                                                        @endif
-                                                        <!-- Report Button (visible to all authenticated users) -->
-                                                        <li>
-                                                            <a class="dropdown-item" href="{{ route('report.create', ['type' => 'post', 'id' => $post->id]) }}">
-                                                                <i class="fas fa-flag text-warning"></i> Laporkan
-                                                            </a>
-                                                        </li>
-                                                    </ul>
+                                                        </ul>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        @endif
-                                    </div>
-                                @endif
-                                                            
+                                            @endif
+                                        </div>
+                                    @endif
+
                                     <!-- Post content -->
                                     <div class="card-body p-0">
                                         <p class="fw-500 text-grey-500 lh-26 font-xssss w-100 mb-2">
@@ -151,25 +157,17 @@
 
                                     <!-- Post interactions -->
                                     <div class="card-body d-flex p-0">
-                                        @php
-                                            $isLiked = $post->likedByUsers->contains(auth()->id());
-                                        @endphp
 
-                                        <button class="like-button {{ $isLiked ? 'liked' : '' }}"
-                                            data-post-id="{{ $post->id }}">
-                                            <i class="fas fa-heart"></i> <span
-                                                class="like-count">{{ $post->likedByUsers->count() }}</span>
-
-                                        </button>
+                                        <livewire:post-like :post="$post" />
 
 
-                                        <a href="#"
+                                        {{-- <a href="#"
                                             class="emoji-bttn d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss me-2">
                                             <i
-                                                class="feather-thumbs-up text-white bg-primary-gradiant me-1 btn-round-xs font-xss"></i>
-                                            <i
+                                                class="feather-thumbs-up text-white bg-primary-gradiant me-1 btn-round-xs font-xss"></i> --}}
+                                        {{-- <i
                                                 class="feather-heart text-white bg-red-gradiant me-2 btn-round-xs font-xss"></i>{{ $post->likedByUsers->count() }}
-                                            Like
+                                            Like --}}
                                         </a>
 
 
@@ -237,8 +235,12 @@
     <script src="{{ asset('js/comment.js') }}"></script>
     <script src="{{ asset('js/bagikan.js') }}"></script>
     <script src="{{ asset('js/like.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
+    </script>
     <!-- CSS -->
     <style>
         .hidden {

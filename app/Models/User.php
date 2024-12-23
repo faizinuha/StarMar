@@ -64,9 +64,14 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Hashtag::class);
     }
 
+    // public function likedPosts()
+    // {
+    //     return $this->belongsToMany(Post::class, 'post_user_like')->withTimestamps();
+    // }
+
     public function likedPosts()
     {
-        return $this->belongsToMany(Post::class, 'post_user_like')->withTimestamps();
+        return $this->belongsToMany(User::class, 'post_user_like')->withTimestamps();
     }
 
     public function comments()
@@ -92,6 +97,4 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         $this->notify(new \App\Notifications\CustomVerifyEmail());
     }
-
-
 }

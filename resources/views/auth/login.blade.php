@@ -10,7 +10,7 @@
                         class="d-inline-block fredoka-font ls-3 fw-600 text-current font-xxl logo-text mb-0">StarMar.</span>
                 </a>
             </div>
-            <div class="d-flex align-items-center">
+            {{-- <div class="d-flex align-items-center">
                 <a href="#" class="mob-menu ms-auto me-2 chat-active-btn"><i
                         class="feather-message-circle text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
                 <a href="default-video.html" class="mob-menu me-2"><i
@@ -18,11 +18,10 @@
                 <a href="#" class="me-2 menu-search-icon mob-menu"><i
                         class="feather-search text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
                 <button class="nav-menu me-0 ms-2"></button>
-            </div>
+            </div> --}}
             <div>
                 <a href="{{ route('register') }}"
-                    class="header-btn d-none d-lg-block bg-current fw-500 text-white font-xsss p-3 ms-2 w100 text-center lh-20 rounded-xl"
-                    data-bs-toggle="modal" data-bs-target="#Modalregister">Register</a>
+                    class="header-btn d-none d-lg-block bg-current fw-500 text-white font-xsss p-3 ms-2 w100 text-center lh-20 rounded-xl">Register</a>
             </div>
         </div>
     </div>
@@ -73,18 +72,6 @@
 
                     <div class="col-sm-12 p-0 text-center mt-2">
 
-                        <h6 class="mb-0 d-inline-block bg-white fw-500 font-xsss text-grey-500 mb-3">Or, Sign in
-                            with your social account </h6>
-                        <div class="form-group mb-1"><a href="#"
-                                class="form-control text-left style2-input text-white fw-600 bg-facebook border-0 p-0 mb-2"><img
-                                    src="{{ asset('dist2/images/icon-1.png') }}" alt="icon" class="ms-2 w40 mb-1 me-5">
-                                Sign in with
-                                Google</a></div>
-                        <div class="form-group mb-1"><a href="#"
-                                class="form-control text-left style2-input text-white fw-600 bg-twiiter border-0 p-0 "><img
-                                    src="{{ asset('dist2/images/icon-3.png') }}" alt="icon" class="ms-2 w40 mb-1 me-5">
-                                Sign in with
-                                Facebook</a></div>
                     </div>
                 </div>
             </div>
