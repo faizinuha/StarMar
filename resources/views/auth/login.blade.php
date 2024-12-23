@@ -1,63 +1,90 @@
-@extends('auth.layouts.main')
-@section('content')
-    <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-sidebartype="full" data-sidebar-position="fixed"
-        data-header-position="fixed">
-        <div
-            class="position-relative overflow-hidden radial-gradient min-vh-100 d-flex align-items-center justify-content-center">
-            <div class="d-flex align-items-center justify-content-center w-100">
-                <div class="row justify-content-center w-100">
-                    <div class="col-md-8 col-lg-6 col-xxl-3">
-                        <div class="card mb-0">
-                            <div class="card-body">
-                                <a href="index-2.html" class="text-nowrap logo-img text-center d-block mb-5 w-100">
-                                    <img src="{{asset('StarMar/StarMar.png')}}"
-                                        width="100" alt="">
-                                </a>
+@extends('auth.layouts.main2')
+@section('content2')
+    <div class="nav-header bg-transparent shadow-none border-0">
+        <div class="nav-top w-100 d-flex justify-content-between align-items-center">
+            <!-- Grup Kiri -->
+            <div class="d-flex align-items-center">
+                <img src="{{ asset('StarMar/StarMar-.png') }}" width="100" alt="">
+                <a href="index.html"><i class=""></i>
+                    <span
+                        class="d-inline-block fredoka-font ls-3 fw-600 text-current font-xxl logo-text mb-0">StarMar.</span>
+                </a>
+            </div>
+            <div class="d-flex align-items-center">
+                <a href="#" class="mob-menu ms-auto me-2 chat-active-btn"><i
+                        class="feather-message-circle text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
+                <a href="default-video.html" class="mob-menu me-2"><i
+                        class="feather-video text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
+                <a href="#" class="me-2 menu-search-icon mob-menu"><i
+                        class="feather-search text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
+                <button class="nav-menu me-0 ms-2"></button>
+            </div>
+            <div>
+                <a href="{{ route('register') }}"
+                    class="header-btn d-none d-lg-block bg-current fw-500 text-white font-xsss p-3 ms-2 w100 text-center lh-20 rounded-xl"
+                    data-bs-toggle="modal" data-bs-target="#Modalregister">Register</a>
+            </div>
+        </div>
+    </div>
 
-                                <div class="position-relative text-center my-4">
-                                    <p class="mb-0 fs-4 px-3 d-inline-block bg-white text-dark z-index-5 position-relative">
-                                        Sign In</p>
-                                    <span
-                                        class="border-top w-100 position-absolute top-50 start-50 translate-middle"></span>
-                                </div>
-                                <form action="{{ route('login') }}" method="POST">
-                                    @csrf
-                                    <div class="mb-3">
-                                        <label for="email" class="form-label">Email</label>
-                                        <input type="email" class="form-control" id="email"
-                                            aria-describedby="emailHelp" name="email" placeholder="Enter your email">
-                                        @error('email')
-                                            <small class="text-danger">{{ $message }}</small>
-                                        @enderror
-                                    </div>
-                                    <div class="mb-4">
-                                        <label for="password" class="form-label">Password</label>
-                                        <input type="password" name="password" placeholder="Enter your password"
-                                            class="form-control" id="password">
-                                        @error('email')
-                                            <small class="text-danger">{{ $message }}</small>
-                                        @enderror
-                                    </div>
-                                    <div class="d-flex align-items-center justify-content-between mb-4">
-                                        <div class="form-check">
-                                            <input class="form-check-input primary" type="checkbox" value=""
-                                                id="flexCheckChecked" checked>
-                                            <label class="form-check-label text-dark" for="flexCheckChecked">
-                                                Remeber this Device
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary w-100 py-8 mb-4 rounded-2">SIgn
-                                        In</button>
-                                        <div class="d-flex align-items-center justify-content-center gap-2">
-                                            <a class="text-primary fw-medium" href="{{ route('register') }}">Create an account</a>
-                                            <div class="text-muted">
-                                                <a class="text-primary fw-medium" href="{{ route('password.request') }}">Reset Password</a>
-                                            </div>
-                                        </div>                                                                              
-                                </form>
-                            </div>
+    <div class="row">
+        <div class="col-xl-5 d-none d-xl-block p-0 vh-100 bg-image-cover bg-no-repeat"
+            style="background-image: url('{{ asset('dist2/images/login-bg.jpg') }}');"></div>
+        <div class="col-xl-7 vh-100 align-items-center d-flex bg-white rounded-3 overflow-hidden">
+            <div class="card shadow-none border-0 ms-auto me-auto login-card">
+                <div class="card-body rounded-0 text-left">
+                    <h2 class="fw-700 display1-size display2-md-size mb-3">Login into <br>your account</h2>
+                    <form action="{{ route('login') }}" method="POST">
+                        @csrf
+                        <div class="form-group icon-input mb-3">
+                            <i class="font-sm ti-email text-grey-500 pe-0"></i>
+                            <input type="text" name="email"
+                                class="style2-input ps-5 form-control text-grey-900 font-xsss fw-600"
+                                placeholder="Your Email Address">
+                            @error('email')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
+                        <div class="form-group icon-input mb-1">
+                            <input type="Password" name="password"
+                                class="style2-input ps-5 form-control text-grey-900 font-xss ls-3" placeholder="Password">
+                            <i class="font-sm ti-lock text-grey-500 pe-0"></i>
+                            @error('password')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="form-check text-left mb-3">
+                            <input type="checkbox" class="form-check-input mt-2" id="exampleCheck5">
+                            <label class="form-check-label font-xsss text-grey-500" for="exampleCheck5">Remember
+                                me</label>
+                            <a href="{{ route('password.request') }}"
+                                class="fw-600 font-xsss text-grey-700 mt-1 float-right">Forgot
+                                your Password?</a>
+                        </div>
+
+                        <div class="col-sm-12 p-0 text-left">
+                            <button type="submit"
+                                class="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0">Login</button>
+                            <h6 class="text-grey-500 font-xsss fw-500 mt-0 mb-0 lh-32">Dont have account <a
+                                    href="{{ route('register') }}" class="fw-700 ms-1">Register</a></h6>
+                        </div>
+                    </form>
+
+
+                    <div class="col-sm-12 p-0 text-center mt-2">
+
+                        <h6 class="mb-0 d-inline-block bg-white fw-500 font-xsss text-grey-500 mb-3">Or, Sign in
+                            with your social account </h6>
+                        <div class="form-group mb-1"><a href="#"
+                                class="form-control text-left style2-input text-white fw-600 bg-facebook border-0 p-0 mb-2"><img
+                                    src="{{ asset('dist2/images/icon-1.png') }}" alt="icon" class="ms-2 w40 mb-1 me-5">
+                                Sign in with
+                                Google</a></div>
+                        <div class="form-group mb-1"><a href="#"
+                                class="form-control text-left style2-input text-white fw-600 bg-twiiter border-0 p-0 "><img
+                                    src="{{ asset('dist2/images/icon-3.png') }}" alt="icon" class="ms-2 w40 mb-1 me-5">
+                                Sign in with
+                                Facebook</a></div>
                     </div>
                 </div>
             </div>
