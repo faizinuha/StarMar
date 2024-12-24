@@ -88,7 +88,6 @@
             </div>
         @endforeach
 
-
         @if (Auth::user()->unreadNotifications->isEmpty())
             <p class="text-grey-500">Tidak ada notifikasi baru.</p>
         @endif
