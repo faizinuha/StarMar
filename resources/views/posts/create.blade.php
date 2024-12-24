@@ -12,8 +12,8 @@
 </head>
 
 <body class="bg-gray-100">
-    <div class="container mx-auto mt-8 p-4">
-        <h1 class="text-center text-4xl font-semibold text-gray-800 mb-8">Buat Postingan Baru</h1>
+    <div class="container mx-auto mt-2 p-2">
+        <h1 class="text-center text-4xl font-semibold text-gray-800 mb-4">Buat Postingan Baru</h1>
 
         <!-- Form untuk Posting Baru -->
         @auth
