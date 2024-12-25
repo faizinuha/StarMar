@@ -13,6 +13,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ExplorerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,6 +62,9 @@ Route::middleware(['auth',])->group(function () {
     Route::post('/profile/update-picture', [ProfileController::class, 'updateProfilePicture'])->name('profile.update_picture');
     Route::get('Profile', [ProfileController::class, 'profile'])->name('profile');
     // Halaman Akun
+
+    Route::resource('explorer', ExplorerController::class);
+    Route::get('/explorer/search', [ExplorerController::class, 'show'])->name('explorer.search');
 });
 
 /* ============================

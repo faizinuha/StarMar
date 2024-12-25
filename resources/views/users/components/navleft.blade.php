@@ -5,10 +5,10 @@
                 <div class="nav-caption fw-600 font-xssss text-grey-500"><span>New </span>Feeds</div>
                 <ul class="mb-1 top-content">
                     <li class="logo d-none d-xl-block d-lg-block"></li>
-                    <li><a href="{{ asset('dist2/default.html') }}" class="nav-content-bttn open-font"><i
+                    <li><a href="{{ route('beranda') }}" class="nav-content-bttn open-font"><i
                                 class="feather-tv btn-round-md bg-blue-gradiant me-3"></i><span>Newsfeed</span></a>
                     </li>
-                    <li><a href="default-badge.html" class="nav-content-bttn open-font"><i
+                    <li><a href="{{ route('explorer.index') }}" class="nav-content-bttn open-font"><i
                                 class="feather-award btn-round-md bg-red-gradiant me-3"></i><span>Explorer</span></a>
                     </li>
                     <li><a href="default-storie.html" class="nav-content-bttn open-font"><i
