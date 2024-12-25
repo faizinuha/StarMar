@@ -21,6 +21,7 @@ class UserSeeder extends Seeder
                 'email' => 'cahaya@gmail.com',
                 'phone' => null,
                 'gender' => 'male',
+                'photo_profile' => 'users/avatar.png', // Default
                 'date' => null,
                 'password' => Hash::make('password'),
                 'role' => 'admin',
@@ -32,6 +33,7 @@ class UserSeeder extends Seeder
                 'email' => 'putri@gmail.com',
                 'phone' => '089511223344',
                 'gender' => 'male',
+                'photo_profile' => 'users/avatar.png', // Default
                 'date' => null,
                 'password' => Hash::make('password'),
                 'role' => 'user',
@@ -43,6 +45,7 @@ class UserSeeder extends Seeder
                 'email' => 'saskia@gmail.com',
                 'phone' => '089511223345',
                 'gender' => 'female',
+                'photo_profile' => 'users/avatar.png', // Default
                 'date' => null,
                 'password' => Hash::make('password'),
                 'role' => 'user',
@@ -50,10 +53,11 @@ class UserSeeder extends Seeder
             ],
             [
                 'first_name' => 'admin',
-                'last_name' => 'admin',
+                'last_name' => 'jagoo',
                 'email' => 'admin@gmail.com',
                 'phone' => '089511223346',
                 'gender' => 'female',
+                'photo_profile' => 'users/avatar.png', // Default
                 'date' => null,
                 'password' => Hash::make('password'),
                 'role' => 'user',
@@ -76,6 +80,7 @@ class UserSeeder extends Seeder
                 'email' => 'user2@gmail.com',
                 'phone' => '089511223348',
                 'gender' => 'female',
+                'photo_profile' => 'users/avatar.png', // Default
                 'date' => null,
                 'password' => Hash::make('password'),
                 'role' => 'user',
@@ -90,6 +95,7 @@ class UserSeeder extends Seeder
                 'email' => $userData['email'],
                 'phone' => $userData['phone'],
                 'gender' => $userData['gender'],
+                'photo_profile' => 'users/avatar.png', // Default
                 'date' => $userData['date'],
                 'password' => $userData['password'],
 

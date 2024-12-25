@@ -68,10 +68,8 @@ class ProfileController extends Controller
         ]);
 
         $user = Auth::user();
-        $username = $user->name;
-
-        // Buat folder berdasarkan nama user
-        $folderPath = "uploads/{$username}/";
+        $firstName = strtolower($user->first_name); // Menggunakan first_name sebagai nama folder
+        $folderPath = "uploads/{$firstName}/";
 
         // Jika sebelumnya sudah ada foto, hapus (kecuali foto default)
         if ($user->photo_profile && $user->photo_profile !== $this->getDefaultProfilePicture()) {

@@ -29,7 +29,7 @@
                         alt="image" class="shadow-sm rounded-circle w45"> --}}
                         <div
                                                 class="custom-circle bg-info text-white rounded-circle d-flex align-items-center justify-content-center font-weight-bold">
-                                                {{ strtoupper(substr($post->user->first_name, 0, 1)) }}
+                                                {{ strtoupper(substr($user->first_name, 0, 1)) }}
                                             </div>
                 </figure>
                 <div>
