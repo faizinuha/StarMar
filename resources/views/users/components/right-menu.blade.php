@@ -25,8 +25,12 @@
         @foreach ($users as $user)
             <div class="card-body d-flex pt-4 ps-4 pe-4 pb-0 border-top-xs bor-0 align-items-center">
                 <figure class="avatar me-3">
-                    <img src="{{ $user->photo_profile ? asset('storage/' . $user->photo_profile) : asset('users/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-illustration-vector.jpg') }}"
-                        alt="image" class="shadow-sm rounded-circle w45">
+                    {{-- <img src="{{ asset('storage/' . $users ) }}"
+                        alt="image" class="shadow-sm rounded-circle w45"> --}}
+                        <div
+                                                class="custom-circle bg-info text-white rounded-circle d-flex align-items-center justify-content-center font-weight-bold">
+                                                {{ strtoupper(substr($post->user->first_name, 0, 1)) }}
+                                            </div>
                 </figure>
                 <div>
                     <h4 class="fw-700 text-grey-900 font-xssss mt-1 d-flex align-items-center">

@@ -77,135 +77,114 @@
 
                         <!-- Display posts -->
                         @foreach ($posts as $post)
-                            <div class="card w-100 shadow-xss rounded-xxl border-0 ps-4 pt-4 pe-4 pb-3 mb-3">
+                            <div class="card w-100 shadow-sm rounded-xxl border-0 p-3 mb-3">
                                 <div class="card-body p-0">
-                                    <!-- Profile and time section -->
-
-
-                                    <div class="d-flex align-items-center">
-                                        <!-- Link ke profil pengguna -->
+                                    <!-- Profile and Time Section -->
+                                    <div class="d-flex align-items-center mb-3">
                                         <a href="{{ route('user.profile', $post->user->id) }}">
                                             <div
                                                 class="custom-circle bg-info text-white rounded-circle d-flex align-items-center justify-content-center font-weight-bold">
                                                 {{ strtoupper(substr($post->user->first_name, 0, 1)) }}
                                             </div>
                                         </a>
-                                        <!-- User Info -->
                                         <div class="ms-3">
-                                            <h6 class="font-weight-semibold text-dark mb-0">
-                                                {{ $post->user->first_name }}
-                                            </h6>
-                                            <p class="text-muted small mb-0">
-                                                {{ $post->created_at->diffForHumans() }}</p>
+                                            <h6 class="fw-bold text-dark mb-0">{{ $post->user->first_name }}</h6>
+                                            <p class="text-muted small mb-0">{{ $post->created_at->diffForHumans() }}</p>
                                         </div>
                                     </div>
 
-
+                                    <!-- Post Image -->
                                     @if ($post->image)
-                                        <div class="mb-4 relative">
+                                        <div class="mb-4">
                                             <img src="{{ asset('storage/' . $post->image) }}" alt="Post Image"
-                                                class="mb-4" style="filter: {{ $post->filter ?? 'none' }};">
-                                            @if (Auth::check())
-                                                <div class="absolute top-0 right-0 p-2">
-                                                    <div class="dropdown">
-                                                        <button class="btn btn-secondary dropdown-toggle" type="button"
-                                                            id="dropdownMenuButton" data-bs-toggle="dropdown"
-                                                            aria-expanded="false">
-                                                            <i class="fas fa-ellipsis-v text-xl text-gray-600"></i>
-                                                        </button>
-                                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                            @if (Auth::id() === $post->user_id)
-                                                                <!-- Edit Button -->
-                                                                <li>
-                                                                    <a class="dropdown-item"
-                                                                        href="{{ route('posts.edit', $post->id) }}">
-                                                                        <i class="fas fa-edit text-gray-600"></i> Edit
-                                                                    </a>
-                                                                </li>
-                                                                <!-- Delete Button -->
-                                                                <li>
-                                                                    <form action="{{ route('posts.destroy', $post->id) }}"
-                                                                        method="POST">
-                                                                        @csrf
-                                                                        @method('DELETE')
-                                                                        <button type="submit"
-                                                                            class="dropdown-item text-red-600">
-                                                                            <i class="fas fa-trash"></i> Delete
-                                                                        </button>
-                                                                    </form>
-                                                                </li>
-                                                            @endif
-                                                            <!-- Report Button (visible to all authenticated users) -->
-                                                            <li>
-                                                                <a class="dropdown-item"
-                                                                    href="{{ route('report.create', ['type' => 'post', 'id' => $post->id]) }}">
-                                                                    <i class="fas fa-flag text-warning"></i> Laporkan
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
+                                                class="w-100 rounded" style="filter: {{ $post->filter ?? 'none' }};">
+                                            @if (Auth::check() && Auth::id() === $post->user_id)
+                                                <div class="dropdown position-absolute top-0 end-0 p-2">
+                                                    <button class="btn btn-light btn-sm dropdown-toggle" type="button"
+                                                        id="postMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="fas fa-ellipsis-v"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu" aria-labelledby="postMenu">
+                                                        <li><a class="dropdown-item"
+                                                                href="{{ route('posts.edit', $post->id) }}">Edit</a></li>
+                                                        <li>
+                                                            <form action="{{ route('posts.destroy', $post->id) }}"
+                                                                method="POST">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit"
+                                                                    class="dropdown-item text-danger">Delete</button>
+                                                            </form>
+                                                        </li>
+                                                        <li>
+                                                            <a class="dropdown-item"
+                                                                href="{{ route('report.create', ['type' => 'post', 'id' => $post->id]) }}">
+                                                                <i class="fas fa-flag text-warning"></i> Laporkan
+                                                            </a>
+                                                        </li>
+                                                    </ul>
                                                 </div>
                                             @endif
                                         </div>
                                     @endif
 
-                                    <!-- Post content -->
-                                    <div class="card-body p-0">
-                                        <p class="fw-500 text-grey-500 lh-26 font-xssss w-100 mb-2">
-                                            {{ $post->content }}</p>
-                                    </div>
+                                    <!-- Post Content -->
+                                    <p class="fw-500 text-grey-500 lh-26 font-xsss mb-3">{{ $post->content }}</p>
+                                    {{-- @if ($post->hashtags)
+                                    <p class="fw-500 text-grey-500 lh-26 font-xsss mb-3">{{ $post->hashtags }}</p>
+                                @endif --}}
 
-                                    <!-- Post interactions -->
-                                    <div class="card-body d-flex p-0">
-
+                                    <!-- Post Interactions -->
+                                    <div class="d-flex align-items-center">
                                         <livewire:post-like :post="$post" />
 
-
-                                        {{-- <a href="#"
-                                            class="emoji-bttn d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss me-2">
-                                            <i
-                                                class="feather-thumbs-up text-white bg-primary-gradiant me-1 btn-round-xs font-xss"></i> --}}
-                                        {{-- <i
-                                                class="feather-heart text-white bg-red-gradiant me-2 btn-round-xs font-xss"></i>{{ $post->likedByUsers->count() }}
-                                            Like --}}
-                                        </a>
-
-
-                                        {{-- <span>{{ $post->comments->count() }} Comment</span> --}}
-                                        <button type="button" data-bs-toggle="modal"
+                                        <button type="button" class="btn btn-sm text-muted ms-2" data-bs-toggle="modal"
                                             data-bs-target="#komentar{{ $post->id }}"
                                             wire:click="loadComments({{ $post->id }})">
-                                            <i
-                                                class="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg"></i>
-                                            {{ $post->comments->count() }} Komentar
+                                            <i class="feather-message-circle"></i> {{ $post->comments->count() }} Komentar
                                         </button>
 
-                                        <a href="#"
-                                            class="ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss">
-                                            <i
-                                                class="feather-share-2 text-grey-900 text-dark btn-round-sm font-lg"></i><span
-                                                class="d-none-xs">Share</span>
+                                        <a href="#" class="btn btn-sm text-muted ms-auto">
+                                            <i class="feather-share-2"></i> Share
                                         </a>
                                     </div>
-                                    {{-- KOMENTAR --}}
+                                    {{-- <button type="button" data-bs-toggle="modal"
+                                data-bs-target="#komentar{{ $post->id }}"
+                                wire:click="loadComments({{ $post->id }})">
+                                <i
+                                    class="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg"></i>
+                                {{ $post->comments->count() }} Komentar
+                            </button> --}}
+
+                                    <!-- Comments Modal -->
                                     <div class="modal fade mx-l" id="komentar{{ $post->id }}" tabindex="-1"
                                         aria-labelledby="komentarLabel{{ $post->id }}" aria-hidden="true"
                                         data-bs-backdrop="false" wire:ignore>
                                         <div class="modal-dialog modal-lg modal-dialog-scrollable">
                                             <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="komentarLabel">Komentar</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
+                                                <div class="d-flex align-items-center justify-content-between border-bottom p-3">
+                                                    <div class="d-flex align-items-center">
+                                                        <img src="{{ asset('storage/' . $post->user->photo_profile) }}" alt="Avatar" class="rounded-circle me-2"
+                                                            style="width: 40px; height: 40px;">
+                                                        <strong>{{ $post->user->first_name }}</strong>
+                                                    </div>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                                <div class="modal-body">
-                                                    <!-- Komentar Livewire -->
-                                                    @livewire('posts.comment', ['postId' => $post->id])
+                                                <div class="modal-body d-flex">
+                                                    <!-- Bagian Gambar -->
+                                                    <div class="col-md-7 p-0">
+                                                        <img src="{{ asset('storage/' . $post->image) }}" alt="Post Image" class="w-100 h-100"
+                                                            style="object-fit: cover; filter: {{ $post->filter ?? 'none' }};">
+                                                            <small>{{ $post->content  }}</small>
+                                                    </div>
+                                                    <!-- Bagian Komentar -->
+                                                    <div class="col-md-5 ms-3" style="padding: 30px;">
+                                                        @livewire('posts.comment', ['postId' => $post->id])
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-
+                                    </div>                                    
                                 </div>
                             </div>
                         @endforeach
@@ -241,7 +220,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
         integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
     </script>
-    <!-- CSS -->
+
     <style>
         .hidden {
             display: none;

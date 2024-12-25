@@ -10,7 +10,7 @@
 
                 <div class="profile-image text-center position-relative">
                     <img 
-                        src="{{ asset('storage/' . Auth::user()->photo_profile) }}" 
+                        src="{{ asset('storage/' . $profilePhoto) }}"
                         alt="Foto Profil" 
                         class="rounded-circle mt-2" 
                         style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%;"
