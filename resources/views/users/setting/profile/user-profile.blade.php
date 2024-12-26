@@ -23,7 +23,7 @@
                                             class="p-1 bg-white rounded-xl w-100">
                                     @endif
                                 </figure>
-                                
+
 
                                 <h4 class="font-xs ls-1 fw-700 text-grey-900">
                                     {{ $user->first_name }}
@@ -43,18 +43,19 @@
                                         </b> Follow</h4>
                                 </div>
                                 <form action="{{ route('profile.update_picture') }}" method="POST"
-                                enctype="multipart/form-data">
-                                @csrf
-                                <input type="file" name="photo" id="photo" accept="image/*"
-                                    capture="camera" class="form-control" style="display: none;"
-                                    onchange="this.form.submit()">
+                                    enctype="multipart/form-data">
+                                    @csrf
+                                    <input type="file" name="photo" id="photo" accept="image/*" capture="camera"
+                                        class="form-control" style="display: none;" onchange="this.form.submit()">
                                 </form>
                                 {{-- <livewire:follows :user="$user" /> --}}
-                                <div class="d-flex align-items-center justify-content-center position-absolute right-15 top-10 mt-2 me-2">
+                                <div
+                                    class="d-flex align-items-center justify-content-center position-absolute right-15 top-10 mt-2 me-2">
                                     @if (Auth::id() !== $user->id)
                                         <!-- Tombol hanya muncul jika melihat profil orang lain -->
                                         @if (Auth::user()->followings->contains($user->id))
-                                            <form action="{{ route('unfollow', $user) }}" method="POST" style="display: inline;">
+                                            <form action="{{ route('unfollow', $user) }}" method="POST"
+                                                style="display: inline;">
                                                 @csrf
                                                 <button type="submit"
                                                     class="btn btn-danger d-none d-lg-block p-3 z-index-1 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3">
@@ -62,7 +63,8 @@
                                                 </button>
                                             </form>
                                         @else
-                                            <form action="{{ route('follow', $user) }}" method="POST" style="display: inline;">
+                                            <form action="{{ route('follow', $user) }}" method="POST"
+                                                style="display: inline;">
                                                 @csrf
                                                 <button type="submit"
                                                     class="btn btn-primary d-none d-lg-block p-3 z-index-1 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3">
@@ -71,19 +73,20 @@
                                             </form>
                                         @endif
                                     @endif
-                                
+
                                     <!-- Tombol pesan (email) -->
-                                    <a href="#" class="d-none d-lg-block bg-greylight btn-round-lg ms-2 rounded-3 text-grey-700">
+                                    <a href="#"
+                                        class="d-none d-lg-block bg-greylight btn-round-lg ms-2 rounded-3 text-grey-700">
                                         <i class="feather-mail font-md"></i>
                                     </a>
-                                
+
                                     <!-- Tombol dropdown -->
                                     <a href="#" id="dropdownMenu8"
                                         class="d-none d-lg-block btn-round-lg ms-2 rounded-3 text-grey-700 bg-greylight"
                                         data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="ti-more font-md"></i>
                                     </a>
-                                
+
                                     <!-- Menu dropdown -->
                                     <div class="dropdown-menu dropdown-menu-end p-4 rounded-xxl border-0 shadow-lg dropup"
                                         aria-labelledby="dropdownMenu8">
@@ -97,40 +100,44 @@
                                             <i class="feather-bookmark text-grey-500 me-3 font-lg"></i>
                                             <h4 class="fw-600 text-grey-900 font-xssss mt-0 me-0">
                                                 Save Link
-                                                <span class="d-block font-xsssss fw-500 mt-1 lh-3 text-grey-500">Add this to your saved items</span>
+                                                <span class="d-block font-xsssss fw-500 mt-1 lh-3 text-grey-500">Add this to
+                                                    your saved items</span>
                                             </h4>
                                         </div>
-                                
+
                                         <!-- Item 2: Hide Post -->
                                         <div class="card-body p-0 d-flex mt-2">
                                             <i class="feather-alert-circle text-grey-500 me-3 font-lg"></i>
                                             <h4 class="fw-600 text-grey-900 font-xssss mt-0 me-0">
                                                 Hide Post
-                                                <span class="d-block font-xsssss fw-500 mt-1 lh-3 text-grey-500">Save to your saved items</span>
+                                                <span class="d-block font-xsssss fw-500 mt-1 lh-3 text-grey-500">Save to
+                                                    your saved items</span>
                                             </h4>
                                         </div>
-                                
+
                                         <!-- Item 3: Hide all from Group -->
                                         <div class="card-body p-0 d-flex mt-2">
                                             <i class="feather-alert-octagon text-grey-500 me-3 font-lg"></i>
                                             <h4 class="fw-600 text-grey-900 font-xssss mt-0 me-0">
                                                 Hide all from Group
-                                                <span class="d-block font-xsssss fw-500 mt-1 lh-3 text-grey-500">Save to your saved items</span>
+                                                <span class="d-block font-xsssss fw-500 mt-1 lh-3 text-grey-500">Save to
+                                                    your saved items</span>
                                             </h4>
                                         </div>
-                                
+
                                         <!-- Item 4: Unfollow Group -->
                                         <div class="card-body p-0 d-flex mt-2">
                                             <i class="feather-lock text-grey-500 me-3 font-lg"></i>
                                             <h4 class="fw-600 mb-0 text-grey-900 font-xssss mt-0 me-0">
                                                 Unfollow Group
-                                                <span class="d-block font-xsssss fw-500 mt-1 lh-3 text-grey-500">Save to your saved items</span>
+                                                <span class="d-block font-xsssss fw-500 mt-1 lh-3 text-grey-500">Save to
+                                                    your saved items</span>
                                             </h4>
                                         </div>
                                     </div>
                                 </div>
-                                
-                                
+
+
                             </div>
 
                             <div class="card-body d-block w-100 shadow-none mb-0 p-0 border-top-xs">
@@ -277,19 +284,19 @@
                                         class="btn-round-sm font-xs text-primary feather-edit-3 me-2 bg-greylight"></i>Create
                                     Post</a>
                             </div>
-                        
+
                             <div class="card-body p-0 mt-3 position-relative">
                                 <figure class="avatar position-absolute ms-2 mt-1 top-5">
-                                   @if ($user->photo_profile)
+                                    @if ($user->photo_profile)
                                         <!-- Menampilkan foto profil yang diunggah pengguna -->
-                                        <img src="{{ asset('storage/' . $user->photo_profile) }}"
-                                        alt="image" class="shadow-sm rounded-circle w30">
+                                        <img src="{{ asset('storage/' . $user->photo_profile) }}" alt="image"
+                                            class="shadow-sm rounded-circle w30">
                                     @else
                                         <!-- Menampilkan foto profil default (jika belum diunggah) -->
-                                        <img src="{{ asset('storage/avatar.png') }}"
-                                        alt="image" class="shadow-sm rounded-circle w30">
+                                        <img src="{{ asset('users/avatar.png') }}" alt="image"
+                                            class="shadow-sm rounded-circle w30">
                                     @endif
-                                    </figure>
+                                </figure>
                                 <textarea name="message"
                                     class="h100 bor-0 w-100 rounded-xxl p-2 ps-5 font-xssss text-grey-500 fw-500 border-light-md theme-dark-bg"
                                     cols="30" rows="10" placeholder="What's on your mind?"></textarea>
