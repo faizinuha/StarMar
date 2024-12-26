@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Models\Posts;
+use App\Models\Story;
 use App\Models\User;
 use Illuminate\Support\Facades\Cache;
 
@@ -14,46 +15,26 @@ class berandaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    // public function index()
-    // {
-    //     try {
-    //         // Ambil data posts terbaru beserta komentar dan reply-nya
-    //         $posts = Post::with(['comments.replies', 'comments.user'])
-    //             ->orderBy('created_at', 'desc')
-    //             ->get();
 
-    //         // Cek apakah koneksi ke tabel users bermasalah
-    //         $users = User::all();
-    //     } catch (\Exception $e) {
-    //         // Redirect ke halaman 404 jika terjadi error
-    //         return view('errors.404');
-    //     }
-
-    //     return view('users.view.beranda', compact('posts', 'users'));
-    // }
 
     public function index()
     {
-        try {
-            // Ambil data posts terbaru beserta komentar dan reply-nya
-            $posts = Post::with(['comments.replies', 'comments.user'])
-                ->orderBy('created_at', 'desc')
-                ->get();
 
-            // Cek apakah koneksi ke tabel users bermasalah
-            $users = User::all();
-        } catch (\Exception $e) {
-            // Cek apakah masalah disebabkan oleh koneksi/jaringan
-            if ($this->isNetworkError($e)) {
-                // Arahkan ke game dinosaurus
-                return redirect('https://dino-chrome.com/');
-            }
+        // Ambil data posts terbaru beserta komentar dan reply-nya
+        $posts = Post::with(['comments.replies', 'comments.user'])
+            ->orderBy('created_at', 'desc')
+            ->get();
 
-            // Jika bukan masalah koneksi, tampilkan halaman 404
-            return view('errors.404');
-        }
+        // Cek apakah koneksi ke tabel users bermasalah
+        $users = User::all();
 
-        return view('users.view.beranda', compact('posts', 'users'));
+        $stories = Story::where('expires_at', '>', now())
+            ->with('user')
+            ->latest()
+            ->get();
+
+
+        return view('users.view.beranda', compact('posts', 'users', 'stories'));
     }
 
 

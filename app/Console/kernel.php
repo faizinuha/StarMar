@@ -16,6 +16,9 @@ class Kernel extends ConsoleKernel
     {
         // Menjadwalkan backup secara otomatis, misalnya setiap hari jam 2 pagi
         $schedule->command('backup:database')->dailyAt('02:00');
+
+        // hapus story ketika sudah 24 jam
+        $schedule->command('stories:delete-expired')->hourly();
     }
 
     // protected function commands()

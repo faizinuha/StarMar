@@ -44,8 +44,6 @@ class PostController extends Controller
             $imagePath = $request->file('image')->store('Postingan', 'public');
         }
 
-
-        // Proses penyimpanan video jika ada
         // Proses penyimpanan video jika ada
         $videoPath = null;
         if ($request->hasFile('video')) {

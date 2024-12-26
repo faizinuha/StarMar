@@ -14,6 +14,7 @@ use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ExplorerController;
+use App\Http\Controllers\StoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,6 +66,7 @@ Route::middleware(['auth',])->group(function () {
 
     Route::resource('explorer', ExplorerController::class);
     Route::get('/explorer/search', [ExplorerController::class, 'show'])->name('explorer.search');
+    Route::post('/stories', [StoryController::class, 'store'])->name('stories.store');
 });
 
 /* ============================

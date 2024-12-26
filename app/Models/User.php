@@ -64,11 +64,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Hashtag::class);
     }
 
-    // public function likedPosts()
-    // {
-    //     return $this->belongsToMany(Post::class, 'post_user_like')->withTimestamps();
-    // }
-
     public function likedPosts()
     {
         return $this->belongsToMany(User::class, 'post_user_like')->withTimestamps();
@@ -90,6 +85,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function followers()
     {
         return $this->belongsToMany(User::class, 'follows', 'following_id', 'follower_id');
+    }
+
+    public function stories()
+    {
+        return $this->hasMany(Story::class);
     }
 
     // verify

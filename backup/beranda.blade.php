@@ -15,10 +15,6 @@
             height: 50px;
             font-size: 30px;
         }
-
-        .owl-carousel {
-            display: inline-block
-        }
     </style>
     @if (session('success'))
         <div class="alert alert-success">
@@ -32,84 +28,53 @@
                 <div class="row feed-body">
                     <div class="col-xl-8 col-xxl-9 col-lg-8">
 
-                        {{-- stories --}}
-                        <div class="card w-100 shadow-none bg-transparent bg-transparent-card border-0 p-0 mb-0">
-                            <div class="owl-carousel category-card owl-theme overflow-hidden nav-none d-flex flex-row">
-                                <div class="item">
-                                    <button type="button" class="cursor-pointer border-0 bg-transparent"
-                                        data-bs-toggle="modal" data-bs-target="#addStoryModal">
-                                        <div
-                                            class="card w125 h200 d-block border-0 shadow-none rounded-xxxl bg-dark overflow-hidden mb-3 mt-3">
-                                            <div class="card-body d-block p-3 w-100 position-absolute bottom-0 text-center">
-                                                <span class="btn-round-lg bg-white"><i
-                                                        class="feather-plus font-lg"></i></span>
-                                                <h4
-                                                    class="fw-700 position-relative z-index-1 ls-1 font-xssss text-white mt-2 mb-1">
-                                                    Add Story</h4>
+
+                        <!-- Form for creating a new post -->
+                        {{-- <div class="card w-100 shadow-lg rounded-xxl border-0 ps-4 pt-4 pe-4 pb-3 mb-3">
+                            <div class="card-body p-0">
+                                <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    <p class="font-xssss fw-600 text-grey-500 d-flex align-items-center mb-3">
+                                        <i class="btn-round-sm font-xs text-primary feather-edit-3 me-2 bg-greylight"></i>
+                                        <span>Create Post</span>
+                                    </p>
+
+                                    <textarea name="content"
+                                        class="h100 bor-0 w-100 rounded-xxl p-3 ps-5 font-xssss text-grey-500 fw-500 border-light-md theme-dark-bg mb-3"
+                                        cols="30" rows="10" placeholder="What's on your mind?">{{ old('content') }}</textarea>
+
+                                    <!-- Uploads: Gambar atau Video - Tempat yang sama -->
+                                    <div class="mt-3">
+                                        <label class="d-block font-xss fw-600 text-grey-500">Unggah Gambar atau
+                                            Video</label>
+                                        <div class="d-flex justify-content-between gap-3">
+                                            <!-- Gambar Upload -->
+                                            <div class="w-48">
+                                                <input type="file" name="image"
+                                                    class="w-100 p-3 border rounded-3 bg-light" accept="image/*" />
+                                                <div class="text-center text-grey-500 mt-2"><i class="feather-image"></i>
+                                                    Gambar</div>
+                                            </div>
+                                            <!-- Video Upload -->
+                                            <div class="w-48">
+                                                <input type="file" name="live_video"
+                                                    class="w-100 p-3 border rounded-3 bg-light" accept="video/*" />
+                                                <div class="text-center text-grey-500 mt-2"><i class="feather-video"></i>
+                                                    Video</div>
                                             </div>
                                         </div>
+                                    </div>
+
+                        
+                                    <button type="submit"
+                                        class="btn btn-primary mt-3 d-flex align-items-center justify-content-center w-100 p-3 rounded-3 shadow-sm hover-shadow-lg transition-all">
+                                        <i class="feather-send me-2"></i> Post
                                     </button>
-                                </div>
-                                @foreach ($stories as $story)
-                                    <div class="item d-flex">
-                                        <div class="card w125 h200 d-block border-0 shadow-xss rounded-xxxl overflow-hidden cursor-pointer mb-3 mt-3"
-                                            style="background-image: url({{ asset('storage/' . $story->media) }});">
-                                            <div class="card-body d-block p-3 w-100 position-absolute bottom-0 text-center">
-                                                <figure class="avatar ms-auto me-auto mb-0 position-relative w50 z-index-1">
-                                                    <img src="{{ asset('storage/' . $story->user->photo_profile) }}"
-                                                        alt="image"
-                                                        class="float-right p-0 bg-white rounded-circle w-100 shadow-xss">
-                                                </figure>
-                                                <h4
-                                                    class="fw-600 position-relative z-index-1 ls-1 font-xssss text-white mt-2 mb-1">
-                                                    {{ $story->user->first_name }}
-                                                </h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
+                                </form>
                             </div>
-                        </div>
+                        </div> --}}
 
-
-                        {{-- modal add --}}
-                        <div class="modal fade mx-l" id="addStoryModal" tabindex="-1" aria-labelledby="addStoryModalLabel"
-                            aria-hidden="true" data-bs-backdrop="false">
-                            <div class="modal-dialog modal-lg modal-dialog-scrollable">
-                                <!-- Tambahkan kelas modal-lg atau modal-xl -->
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="addStoryModalLabel">Add Story</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form action="{{ route('stories.store') }}" method="POST"
-                                            enctype="multipart/form-data">
-                                            @csrf
-                                            <div class="mb-3">
-                                                <label for="media" class="form-label">Select Media</label>
-                                                <input type="file" name="media" id="media" class="form-control"
-                                                    accept="image/*,video/*" required>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="description" class="form-label">Caption
-                                                    (Optional)</label>
-                                                <textarea name="description" id="description" class="form-control" rows="3"></textarea>
-                                            </div>
-                                            <div class="d-flex justify-content-end">
-                                                <button type="submit" class="btn btn-primary">Upload
-                                                    Story</button>
-                                                <button type="button" class="btn btn-secondary ms-2"
-                                                    data-bs-dismiss="modal">Cancel</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
+                        {{-- {{ strtoupper(substr($post->user->first_name, 0, 1)) }} --}}
 
                         <!-- Display posts -->
                         @foreach ($posts as $post)
@@ -118,22 +83,18 @@
                                     <!-- Profile and Time Section -->
                                     <div class="d-flex align-items-center mb-3">
                                         <a href="{{ route('user.profile', $post->user->id) }}">
-                                            <div
-                                                class="custom-circle bg-info text-white rounded-circle d-flex align-items-center justify-content-center font-weight-bold">
+                                            <div class="custom-circle bg-info text-white rounded-circle d-flex align-items-center justify-content-center font-weight-bold">
                                                 @php
                                                     $photoPath = $post->user->photo_profile; // Path foto profil pengguna yang terkait dengan post
-                                                    $photoExists =
-                                                        $photoPath && file_exists(public_path('storage/' . $photoPath)); // Cek dengan file_exists
+                                                    $photoExists = $photoPath && file_exists(public_path('storage/' . $photoPath)); // Cek dengan file_exists
                                                 @endphp
                                                 @if ($photoExists)
-                                                    <img src="{{ asset('storage/' . $photoPath) }}" alt="image"
-                                                        class="shadow-sm rounded-circle w50">
+                                                    <img src="{{ asset('storage/' . $photoPath) }}" alt="image" class="shadow-sm rounded-circle w50">
                                                 @else
-                                                    <img src="{{ asset('users/avatar.png') }}" alt="image"
-                                                        class="shadow-sm rounded-circle w50">
+                                                    <img src="{{ asset('users/avatar.png') }}" alt="image" class="shadow-sm rounded-circle w50">
                                                 @endif
                                             </div>
-                                        </a>
+                                        </a>                                        
                                         <div class="ms-3">
                                             <h6 class="fw-bold text-dark mb-0">{{ $post->user->first_name }}</h6>
                                             <p class="text-muted small mb-0">{{ $post->created_at->diffForHumans() }}</p>
@@ -239,8 +200,8 @@
                                                 <div class="modal-body d-flex">
                                                     <!-- Bagian Gambar -->
                                                     <div class="col-md-7 p-0">
-                                                        <img src="{{ asset('storage/' . $post->image) }}"
-                                                            alt="Post Image" class="w-100 h-100"
+                                                        <img src="{{ asset('storage/' . $post->image) }}" alt="Post Image"
+                                                            class="w-100 h-100"
                                                             style="object-fit: cover; filter: {{ $post->filter ?? 'none' }};">
                                                         <small>{{ $post->content }}</small>
                                                     </div>
@@ -335,34 +296,70 @@
         });
     </script>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const likeButtons = document.querySelectorAll('.like-button');
+
+            likeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const postId = this.dataset.postId;
+                    const likeCountElement = this.querySelector(
+                        '.like-count'); // Get the like count element within the button
+                    const isLiked = this.classList.contains('liked'); // Check if the post is liked
+
+                    fetch('/like', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector(
+                                    'meta[name="csrf-token"]').getAttribute('content')
+                            },
+                            body: JSON.stringify({
+                                post_id: postId,
+                                action: isLiked ? 'unlike' :
+                                    'like' // Toggle action based on the current state
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.status === 'liked') {
+                                this.classList.add('liked');
+                            } else if (data.status === 'unliked') {
+                                this.classList.remove('liked');
+                            }
+                            // Update the like count
+                            likeCountElement.textContent = `${data.like_count} Like`;
+                        })
+                        .catch(error => console.error('Error:', error));
+                });
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const commentPopup = document.getElementById('commentPopup');
+            const btnComment = document.querySelector('.btn-comment');
+            const closePopup = document.getElementById('closePopup');
+
+            // Event untuk membuka popup
+            btnComment.addEventListener('click', () => {
+                commentPopup.classList.remove('hidden');
+            });
+
+            // Event untuk menutup popup
+            closePopup.addEventListener('click', () => {
+                commentPopup.classList.add('hidden');
+            });
+        });
+    </script>
+
     <script>
         document.addEventListener('livewire:load', function() {
             Livewire.on('openModal', () => {
                 const modal = new bootstrap.Modal(document.getElementById('komentar'));
                 modal.show();
-            });
-        });
-    </script>
-
-    <script src="path/to/jquery.min.js"></script>
-    <script src="path/to/owl.carousel.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $(".owl-carousel").owlCarousel({
-                loop: true, // Mengulang carousel
-                margin: 10, // Jarak antar item
-                nav: false, // Tombol navigasi
-                responsive: {
-                    0: {
-                        items: 2 // Jumlah item pada layar kecil
-                    },
-                    600: {
-                        items: 3 // Jumlah item pada layar sedang
-                    },
-                    1000: {
-                        items: 5 // Jumlah item pada layar besar
-                    }
-                }
             });
         });
     </script>
