@@ -50,6 +50,7 @@ class ProfileController extends Controller
 
         $followersCount = $user->followers()->count();
         $followingCount = $user->followings()->count();
+        
         $posts = Post::where('user_id', $user->id)->get();
         $postCount = $posts->count();
         $pos = Post::with('user')
@@ -88,7 +89,15 @@ class ProfileController extends Controller
     {
         return 'users/Avatar.png'; // Path foto profil default
     }
-
+    
+    public function about() {
+        return view('profile.about');
+    }
+    
+    public function membership() {
+        return view('profile.membership');
+    }
+    
     public function showcontent()
     {
         $user = Auth::user();

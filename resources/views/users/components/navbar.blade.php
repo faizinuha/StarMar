@@ -1,7 +1,9 @@
 <div class="nav-header bg-white shadow-xs border-0">
     <div class="nav-top">
-        <a href="index.html"><i class="feather-zap text-success display1-size me-2 ms-0"></i><span
-                class="d-inline-block fredoka-font ls-3 fw-600 text-current font-xxl logo-text mb-0">Sociala.
+        {{-- <i class="feather-zap text-success display1-size me-2 ms-0"> --}}
+        <a href="{{ route('beranda') }}"><img src="{{ asset('StarMar/StarMar-.png') }} "
+                class="display1-size text-success me-2 ms-0 w50 " alt="Logo"><span
+                class="d-inline-block fredoka-font ls-3 fw-600 text-current font-xxl logo-text mb-0">StarMar.
             </span> </a>
         <a href="#" class="mob-menu ms-auto me-2 chat-active-btn"><i
                 class="feather-message-circle text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
@@ -155,7 +157,19 @@
         </div>
     </div>
 
+    @php
+        $photoPath = Auth::check() ? Auth::user()->photo_profile : null; // Path foto profil jika user login
+        $photoExists = $photoPath && file_exists(public_path('storage/' . $photoPath)); // Cek file
+    @endphp
 
-    <a href="{{ route('user.setting') }}" class="p-0 ms-3 menu-icon"><img
-            src="{{ asset('dist2/images/profile-4.png') }}" alt="user" class="w40 mt--1"></a>
+    <a href="{{ route('user.setting') }}" class="p-0 ms-3 menu-icon">
+        @if ($photoExists)
+            <img src="{{ asset('storage/' . $photoPath) }}" alt="user" style="border-radius: 50px"
+                class="rounded-sm w40 mt--1">
+        @else
+            <img src="{{ asset('users/avatar.png') }}" alt="user" style="border-radius: 50px"
+                class="rounded-sm w40 mt--1">
+        @endif
+    </a>
+
 </div>

@@ -42,7 +42,7 @@
                                             class="text-grey-900 mb-1 font-sm fw-700 d-inline-block ls-3 text-dark">{{ $followingCount }}
                                         </b> Follow</h4>
                                 </div>
-                                <form action="{{ route('profile.update_picture') }}" method="POST"
+                                <form action="{{ route('profile.update_picture') }}" method="POST">
                                     enctype="multipart/form-data">
                                     @csrf
                                     <input type="file" name="photo" id="photo" accept="image/*" capture="camera"
@@ -145,10 +145,10 @@
                                     role="tablist">
                                     <li class="active list-inline-item me-5"><a
                                             class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block active"
-                                            href="#navtabs1" data-toggle="tab">About</a></li>
+                                            href="/profile/about" data-toggle="tab">About</a></li>
                                     <li class="list-inline-item me-5"><a
                                             class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block"
-                                            href="#navtabs2" data-toggle="tab">Membership</a></li>
+                                            href="/profile/membership" data-toggle="tab">Membership</a></li>
                                     <li class="list-inline-item me-5"><a
                                             class="fw-700 font-xssss text-grey-500 pt-3 pb-3 ls-1 d-inline-block"
                                             href="#navtabs3" data-toggle="tab">Discussion</a></li>
@@ -210,24 +210,24 @@
                             </div>
                             <div class="card-body d-block pt-0 pb-2">
                                 <div class="row">
-                                    <div class="col-6 mb-2 pe-1"><a href="{{ asset('images/e-2.jpg') }}"
-                                            data-lightbox="roadtrip"><img src="images/e-2.jpg" alt="image"
-                                                class="img-fluid rounded-3 w-100"></a></div>
-                                    <div class="col-6 mb-2 ps-1"><a href="images/e-3.jpg" data-lightbox="roadtrip"><img
-                                                src="images/e-3.jpg" alt="image"
-                                                class="img-fluid rounded-3 w-100"></a></div>
-                                    <div class="col-6 mb-2 pe-1"><a href="images/e-4.jpg" data-lightbox="roadtrip"><img
-                                                src="images/e-4.jpg" alt="image"
-                                                class="img-fluid rounded-3 w-100"></a></div>
-                                    <div class="col-6 mb-2 ps-1"><a href="images/e-5.jpg" data-lightbox="roadtrip"><img
-                                                src="images/e-5.jpg" alt="image"
-                                                class="img-fluid rounded-3 w-100"></a></div>
-                                    <div class="col-6 mb-2 pe-1"><a href="images/e-2.jpg" data-lightbox="roadtrip"><img
-                                                src="images/e-2.jpg" alt="image"
-                                                class="img-fluid rounded-3 w-100"></a></div>
-                                    <div class="col-6 mb-2 ps-1"><a href="images/e-1.jpg" data-lightbox="roadtrip"><img
-                                                src="images/e-1.jpg" alt="image"
-                                                class="img-fluid rounded-3 w-100"></a></div>
+                                    <div class="col-6 mb-2 pe-1"><a href="{{ asset('dist2/images/e-2.jpg') }}"
+                                            data-lightbox="roadtrip"><img src="{{ asset('dist2/images/e-2.jpg') }}"
+                                                alt="image" class="img-fluid rounded-3 w-100"></a></div>
+                                    <div class="col-6 mb-2 ps-1"><a href="{{ asset('dist2/images/e-3.jpg') }}"
+                                            data-lightbox="roadtrip"><img src="{{ asset('dist2/images/e-3.jpg') }}"
+                                                alt="image" class="img-fluid rounded-3 w-100"></a></div>
+                                    <div class="col-6 mb-2 pe-1"><a href="{{ asset('dist2/images/e-4.jpg') }}"
+                                            data-lightbox="roadtrip"><img src="{{ asset('dist2/images/e-4.jpg') }}"
+                                                alt="image" class="img-fluid rounded-3 w-100"></a></div>
+                                    <div class="col-6 mb-2 ps-1"><a href="{{ asset('dist2/images/e-5.jpg') }}"
+                                            data-lightbox="roadtrip"><img src="{{ asset('dist2/images/e-5.jpg') }}"
+                                                alt="image" class="img-fluid rounded-3 w-100"></a></div>
+                                    <div class="col-6 mb-2 pe-1"><a href="{{ asset('dist2/images/e-2.jpg') }}"
+                                            data-lightbox="roadtrip"><img src="{{ asset('dist2/images/e-2.jpg') }}"
+                                                alt="image" class="img-fluid rounded-3 w-100"></a></div>
+                                    <div class="col-6 mb-2 ps-1"><a href="{{ asset('dist2/images/e-1.jpg') }}"
+                                            data-lightbox="roadtrip"><img src="{{ asset('dist2/images/e-1.jpg') }}"
+                                                alt="image" class="img-fluid rounded-3 w-100"></a></div>
                                 </div>
                             </div>
                             <div class="card-body d-block w-100 pt-0">
@@ -238,130 +238,165 @@
                         </div>
 
                         <div class="card w-100 shadow-xss rounded-xxl border-0 mb-3">
-                            <div class="card-body d-flex align-items-center  p-4">
-                                <h4 class="fw-700 mb-0 font-xssss text-grey-900">Event</h4>
+                            <div class="card-body d-flex align-items-center p-4">
+                                <h4 class="fw-700 mb-0 font-xssss text-grey-900">Di Ikuti</h4>
                                 <a href="#" class="fw-600 ms-auto font-xssss text-primary">See all</a>
                             </div>
-                            <div class="card-body d-flex pt-0 ps-4 pe-4 pb-3 overflow-hidden">
-                                <div class="bg-success me-2 p-3 rounded-xxl">
-                                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span
-                                            class="ls-1 d-block font-xsss text-white fw-600">FEB</span>22</h4>
-                                </div>
-                                <h4 class="fw-700 text-grey-900 font-xssss mt-2">Meeting with clients <span
-                                        class="d-block font-xsssss fw-500 mt-1 lh-4 text-grey-500">41 madison ave, floor 24
-                                        new work, NY 10010</span> </h4>
-                            </div>
-
-                            <div class="card-body d-flex pt-0 ps-4 pe-4 pb-3 overflow-hidden">
-                                <div class="bg-warning me-2 p-3 rounded-xxl">
-                                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span
-                                            class="ls-1 d-block font-xsss text-white fw-600">APR</span>30</h4>
-                                </div>
-                                <h4 class="fw-700 text-grey-900 font-xssss mt-2">Developer Programe <span
-                                        class="d-block font-xsssss fw-500 mt-1 lh-4 text-grey-500">41 madison ave, floor 24
-                                        new work, NY 10010</span> </h4>
-                            </div>
-
-                            <div class="card-body d-flex pt-0 ps-4 pe-4 pb-3 overflow-hidden">
-                                <div class="bg-primary me-2 p-3 rounded-xxl">
-                                    <h4 class="fw-700 font-lg ls-3 lh-1 text-white mb-0"><span
-                                            class="ls-1 d-block font-xsss text-white fw-600">APR</span>23</h4>
-                                </div>
-                                <h4 class="fw-700 text-grey-900 font-xssss mt-2">Aniversary Event <span
-                                        class="d-block font-xsssss fw-500 mt-1 lh-4 text-grey-500">41 madison ave, floor 24
-                                        new work, NY 10010</span> </h4>
-                            </div>
-
-                        </div>
-
-                    </div>
-                    <div class="col-xl-8 col-xxl-9 col-lg-8">
-
-                        <div class="card w-100 shadow-xss rounded-xxl border-0 ps-4 pt-4 pe-4 pb-3 mb-3 mt-3">
-                            <div class="card-body p-0">
-                                <a href="#"
-                                    class=" font-xssss fw-600 text-grey-500 card-body p-0 d-flex align-items-center"><i
-                                        class="btn-round-sm font-xs text-primary feather-edit-3 me-2 bg-greylight"></i>Create
-                                    Post</a>
-                            </div>
-
-                            <div class="card-body p-0 mt-3 position-relative">
-                                <figure class="avatar position-absolute ms-2 mt-1 top-5">
-                                    @if ($user->photo_profile)
-                                        <!-- Menampilkan foto profil yang diunggah pengguna -->
-                                        <img src="{{ asset('storage/' . $user->photo_profile) }}" alt="image"
-                                            class="shadow-sm rounded-circle w30">
-                                    @else
-                                        <!-- Menampilkan foto profil default (jika belum diunggah) -->
-                                        <img src="{{ asset('users/avatar.png') }}" alt="image"
-                                            class="shadow-sm rounded-circle w30">
+                            <div class="card-body pt-0 ps-4 pe-4 pb-3">
+                                <div class="row">
+                                    @php
+                                        // Ambil pengguna yang mengikuti saya
+                                        $followings = auth()->user()->followings;
+                                        $totalfollowings = $followings ? count($followings) : 0;
+                                    @endphp
+                        
+                                    @foreach ($followings as $index => $follower)
+                                        @php
+                                            $photoPath = $follower->photo_profile; // Path foto profil
+                                            $photoExists = $photoPath && file_exists(public_path('storage/' . $photoPath)); // Cek dengan file_exists
+                                        @endphp
+                        
+                                        <!-- Jika pengguna ke-9 -->
+                                        @if ($index === 8 && $totalfollowings > 9)
+                                            <div class="col-4 mb-3">
+                                                <div class="position-relative">
+                                                    @if ($photoExists)
+                                                        <img src="{{ asset('storage/' . $photoPath) }}" alt="{{ $follower->name }}"
+                                                            class="shadow-sm rounded-circle w-100">
+                                                    @else
+                                                        <img src="{{ asset('users/avatar.png') }}" alt="{{ $follower->name }}"
+                                                            class="shadow-sm rounded-circle w-100">
+                                                    @endif
+                                                    <div class="position-absolute top-50 start-50 translate-middle bg-dark text-white fw-bold rounded-circle d-flex justify-content-center align-items-center"
+                                                        style="width: 40px; height: 40px; z-index: 2;">
+                                                        +{{ $totalfollowings - 9 }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @break
                                     @endif
-                                </figure>
-                                <textarea name="message"
-                                    class="h100 bor-0 w-100 rounded-xxl p-2 ps-5 font-xssss text-grey-500 fw-500 border-light-md theme-dark-bg"
-                                    cols="30" rows="10" placeholder="What's on your mind?"></textarea>
+                        
+                                    <!-- Gambar follower -->
+                                    <div class="col-4 mb-3">
+                                        <div class="position-relative">
+                                            @if ($photoExists)
+                                                <img src="{{ asset('storage/' . $photoPath) }}" alt="{{ $follower->name }}"
+                                                    class="shadow-sm rounded-circle w-100">
+                                            @else
+                                                <img src="{{ asset('users/avatar.png') }}" alt="{{ $follower->name }}"
+                                                    class="shadow-sm rounded-circle w-100">
+                                            @endif
+                                        </div>
+                                    </div>
+                                @endforeach
                             </div>
-                            <div class="card-body d-flex p-0 mt-0">
-                                <a href="#"
-                                    class="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4"><i
-                                        class="font-md text-danger feather-video me-2"></i><span class="d-none-xs">Live
-                                        Video</span></a>
-                                <a href="#"
-                                    class="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4"><i
-                                        class="font-md text-success feather-image me-2"></i><span
-                                        class="d-none-xs">Photo/Video</span></a>
-                                <a href="#"
-                                    class="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4"><i
-                                        class="font-md text-warning feather-camera me-2"></i><span
-                                        class="d-none-xs">Feeling/Activity</span></a>
-                                <a href="#" class="ms-auto" id="dropdownMenu4" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false"><i
-                                        class="ti-more-alt text-grey-900 btn-round-md bg-greylight font-xss"></i></a>
-                                <div class="dropdown-menu dropdown-menu-end p-4 rounded-xxl border-0 shadow-lg"
-                                    aria-labelledby="dropdownMenu4">
-                                    <div class="card-body p-0 d-flex">
-                                        <i class="feather-bookmark text-grey-500 me-3 font-lg"></i>
-                                        <h4 class="fw-600 text-grey-900 font-xssss mt-0 me-4">Save Link <span
-                                                class="d-block font-xsssss fw-500 mt-1 lh-3 text-grey-500">Add this to your
-                                                saved items</span></h4>
-                                    </div>
-                                    <div class="card-body p-0 d-flex mt-2">
-                                        <i class="feather-alert-circle text-grey-500 me-3 font-lg"></i>
-                                        <h4 class="fw-600 text-grey-900 font-xssss mt-0 me-4">Hide Post <span
-                                                class="d-block font-xsssss fw-500 mt-1 lh-3 text-grey-500">Save to your
-                                                saved items</span></h4>
-                                    </div>
-                                    <div class="card-body p-0 d-flex mt-2">
-                                        <i class="feather-alert-octagon text-grey-500 me-3 font-lg"></i>
-                                        <h4 class="fw-600 text-grey-900 font-xssss mt-0 me-4">Hide all from Group <span
-                                                class="d-block font-xsssss fw-500 mt-1 lh-3 text-grey-500">Save to your
-                                                saved items</span></h4>
-                                    </div>
-                                    <div class="card-body p-0 d-flex mt-2">
-                                        <i class="feather-lock text-grey-500 me-3 font-lg"></i>
-                                        <h4 class="fw-600 mb-0 text-grey-900 font-xssss mt-0 me-4">Unfollow Group <span
-                                                class="d-block font-xsssss fw-500 mt-1 lh-3 text-grey-500">Save to your
-                                                saved items</span></h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-
+                        </div>                        
                     </div>
                 </div>
-            </div>
+                <div class="col-xl-8 col-xxl-9 col-lg-8">
+                    @forelse ($posts as $p)
+                        <div class="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3">
+                            <!-- Header: Nama dan Waktu Post -->
+                            <div class="card-body p-0 d-flex">
+                                <figure class="avatar me-3">
+                                    <img src="{{ $p->user->photo_profile ? asset('storage/' . $p->user->photo_profile) : asset('users/avatar.png') }}"
+                                        alt="image" class="shadow-sm rounded-circle w45">
+                                </figure>
+                                <h4 class="fw-700 text-grey-900 font-xssss mt-1">
+                                    {{ $p->user->first_name }}
+                                    <span class="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
+                                        {{ $p->created_at->diffForHumans() }}
+                                    </span>
+                                </h4>
+                                <a href="#" class="ms-auto" id="dropdownMenu21" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                    <i class="ti-more-alt text-grey-900 btn-round-md bg-greylight font-xss"></i>
+                                </a>
+                            </div>
 
+                            <!-- Konten Post -->
+                            <div class="card-body p-0 me-lg-5">
+                                <p class="fw-500 text-grey-500 lh-26 font-xssss w-100">
+                                    {{ Str::limit($p->content, 150) }}
+                                    <a href="javascript:void(0)" class="fw-600 text-primary ms-2" id="seeMoreBtn">See
+                                        more</a>
+                                </p>
+                            </div>
+
+                            <!-- Bagian yang akan menjadi tujuan scroll -->
+                            <div id="fullContent" style="display: none;">
+                                <p class="fw-500 text-grey-500 lh-26 font-xssss w-100">
+                                    {{ $p->content }}
+                                </p>
+                            </div>
+
+                            <script>
+                                document.getElementById('seeMoreBtn').addEventListener('click', function() {
+                                    // Tampilkan konten penuh
+                                    document.getElementById('fullContent').style.display = 'block';
+
+                                    // Gulir ke bawah ke elemen fullContent
+                                    document.getElementById('fullContent').scrollIntoView({
+                                        behavior: 'smooth'
+                                    });
+                                });
+                            </script>
+
+
+                            <!-- Gambar Post -->
+                            <div class="card-body d-block p-0">
+                                <div class="row ps-2 pe-2">
+                                    @foreach ($posts as $p)
+                                        <div class="col-xs-4 col-sm-4 p-1">
+                                            <a href="#">
+                                                <img src="{{ asset('storage/' . $p->image) }}"
+                                                    class="rounded-3 w-100" alt="image">
+                                            </a>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+
+                            <!-- Footer: Like, Comment, dan Share -->
+                            <div class="card-body d-flex p-0 mt-3">
+                                <a href="#"
+                                    class="d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss me-3">
+                                    <i
+                                        class="feather-thumbs-up text-white bg-primary-gradiant me-1 btn-round-xs font-xss"></i>
+                                    <i class="feather-heart text-white bg-red-gradiant me-2 btn-round-xs font-xss"></i>
+                                    {{ $p->likes->count() }} Like
+                                </a>
+                                <a href="#"
+                                    class="d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss">
+                                    <i class="feather-message-circle text-dark text-grey-900 btn-round-sm font-lg"></i>
+                                    {{ $p->comments->count() }} Comment
+                                </a>
+                                <a href="#"
+                                    class="ms-auto d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss">
+                                    <i class="feather-share-2 text-grey-900 text-dark btn-round-sm font-lg"></i>
+                                    <span class="d-none-xs">Share</span>
+                                </a>
+                            </div>
+                        </div>
+                    @empty
+                        <small>
+                            <p>No posts available</p>
+                        </small>
+                    @endforelse
+                </div>
+            </div>
         </div>
+
     </div>
-    <!-- Pastikan jQuery dan Bootstrap JS terpasang dengan benar -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    {{-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/js/bootstrap.bundle.min.js"></script> --}}
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
-    </script>
+</div>
+<!-- Pastikan jQuery dan Bootstrap JS terpasang dengan benar -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{{-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/js/bootstrap.bundle.min.js"></script> --}}
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+    integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
+</script>
+
 @endsection

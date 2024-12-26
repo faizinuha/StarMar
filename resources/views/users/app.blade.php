@@ -24,14 +24,6 @@
 </head>
 
 <body class="color-theme-blue mont-font">
-    <style>
-        .custom-circle {
-            margin-bottom: 5px;
-            width: 50px;
-            height: 50px;
-            font-size: 30px;
-        }
-    </style>
     <div class="preloader"></div>
 
     <div class="main-wrapper">

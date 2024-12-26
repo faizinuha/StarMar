@@ -59,9 +59,12 @@ Route::middleware(['auth',])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/user-profile/{id}', [ProfileController::class, 'users'])->name('user.profile');
+    Route::get('/profile.php/{id}', [ProfileController::class, 'users'])->name('user.profile');
     Route::post('/profile/update-picture', [ProfileController::class, 'updateProfilePicture'])->name('profile.update_picture');
     Route::get('Profile', [ProfileController::class, 'profile'])->name('profile');
+    Route::get('/profile/about', [ProfileController::class, 'about'])->name('profile.about');
+Route::get('/profile/membership', [ProfileController::class, 'membership'])->name('profile.membership');
+
     // Halaman Akun
 
     Route::resource('explorer', ExplorerController::class);
