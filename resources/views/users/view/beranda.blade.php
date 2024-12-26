@@ -74,6 +74,7 @@
                             </div>
                         </div> --}}
 
+                        {{-- {{ strtoupper(substr($post->user->first_name, 0, 1)) }} --}}
 
                         <!-- Display posts -->
                         @foreach ($posts as $post)
@@ -82,11 +83,18 @@
                                     <!-- Profile and Time Section -->
                                     <div class="d-flex align-items-center mb-3">
                                         <a href="{{ route('user.profile', $post->user->id) }}">
-                                            <div
-                                                class="custom-circle bg-info text-white rounded-circle d-flex align-items-center justify-content-center font-weight-bold">
-                                                {{ strtoupper(substr($post->user->first_name, 0, 1)) }}
+                                            <div class="custom-circle bg-info text-white rounded-circle d-flex align-items-center justify-content-center font-weight-bold">
+                                                @php
+                                                    $photoPath = $post->user->photo_profile; // Path foto profil pengguna yang terkait dengan post
+                                                    $photoExists = $photoPath && file_exists(public_path('storage/' . $photoPath)); // Cek dengan file_exists
+                                                @endphp
+                                                @if ($photoExists)
+                                                    <img src="{{ asset('storage/' . $photoPath) }}" alt="image" class="shadow-sm rounded-circle w50">
+                                                @else
+                                                    <img src="{{ asset('users/avatar.png') }}" alt="image" class="shadow-sm rounded-circle w50">
+                                                @endif
                                             </div>
-                                        </a>
+                                        </a>                                        
                                         <div class="ms-3">
                                             <h6 class="fw-bold text-dark mb-0">{{ $post->user->first_name }}</h6>
                                             <p class="text-muted small mb-0">{{ $post->created_at->diffForHumans() }}</p>
@@ -116,15 +124,31 @@
                                                                     class="dropdown-item text-danger">Delete</button>
                                                             </form>
                                                         </li>
-                                                        <li>
-                                                            <a class="dropdown-item"
-                                                                href="{{ route('report.create', ['type' => 'post', 'id' => $post->id]) }}">
-                                                                <i class="fas fa-flag text-warning"></i> Laporkan
-                                                            </a>
-                                                        </li>
                                                     </ul>
                                                 </div>
                                             @endif
+                                            <!-- Menu yang tampil untuk semua pengguna -->
+                                            <div class="dropdown position-absolute top-0 end-0 p-2">
+                                                <button class="btn btn-light btn-sm dropdown-toggle" type="button"
+                                                    id="postMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fas fa-ellipsis-v"></i>
+                                                </button>
+                                                <ul class="dropdown-menu" aria-labelledby="postMenu">
+                                                    <li>
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('report.create', ['type' => 'post', 'id' => $post->id]) }}">
+                                                            <i class="fas fa-flag text-warning"></i> Laporkan
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item"
+                                                            href="{{ asset('storage/' . $post->image) }}"
+                                                            download="{{ $post->content }}.jpg">
+                                                            <i class="fas fa-download text-success"></i> Download Gambar
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     @endif
 
@@ -162,20 +186,24 @@
                                         data-bs-backdrop="false" wire:ignore>
                                         <div class="modal-dialog modal-lg modal-dialog-scrollable">
                                             <div class="modal-content">
-                                                <div class="d-flex align-items-center justify-content-between border-bottom p-3">
+                                                <div
+                                                    class="d-flex align-items-center justify-content-between border-bottom p-3">
                                                     <div class="d-flex align-items-center">
-                                                        <img src="{{ asset('storage/' . $post->user->photo_profile) }}" alt="Avatar" class="rounded-circle me-2"
+                                                        <img src="{{ asset('storage/' . $post->user->photo_profile) }}"
+                                                            alt="Avatar" class="rounded-circle me-2"
                                                             style="width: 40px; height: 40px;">
                                                         <strong>{{ $post->user->first_name }}</strong>
                                                     </div>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body d-flex">
                                                     <!-- Bagian Gambar -->
                                                     <div class="col-md-7 p-0">
-                                                        <img src="{{ asset('storage/' . $post->image) }}" alt="Post Image" class="w-100 h-100"
+                                                        <img src="{{ asset('storage/' . $post->image) }}" alt="Post Image"
+                                                            class="w-100 h-100"
                                                             style="object-fit: cover; filter: {{ $post->filter ?? 'none' }};">
-                                                            <small>{{ $post->content  }}</small>
+                                                        <small>{{ $post->content }}</small>
                                                     </div>
                                                     <!-- Bagian Komentar -->
                                                     <div class="col-md-5 ms-3" style="padding: 30px;">
@@ -184,7 +212,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>                                    
+                                    </div>
                                 </div>
                             </div>
                         @endforeach

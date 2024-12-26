@@ -1,8 +1,28 @@
+{{-- <a href="{{ route('user.profile', $post->user->id) }}">
+    <div class="custom-circle bg-info text-white rounded-circle d-flex align-items-center justify-content-center font-weight-bold">
+        @php
+            $photoPath = $post->user->photo_profile; // Path foto profil pengguna yang terkait dengan post
+            $photoExists = $photoPath && file_exists(public_path('storage/' . $photoPath)); // Cek dengan file_exists
+        @endphp
+        @if ($photoExists)
+            <img src="{{ asset('storage/' . $photoPath) }}" alt="image" class="shadow-sm rounded-circle w50">
+        @else
+            <img src="{{ asset('users/avatar.png') }}" alt="image" class="shadow-sm rounded-circle w50">
+        @endif
+    </div>
+</a> --}}
+
 <div>
     @foreach ($comments as $comment)
         <div class="d-flex align-items-start mb-3">
             <div class="me-3">
-                <img src="/path/to/avatar.jpg" alt="Avatar" class="rounded-circle" style="width: 50px; height: 50px;">
+                @if ($comment->user->photo_profile)
+                    <img src="{{ asset('storage/' . $comment->user->photo_profile) }}" alt="Avatar"
+                        class="rounded-circle" style="width: 50px; height: 50px;">
+                @else
+                    <img src="{{ asset('users/avatar.png') }}" alt="Avatar" class="rounded-circle"
+                        style="width: 50px; height: 50px;">
+                @endif
             </div>
             <div>
                 <div class="mb-1">
@@ -46,8 +66,13 @@
                         @foreach ($comment->replies as $reply)
                             <div class="d-flex align-items-start mb-2">
                                 <div class="me-3">
-                                    <img src="/path/to/avatar.jpg" alt="Avatar" class="rounded-circle"
-                                        style="width: 40px; height: 40px;">
+                                   @if ($reply->user->photo_profile)
+                                        <img src="{{ asset('storage/' . $reply->user->photo_profile) }}" alt="Avatar"
+                                            class="rounded-circle" style="width: 50px; height: 50px;">
+                                    @else
+                                        <img src="{{ asset('users/avatar.png') }}" alt="Avatar" class="rounded-circle"
+                                            style="width: 50px; height: 50px;">     
+                                   @endif
                                 </div>
                                 <div>
                                     <div class="mb-1">
