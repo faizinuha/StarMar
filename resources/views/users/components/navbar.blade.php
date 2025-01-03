@@ -73,8 +73,8 @@
         @endif
         <i class="feather-bell font-xl text-current"></i>
     </a>
-    <div class="dropdown-menu dropdown-menu-end p-4 rounded-3 border-0 shadow-lg" aria-labelledby="dropdownMenu3">
 
+    <div class="dropdown-menu dropdown-menu-end p-4 rounded-3 border-0 shadow-lg" aria-labelledby="dropdownMenu3">
         <h4 class="fw-700 font-xss mb-4">Notification</h4>
 
         @foreach (Auth::user()->unreadNotifications as $notification)
@@ -82,19 +82,26 @@
                 <img src="{{ asset('dist2/images/user-8.png') }}" alt="user" class="w40 position-absolute left-0">
                 <h5 class="font-xsss text-grey-900 mb-1 mt-0 fw-700 d-block">
                     {{ $notification->data['follower_name'] }}
-                    <span class="text-grey-400 font-xsssss fw-600 float-right mt-1"> 3 min</span>
+                    <span class="text-grey-400 font-xsssss fw-600 float-right mt-1">
+                        {{ $notification->created_at->diffForHumans() }} <!-- Waktu relatif -->
+                    </span>
                 </h5>
                 <h6 class="text-grey-500 fw-500 font-xssss lh-4">
                     {{ $notification->data['message'] ?? 'Anda memiliki pengikut baru.' }}
                 </h6>
             </div>
+
+            <!-- Menandai notifikasi sebagai telah dibaca -->
+            @php
+                $notification->markAsRead();
+            @endphp
         @endforeach
 
         @if (Auth::user()->unreadNotifications->isEmpty())
             <p class="text-grey-500">Tidak ada notifikasi baru.</p>
         @endif
-
     </div>
+
 
     <a href="#" class="p-2 text-center ms-3 menu-icon chat-active-btn"><i
             class="feather-message-square font-xl text-current"></i></a>

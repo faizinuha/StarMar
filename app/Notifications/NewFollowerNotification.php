@@ -58,7 +58,8 @@ class NewFollowerNotification extends Notification
 {
     return [
         'follower_id' => $this->follower->id,
-        'follower_name' => $this->follower->first_name, // Pastikan ini mengirimkan first_name
+        'follower_name' => $this->follower->first_name,
+        'message' => $this->follower->first_name . ' mulai mengikuti Anda.',
     ];
 }
 

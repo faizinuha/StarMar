@@ -5,7 +5,8 @@ namespace App\Livewire;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
-
+use Illuminate\Support\Facades\Mail;
+use App\Notifications\NewFollowerNotification;
 class Follows extends Component
 {
 
@@ -18,18 +19,25 @@ class Follows extends Component
         $this->isFollowing = $this->checkIsFollowing();
     }
 
+
     public function toggleFollow()
     {
+        $follower = Auth::user();
+    
         if ($this->isFollowing) {
             // unfollow
-            Auth::user()->followings()->detach($this->user->id);
+            $follower->followings()->detach($this->user->id);
         } else {
             // follow
-            Auth::user()->followings()->attach($this->user->id);
+            $follower->followings()->attach($this->user->id);
+    
+            // Kirim notifikasi kepada pengguna yang di-follow
+            $this->user->notify(new NewFollowerNotification($follower));
         }
-
+    
         $this->isFollowing = !$this->isFollowing;
     }
+    
 
     public function checkIsFollowing()
     {

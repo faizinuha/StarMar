@@ -1,20 +1,20 @@
 <?php
-
-use App\Http\Controllers\AccountController;
-use App\Http\Controllers\BerandaController;
-use App\Http\Controllers\CommentController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\HashtagController;
-use App\Http\Controllers\LikesController;
-use App\Http\Controllers\FollowController;
-use App\Http\Controllers\ReportController;
-use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\ExplorerController;
-use App\Http\Controllers\StoryController;
+use App\Http\Controllers\AccountController,
+App\Http\Controllers\BerandaController,
+App\Http\Controllers\CommentController,
+App\Http\Controllers\DashboardController,
+App\Http\Controllers\PostController,
+App\Http\Controllers\ProfileController,
+App\Http\Controllers\HashtagController,
+App\Http\Controllers\LikesController,
+App\Http\Controllers\FollowController,
+App\Http\Controllers\ReportController,
+App\Http\Controllers\NotificationController,
+App\Http\Controllers\AdminController,
+App\Http\Controllers\ExplorerController,
+App\Http\Controllers\StoryController,
+App\Http\Controllers\PemberitahuanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,13 +63,17 @@ Route::middleware(['auth',])->group(function () {
     Route::post('/profile/update-picture', [ProfileController::class, 'updateProfilePicture'])->name('profile.update_picture');
     Route::get('Profile', [ProfileController::class, 'profile'])->name('profile');
     Route::get('/profile/about', [ProfileController::class, 'about'])->name('profile.about');
-Route::get('/profile/membership', [ProfileController::class, 'membership'])->name('profile.membership');
+    Route::get('/profile/membership', [ProfileController::class, 'membership'])->name('profile.membership');
 
     // Halaman Akun
 
     Route::resource('explorer', ExplorerController::class);
     Route::get('/explorer/search', [ExplorerController::class, 'show'])->name('explorer.search');
     Route::post('/stories', [StoryController::class, 'store'])->name('stories.store');
+
+    Route::get('/report/{type}/{id}', [ReportController::class, 'create'])->name('report.create');
+    Route::post('/report', [ReportController::class, 'store'])->name('report.store');
+    Route::get('/admin/reports', [AdminController::class, 'reports'])->name('admin.reports');
 });
 
 /* ============================
@@ -79,12 +83,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     // Halaman Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/Account', [AccountController::class, 'index'])->name('Account.index');
+    Route::post('admin/reports/{report}/action', [AdminController::class, 'takeAction'])->name('admin.reports.action');
+    Route::get('admin/reports/{report}/action', [AdminController::class, 'actionPage'])->name('admin.reports.actionPage');
+    
 });
-
-// Rute untuk menampilkan form laporan
-// Rute untuk mengirim laporan
-Route::get('/report/{type}/{id}', [ReportController::class, 'create'])->name('report.create');
-Route::post('/report', [ReportController::class, 'store'])->name('report.store');
-Route::get('/admin/reports', [AdminController::class, 'reports'])->name('admin.reports');
-Route::post('admin/reports/{report}/action', [AdminController::class, 'takeAction'])->name('admin.reports.action');
-Route::get('admin/reports/{report}/action', [AdminController::class, 'actionPage'])->name('admin.reports.actionPage');

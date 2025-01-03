@@ -42,7 +42,7 @@
                                             class="text-grey-900 mb-1 font-sm fw-700 d-inline-block ls-3 text-dark">{{ $followingCount }}
                                         </b> Follow</h4>
                                 </div>
-                                <form action="{{ route('profile.update_picture') }}" method="POST">
+                                <form action="{{ route('profile.update_picture') }}" method="POST"
                                     enctype="multipart/form-data">
                                     @csrf
                                     <input type="file" name="photo" id="photo" accept="image/*" capture="camera"
