@@ -1,20 +1,21 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountController,
-App\Http\Controllers\BerandaController,
-App\Http\Controllers\CommentController,
-App\Http\Controllers\DashboardController,
-App\Http\Controllers\PostController,
-App\Http\Controllers\ProfileController,
-App\Http\Controllers\HashtagController,
-App\Http\Controllers\LikesController,
-App\Http\Controllers\FollowController,
-App\Http\Controllers\ReportController,
-App\Http\Controllers\NotificationController,
-App\Http\Controllers\AdminController,
-App\Http\Controllers\ExplorerController,
-App\Http\Controllers\StoryController,
-App\Http\Controllers\PemberitahuanController;
+    App\Http\Controllers\BerandaController,
+    App\Http\Controllers\CommentController,
+    App\Http\Controllers\DashboardController,
+    App\Http\Controllers\PostController,
+    App\Http\Controllers\ProfileController,
+    App\Http\Controllers\HashtagController,
+    App\Http\Controllers\LikesController,
+    App\Http\Controllers\FollowController,
+    App\Http\Controllers\ReportController,
+    App\Http\Controllers\NotificationController,
+    App\Http\Controllers\AdminController,
+    App\Http\Controllers\ExplorerController,
+    App\Http\Controllers\StoryController,
+    App\Http\Controllers\PemberitahuanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,6 +71,7 @@ Route::middleware(['auth',])->group(function () {
     Route::resource('explorer', ExplorerController::class);
     Route::get('/explorer/search', [ExplorerController::class, 'show'])->name('explorer.search');
     Route::post('/stories', [StoryController::class, 'store'])->name('stories.store');
+    Route::get('/stories/{id}', [StoryController::class, 'show'])->name('stories.show');
 
     Route::get('/report/{type}/{id}', [ReportController::class, 'create'])->name('report.create');
     Route::post('/report', [ReportController::class, 'store'])->name('report.store');
@@ -85,5 +87,4 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('/Account', [AccountController::class, 'index'])->name('Account.index');
     Route::post('admin/reports/{report}/action', [AdminController::class, 'takeAction'])->name('admin.reports.action');
     Route::get('admin/reports/{report}/action', [AdminController::class, 'actionPage'])->name('admin.reports.actionPage');
-    
 });

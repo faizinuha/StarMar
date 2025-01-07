@@ -33,6 +33,9 @@ class berandaController extends Controller
             ->latest()
             ->get();
 
+        $groupedStories = $stories->groupBy('user_id');
+
+
 
         return view('users.view.beranda', compact('posts', 'users', 'stories'));
     }

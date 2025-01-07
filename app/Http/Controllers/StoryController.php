@@ -49,9 +49,10 @@ class StoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Story $story)
+    public function show($id)
     {
-        //
+        $story = Story::with('user')->findOrFail($id);
+        return response()->json($story);
     }
 
     /**

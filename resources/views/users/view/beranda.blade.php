@@ -53,7 +53,8 @@
                                 @foreach ($stories as $story)
                                     <div class="item d-flex">
                                         <div class="card w125 h200 d-block border-0 shadow-xss rounded-xxxl overflow-hidden cursor-pointer mb-3 mt-3"
-                                            style="background-image: url({{ asset('storage/' . $story->media) }});">
+                                            style="background-image: url({{ asset('storage/' . $story->media) }});"
+                                            data-id="{{ $story->id }}" onclick="viewStory(this)">
                                             <div class="card-body d-block p-3 w-100 position-absolute bottom-0 text-center">
                                                 <figure class="avatar ms-auto me-auto mb-0 position-relative w50 z-index-1">
                                                     <img src="{{ asset('storage/' . $story->user->photo_profile) }}"
@@ -70,6 +71,27 @@
                                 @endforeach
                             </div>
                         </div>
+
+
+                        {{-- show story --}}
+                        <div class="modal fade" id="storyModal" tabindex="-1" aria-labelledby="storyModalLabel"
+                            aria-hidden="true" data-bs-backdrop="false">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <!-- Progress bar -->
+                                    <div class="progress w-100" style="height: 5px;">
+                                        <div class="progress-bar" id="storyProgressBar" role="progressbar"
+                                            style="width: 0%;"></div>
+                                    </div>
+                                    <!-- Story content -->
+                                    <div class="modal-body p-0" id="storyModalContent">
+                                        <!-- Media content will be dynamically loaded -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
 
 
                         {{-- modal add --}}
@@ -365,5 +387,69 @@
                 }
             });
         });
+    </script>
+
+    <script>
+        let progressInterval; // To store the progress interval timer
+
+        function viewStory(element) {
+            const storyId = element.getAttribute('data-id');
+            const modalContent = document.getElementById('storyModalContent');
+            const progressBar = document.getElementById('storyProgressBar');
+
+            // Reset progress bar
+            progressBar.style.width = '0%';
+
+            // Fetch story details
+            fetch(`/stories/${storyId}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Clear existing interval if any
+                    clearInterval(progressInterval);
+
+                    // Determine duration
+                    let duration = 15000; // Default 30 seconds for images
+                    if (data.media.endsWith('.mp4') || data.media.endsWith('.mov')) {
+                        duration = 60000; // 60 seconds for videos
+                    }
+
+                    // Load media content
+                    if (data.media.endsWith('.mp4') || data.media.endsWith('.mov')) {
+                        modalContent.innerHTML = `
+                    <video controls autoplay muted class="w-100 h-auto">
+                        <source src="/storage/${data.media}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                `;
+                    } else {
+                        modalContent.innerHTML = `
+                    <img src="/storage/${data.media}" alt="story" class="w-100 h-auto">
+                `;
+                    }
+
+                    // Start progress bar
+                    let progress = 0;
+                    progressInterval = setInterval(() => {
+                        progress += 100 / (duration / 100); // Increase progress in steps
+                        progressBar.style.width = `${progress}%`;
+
+                        if (progress >= 100) {
+                            clearInterval(progressInterval); // Stop progress when complete
+                            closeStoryModal(); // Close modal automatically
+                        }
+                    }, 100);
+
+                    // Show modal
+                    const storyModal = new bootstrap.Modal(document.getElementById('storyModal'));
+                    storyModal.show();
+                })
+                .catch(error => console.error('Error fetching story:', error));
+        }
+
+        function closeStoryModal() {
+            const storyModal = bootstrap.Modal.getInstance(document.getElementById('storyModal'));
+            storyModal.hide();
+            clearInterval(progressInterval); // Clear interval when modal is closed
+        }
     </script>
 @endsection
