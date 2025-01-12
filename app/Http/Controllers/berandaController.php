@@ -37,7 +37,7 @@ class berandaController extends Controller
 
 
 
-        return view('users.view.beranda', compact('posts', 'users', 'stories'));
+        return view('users.view.beranda', compact('posts', 'users', 'stories','groupedStories'));
     }
 
 

@@ -8,6 +8,10 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+// use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
+// use Intervention\Image\Facades\Image;
+use Intervention\Image\Facades\Image;
+use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
 
 class PostController extends Controller
 {
@@ -30,51 +34,39 @@ class PostController extends Controller
         // Validasi input
         $request->validate([
             'content' => 'required|string|max:255',
-            'video' => 'nullable|url',  // Validasi URL video, jika menggunakan URL
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:99999999',  // Validasi gambar
-            'video_short' => 'nullable|file|mimes:mp4|max:9999999', // Validasi untuk video pendek
+            'video' => 'nullable|file|mimes:mp4,avi,mkv,webm|max:102400', // Validasi tipe dan ukuran file video
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:99999999',
             'hashtags' => 'nullable|string|max:255',
             'filter' => 'nullable|string|max:255',
             'crop' => 'nullable|string|max:255',
         ]);
-
+    
         // Proses penyimpanan gambar jika ada
         $imagePath = null;
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('Postingan', 'public');
         }
-
+    
         // Proses penyimpanan video jika ada
         $videoPath = null;
         if ($request->hasFile('video')) {
             $videoPath = $request->file('video')->store('videos', 'public');
         }
-
-
-        // Proses video short
-        // Proses video pendek
-        $video_short = null;
-        if ($request->hasFile('video_short')) {
-            $video_short = $request->file('video_short')->store('videos_short', 'public');
-        }
-
-
+    
         // Menyimpan filter dan crop
-        $filter = $request->filter;  // Menyimpan filter
-        $crop = $request->crop;      // Menyimpan crop
-
-        // Membuat postingan baru
+        $filter = $request->filter;
+        $crop = $request->crop;
+    
         // Membuat postingan baru
         $post = Post::create([
             'user_id' => Auth::id(),
             'video' => $videoPath,
-            'video_short' => $video_short,
             'image' => $imagePath,
             'content' => $request->content,
             'filter' => $filter,
             'crop' => $crop,
         ]);
-
+    
         // Menyimpan hashtag
         if ($request->hashtags) {
             $hashtags = explode(',', $request->hashtags);
@@ -87,35 +79,26 @@ class PostController extends Controller
                 $post->hashtags()->attach($hashtag->id);
             }
         }
-
-
+    
         return redirect()->route('beranda')->with('success', 'Post berhasil ditambahkan!');
     }
-
-    // Menampilkan halaman edit (opsional)
-    public function edit($id)
-    {
-        $post = Post::findOrFail($id);
-        return view('posts.edit', compact('post'));
-    }
-
-    // Mengupdate postingan
+    
+    
     public function update(Request $request, $id)
     {
         // Validasi input
         $request->validate([
             'content' => 'required|string|max:255',
-            'video' => 'nullable|url',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validasi gambar
-            'video_short' => 'nullable|file|mimes:mp4|max:9999999',
-            'filter' => 'nullable|string|max:255',  // Validasi filter
-            'crop' => 'nullable|string|max:255',    // Validasi crop
+            'video' => 'nullable|file|mimes:mp4,avi,mkv,webm|max:102400', // Validasi tipe dan ukuran file video
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'filter' => 'nullable|string|max:255',
+            'crop' => 'nullable|string|max:255',
             'hashtags' => 'nullable|string|max:255',
         ]);
-
+    
         // Mendapatkan postingan yang akan diupdate
         $post = Post::findOrFail($id);
-
+    
         // Proses penyimpanan gambar baru jika ada
         $imagePath = $post->image; // Gunakan gambar lama jika tidak ada gambar baru
         if ($request->hasFile('image')) {
@@ -126,36 +109,34 @@ class PostController extends Controller
             // Simpan gambar baru ke folder 'img' di storage
             $imagePath = $request->file('image')->store('img', 'public');
         }
-
-        // Proses penyimpanan video jika ada
+    
+        // Proses penyimpanan video baru jika ada
         $videoPath = $post->video; // Gunakan video lama jika tidak ada video baru
-        if ($request->has('video')) {
-            $videoPath = $request->video;
+        if ($request->hasFile('video')) {
+            // Hapus video lama jika ada
+            if ($videoPath && Storage::exists('public/' . $videoPath)) {
+                Storage::delete('public/' . $videoPath);
+            }
+            // Simpan video baru
+            $videoPath = $request->file('video')->store('videos', 'public');
         }
-
-        // Proses video short
-        $videoShortPath = $post->video_short; // Gunakan video short lama jika tidak ada yang baru
-        if ($request->hasFile('video_short')) {
-            $videoShortPath = $request->file('video_short')->store('video_short', 'public');
-        }
-
+    
         // Menyimpan filter dan crop
-        $filter = $request->filter ?? $post->filter; // Update filter jika ada
-        $crop = $request->crop ?? $post->crop;       // Update crop jika ada
-
+        $filter = $request->filter ?? $post->filter;
+        $crop = $request->crop ?? $post->crop;
+    
         // Update postingan
         $post->update([
             'video' => $videoPath,
-            'video_short' => $videoShortPath,
             'image' => $imagePath,
             'content' => $request->content,
             'filter' => $filter,
             'crop' => $crop,
         ]);
-
+    
         // Proses Hashtag
         if ($request->hashtags) {
-            $hashtags = explode(',', $request->hashtags); // Misal: "wallpapers,art"
+            $hashtags = explode(',', $request->hashtags);
             $post->hashtags()->detach(); // Hapus hashtag lama
             foreach ($hashtags as $tag) {
                 $tag = Str::slug(trim($tag), '-'); // Normalisasi
@@ -166,9 +147,11 @@ class PostController extends Controller
                 $post->hashtags()->attach($hashtag->id);
             }
         }
-
+    
         return redirect()->route('beranda')->with('success', 'Post berhasil diperbarui!');
     }
+    
+    
 
 
     // Menghapus postingan

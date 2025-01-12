@@ -32,46 +32,48 @@
                 <div class="row feed-body">
                     <div class="col-xl-8 col-xxl-9 col-lg-8">
 
-                        {{-- stories --}}
                         <div class="card w-100 shadow-none bg-transparent bg-transparent-card border-0 p-0 mb-0">
                             <div class="owl-carousel category-card owl-theme overflow-hidden nav-none d-flex flex-row">
-                                <div class="item">
-                                    <button type="button" class="cursor-pointer border-0 bg-transparent"
-                                        data-bs-toggle="modal" data-bs-target="#addStoryModal">
-                                        <div
-                                            class="card w125 h200 d-block border-0 shadow-none rounded-xxxl bg-dark overflow-hidden mb-3 mt-3">
-                                            <div class="card-body d-block p-3 w-100 position-absolute bottom-0 text-center">
-                                                <span class="btn-round-lg bg-white"><i
-                                                        class="feather-plus font-lg"></i></span>
-                                                <h4
-                                                    class="fw-700 position-relative z-index-1 ls-1 font-xssss text-white mt-2 mb-1">
-                                                    Add Story</h4>
+                                @if (!isset($groupedStories[auth()->id()]))
+                                    <div class="item">
+                                        <button type="button" class="cursor-pointer border-0 bg-transparent" data-bs-toggle="modal"
+                                            data-bs-target="#addStoryModal">
+                                            <div
+                                                class="card w125 h200 d-block border-0 shadow-none rounded-xxxl bg-dark overflow-hidden mb-3 mt-3">
+                                                <div class="card-body d-block p-3 w-100 position-absolute bottom-0 text-center">
+                                                    <span class="btn-round-lg bg-white"><i class="feather-plus font-lg"></i></span>
+                                                    <h4 class="fw-700 position-relative z-index-1 ls-1 font-xssss text-white mt-2 mb-1">
+                                                        Add Story</h4>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </button>
-                                </div>
-                                @foreach ($stories as $story)
-                                    <div class="item d-flex">
-                                        <div class="card w125 h200 d-block border-0 shadow-xss rounded-xxxl overflow-hidden cursor-pointer mb-3 mt-3"
-                                            style="background-image: url({{ asset('storage/' . $story->media) }});"
-                                            data-id="{{ $story->id }}" onclick="viewStory(this)">
-                                            <div class="card-body d-block p-3 w-100 position-absolute bottom-0 text-center">
-                                                <figure class="avatar ms-auto me-auto mb-0 position-relative w50 z-index-1">
-                                                    <img src="{{ asset('storage/' . $story->user->photo_profile) }}"
-                                                        alt="image"
-                                                        class="float-right p-0 bg-white rounded-circle w-100 shadow-xss">
-                                                </figure>
-                                                <h4
-                                                    class="fw-600 position-relative z-index-1 ls-1 font-xssss text-white mt-2 mb-1">
-                                                    {{ $story->user->first_name }}
-                                                </h4>
-                                            </div>
-                                        </div>
+                                        </button>
                                     </div>
+                                @endif
+                        
+                                @foreach ($groupedStories as $userStories)
+                                    @foreach ($userStories as $story)
+                                        <div class="item d-flex">
+                                            <div class="card w125 h200 d-block border-0 shadow-xss rounded-xxxl overflow-hidden cursor-pointer mb-3 mt-3"
+                                                style="background-image: url({{ asset('storage/' . $story->media) }});"
+                                                data-id="{{ $story->id }}" onclick="viewStory(this)">
+                                                <div class="card-body d-block p-3 w-100 position-absolute bottom-0 text-center">
+                                                    <figure class="avatar ms-auto me-auto mb-0 position-relative w50 z-index-1">
+                                                        <img src="{{ asset('storage/' . $story->user->photo_profile) }}" alt="image"
+                                                            class="float-right p-0 bg-white rounded-circle w-100 shadow-xss">
+                                                    </figure>
+                                                    <h4
+                                                        class="fw-600 position-relative z-index-1 ls-1 font-xssss text-white mt-2 mb-1">
+                                                        {{ $story->user->first_name }}
+                                                    </h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
                                 @endforeach
                             </div>
                         </div>
-
+                        
+                        
 
                         {{-- show story --}}
                         <div class="modal fade" id="storyModal" tabindex="-1" aria-labelledby="storyModalLabel"

@@ -22,18 +22,22 @@ class PostLike extends Component
 
     public function toggleLike()
     {
-        if ($this->isLiked) {
-            // jika sudah like maka unlike
-            $this->post->likes()->detach(Auth::id());
-            $this->isLiked = false;
-            $this->likesCount--;
-        } else {
-            // like
-            $this->post->likes()->attach(Auth::id());
-            $this->isLiked = true;
-            $this->likesCount++;
-        }
+        $userId = Auth::id();
+    
+        // Proses Async
+        dispatch(function () use ($userId) {
+            if ($this->isLiked) {
+                $this->post->likes()->detach($userId);
+            } else {
+                $this->post->likes()->attach($userId);
+            }
+        });
+    
+        // Update UI Lokal
+        $this->isLiked = !$this->isLiked;
+        $this->likesCount += $this->isLiked ? 1 : -1;
     }
+    
 
     public function render()
     {

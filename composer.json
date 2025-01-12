@@ -8,7 +8,7 @@
     "require": {
         "php": "^8.2",
         "biscolab/laravel-recaptcha": "^6.1",
-        "intervention/image": "^3.9",
+        "intervention/image": "*",
         "laravel/framework": "^11.31",
         "laravel/reverb": "^1.0",
         "laravel/tinker": "^2.9",
