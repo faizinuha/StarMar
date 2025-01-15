@@ -15,7 +15,8 @@ use App\Http\Controllers\AccountController,
     App\Http\Controllers\AdminController,
     App\Http\Controllers\ExplorerController,
     App\Http\Controllers\StoryController,
-    App\Http\Controllers\PemberitahuanController;
+    App\Http\Controllers\PemberitahuanController,
+    App\Http\Controllers\admin\MaintenanceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/friend/{user}', [FollowController::class, 'deleteFriend'])->name('delete.friend');
     Route::get('/hashtags/suggest', [HashtagController::class, 'suggest'])->name('hashtags.suggest');
 });
+
 Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
 Route::post('/notifications/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
 
@@ -47,6 +49,10 @@ Route::post('/notifications/mark-as-read', [NotificationController::class, 'mark
 Route::middleware(['auth',])->group(function () {
     // Halaman Beranda
     // Manajemen Postingan
+
+    // Maintenance 
+    
+
     Route::prefix('posts')->group(function () {
         Route::get('/', [PostController::class, 'index'])->name('posts.index');
         Route::get('/uploads', [PostController::class, 'create'])->name('posts.create');
@@ -81,10 +87,12 @@ Route::middleware(['auth',])->group(function () {
 /* ============================
 |  KHUSUS ADMIN
 ============================= */
-Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
+Route::middleware(['auth', 'role:admin','bypass_maintenance'])->prefix('admin')->group(function () {
     // Halaman Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/Account', [AccountController::class, 'index'])->name('Account.index');
     Route::post('admin/reports/{report}/action', [AdminController::class, 'takeAction'])->name('admin.reports.action');
     Route::get('admin/reports/{report}/action', [AdminController::class, 'actionPage'])->name('admin.reports.actionPage');
+    Route::get('/admin/maintenance', [MaintenanceController::class, 'index'])->name('admin.maintenance');
+    Route::post('/admin/maintenance/toggle', [MaintenanceController::class, 'toggle'])->name('admin.maintenance.toggle');
 });

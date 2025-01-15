@@ -69,6 +69,12 @@
                             <span>Notifications</span>
                         </a>
                     </li>
+                    <li class="nav-item">
+    <a href="{{ route('admin.maintenance') }}" class="nav-link">
+        <i class="bi bi-wrench"></i> Maintenance Management
+    </a>
+</li>
+
 
                     <!-- Profile Dropdown -->
                     <li class="relative">
