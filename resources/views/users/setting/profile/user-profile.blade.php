@@ -1,5 +1,10 @@
 @extends('users.app')
-@section('content')
+@section(section: 'content')
+
+@php
+$photoPath = Auth::check() ? Auth::user()->photo_profile : null; // Path foto profil jika user login
+$photoExists = $photoPath && file_exists(public_path('storage/' . $photoPath)); // Cek file
+@endphp
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <div class="main-content right-chat-active">
@@ -13,13 +18,13 @@
                                 style="background-image: url('{{ asset('dist2/images/bb-9.jpg') }}');"></div>
                             <div class="card-body d-block pt-4 text-center position-relative">
                                 <figure class="avatar mt--6 position-relative w75 z-index-1 w100 z-index-1 ms-auto me-auto">
-                                    @if ($user->photo_profile)
+                                    @if ($photoExists)
                                         <!-- Menampilkan foto profil yang diunggah pengguna -->
-                                        <img src="{{ asset('storage/' . $user->photo_profile) }}" alt="Profile Photo"
+                                        <img src="{{ asset('storage/' . $photoPath) }}" alt="Profile Photo"
                                             class="p-1 bg-white rounded-xl w-100">
                                     @else
                                         <!-- Menampilkan foto profil default (jika belum diunggah) -->
-                                        <img src="{{ asset('storage/avatar.png') }}" alt="Default Profile Photo"
+                                        <img src="{{ asset('users/avatar.png') }}" alt="Default Profile Photo"
                                             class="p-1 bg-white rounded-xl w-100">
                                     @endif
                                 </figure>
@@ -249,13 +254,13 @@
                                         $followings = auth()->user()->followings;
                                         $totalfollowings = $followings ? count($followings) : 0;
                                     @endphp
-                        
+
                                     @foreach ($followings as $index => $follower)
                                         @php
                                             $photoPath = $follower->photo_profile; // Path foto profil
                                             $photoExists = $photoPath && file_exists(public_path('storage/' . $photoPath)); // Cek dengan file_exists
                                         @endphp
-                        
+
                                         <!-- Jika pengguna ke-9 -->
                                         @if ($index === 8 && $totalfollowings > 9)
                                             <div class="col-4 mb-3">
@@ -275,7 +280,7 @@
                                             </div>
                                         @break
                                     @endif
-                        
+
                                     <!-- Gambar follower -->
                                     <div class="col-4 mb-3">
                                         <div class="position-relative">
@@ -290,7 +295,7 @@
                                     </div>
                                 @endforeach
                             </div>
-                        </div>                        
+                        </div>
                     </div>
                 </div>
                 <div class="col-xl-8 col-xxl-9 col-lg-8">

@@ -24,9 +24,9 @@
                         class="shadow-sm rounded-circle w50">
                 @endif
             </figure>
-            <h4 class="fw-700 text-grey-900 font-xssss mt-1 d-flex align-items-center">
-                {{ $currentUser->first_name }} <span class="text-grey-500 ms-2">(You)</span>
-            </h4>
+           <a href="{{ route('user.profile', $currentUser->id) }}"><h4 class="fw-700 text-grey-900 font-xssss mt-1 d-flex align-items-center">
+            {{ $currentUser->first_name }} <span class="text-grey-500 ms-2">(You)</span>
+        </h4></a>
         </div>
 
         {{-- Bagian "All Friends" --}}
@@ -47,9 +47,9 @@
                     @endif
                 </figure>
                 <div>
-                    <h4 class="fw-700 text-grey-900 font-xssss mt-1 d-flex align-items-center">
+                    <a href="{{ route('user.profile', $user->id) }}"><h4 class="fw-700 text-grey-900 font-xssss mt-1 d-flex align-items-center">
                         {{ $user->first_name }}
-                    </h4>
+                    </h4></a>
                     {{-- Tambahkan informasi mutual friends --}}
                     <span class="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">12 mutual friends</span>
                 </div>

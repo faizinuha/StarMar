@@ -10,23 +10,19 @@ use Illuminate\Http\Request;
 class DashboardController extends Controller
 {
     public function index()
-    {
-        $posts = Post::all()->count();
-        $user = User::all()->count();
+{
+    $totalPosts = Post::count(); // Total number of posts
+    $totalUsers = User::count(); // Total number of users
 
-        $maleCount = User::where('gender', 'male')->count();
-        $femaleCount = User::where('gender', 'female')->count();
+    // Data for charts (assuming these are already calculated in your controller)
+    $maleCount = User::where('gender', 'male')->count();
+    $femaleCount = User::where('gender', 'female')->count();
+    $postsPerMonth = Post::selectRaw('MONTH(created_at) as month, count(*) as count')
+                         ->groupBy('month')
+                         ->pluck('count', 'month')->toArray();
+    $months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-        $postsPerMonth = [];
-        for ($month = 7; $month <= 12; $month++) {
-            $postsPerMonth[] = Post::whereMonth('created_at', $month)
-                ->whereYear('created_at', Carbon::now()->year)  // Mengambil tahun saat ini
-                ->count();
-        }
+    return view('admin.dashboard', compact('totalPosts', 'totalUsers', 'maleCount', 'femaleCount', 'postsPerMonth', 'months'));
+}
 
-
-        $months = ['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-        return view('Admin.dashboard', compact('posts', 'user', 'maleCount', 'femaleCount', 'postsPerMonth', 'months'));
-    }
 }
