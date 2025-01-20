@@ -72,10 +72,11 @@ Route::middleware(['auth',])->group(function () {
     Route::get('/profile/about', [ProfileController::class, 'about'])->name('profile.about');
     Route::get('/profile/membership', [ProfileController::class, 'membership'])->name('profile.membership');
 
-    // Halaman Akun
-
-    Route::resource('explorer', ExplorerController::class);
+    // Halaman Akun && stories and report and explorer
+    // routes/web.php
+    Route::get('/explorer/Seeusers', [ExplorerController::class, 'showAllUsers'])->name('explorer.showAllUsers');
     Route::get('/explorer/search', [ExplorerController::class, 'show'])->name('explorer.search');
+    Route::get('/explorer', [ExplorerController::class, 'index'])->name('explorer.index');
     Route::post('/stories', [StoryController::class, 'store'])->name('stories.store');
     Route::get('/stories/{id}', [StoryController::class, 'show'])->name('stories.show');
 

@@ -13,33 +13,28 @@ class ExplorerController extends Controller
      */
     public function index()
     {
+        $users = User::all();
         $posts = Post::whereNotNull('image')
             ->orWhereNotNull('video')
             ->latest()
             ->get();
 
-        return view('users.view.explorer', compact('posts'));
+        return view('users.view.explorer', compact('posts', 'users'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    // app/Http/Controllers/ExplorerController.php
+    public function showAllUsers()
     {
-        //
+        $users = User::all(); // Mengambil semua pengguna
+        $posts = Post::whereNotNull('image')
+            ->orWhereNotNull('video')
+            ->latest()
+            ->get(); // Mengambil semua post (atau bisa kosong jika tidak ada)
+
+        return view('users.view.SeeAllUsers', compact('users', 'posts'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Request $request) //search
     {
         $query = $request->input('q');
@@ -62,29 +57,5 @@ class ExplorerController extends Controller
             ->get();
 
         return view('users.view.explorer', compact('users', 'posts', 'query'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

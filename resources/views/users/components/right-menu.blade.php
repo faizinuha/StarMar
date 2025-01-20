@@ -10,9 +10,8 @@
     <div class="card w-100 shadow-xss rounded-xxl border-0 mb-3">
         <div class="card-body d-flex align-items-center p-4">
             <h4 class="fw-700 mb-0 font-xssss text-grey-900">Friend Request</h4>
-            <a href="default-member.html" class="fw-600 ms-auto font-xssss text-primary">See all</a>
+            <a href="{{ route('explorer.showAllUsers') }}" class="fw-600 ms-auto font-xssss text-primary">See all</a>
         </div>
-
         {{-- Bagian "You" --}}
         <div class="card-body d-flex pt-4 ps-4 pe-4 pb-0 border-top-xs bor-0 align-items-center mb-2">
             <figure class="avatar me-3">
