@@ -50,8 +50,8 @@ Route::middleware(['auth',])->group(function () {
     // Halaman Beranda
     // Manajemen Postingan
 
-    // Maintenance 
-    
+    // Maintenance
+
 
     Route::prefix('posts')->group(function () {
         Route::get('/', [PostController::class, 'index'])->name('posts.index');
@@ -87,12 +87,10 @@ Route::middleware(['auth',])->group(function () {
 /* ============================
 |  KHUSUS ADMIN
 ============================= */
-Route::middleware(['auth', 'role:admin','bypass_maintenance'])->prefix('admin')->group(function () {
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     // Halaman Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/Account', [AccountController::class, 'index'])->name('Account.index');
     Route::post('admin/reports/{report}/action', [AdminController::class, 'takeAction'])->name('admin.reports.action');
     Route::get('admin/reports/{report}/action', [AdminController::class, 'actionPage'])->name('admin.reports.actionPage');
-    Route::get('/admin/maintenance', [MaintenanceController::class, 'index'])->name('admin.maintenance');
-    Route::post('/admin/maintenance/toggle', [MaintenanceController::class, 'toggle'])->name('admin.maintenance.toggle');
 });
