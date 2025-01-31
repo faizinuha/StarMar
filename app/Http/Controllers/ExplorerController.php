@@ -29,8 +29,8 @@ class ExplorerController extends Controller
         $posts = Post::whereNotNull('image')
             ->orWhereNotNull('video')
             ->latest()
-            ->get(); // Mengambil semua post (atau bisa kosong jika tidak ada)
-
+            ->get(); // Mengambil semua post yang memiliki gambar atau video
+    
         return view('users.view.SeeAllUsers', compact('users', 'posts'));
     }
 

@@ -17,29 +17,23 @@ class berandaController extends Controller
      */
 
 
-    public function index()
-    {
-
-        // Ambil data posts terbaru beserta komentar dan reply-nya
-        $posts = Post::with(['comments.replies', 'comments.user'])
-            ->orderBy('created_at', 'desc')
-            ->get();
-
-        // Cek apakah koneksi ke tabel users bermasalah
-        $users = User::all();
-
-        $stories = Story::where('expires_at', '>', now())
-            ->with('user')
-            ->latest()
-            ->get();
-
-        $groupedStories = $stories->groupBy('user_id');
-
-
-
-        return view('users.view.beranda', compact('posts', 'users', 'stories','groupedStories'));
-    }
-
+     public function index()
+     {
+         // Ambil data posts terbaru beserta komentar, replies, dan user
+         $posts = Post::with(['comments.replies.user', 'comments.user'])
+             ->orderBy('created_at', 'desc')
+             ->get();
+     
+         // Ambil data stories yang belum kedaluwarsa beserta user
+         $stories = Story::where('expires_at', '>', now())
+             ->with('user')
+             ->latest()
+             ->get();
+     
+         $groupedStories = $stories->groupBy('user_id');
+     
+         return view('users.view.beranda', compact('posts', 'stories', 'groupedStories'));
+     }
 
 
     /**
@@ -82,6 +76,11 @@ class berandaController extends Controller
     {
         $post = Post::with(['comments.replies', 'comments.user'])->get(); // Include nested relations
         $user = User::all();
+    
+        if ($post->isEmpty() || $user->isEmpty()) {
+            return redirect()->back()->with('error', 'No posts or users found.');
+        }
+    
         return view('home.showdetail', compact('post', 'user'));
     }
 

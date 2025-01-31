@@ -8,6 +8,7 @@
 
 <div class="col-xl-4 col-xxl-3 col-lg-4 ps-lg-0">
     <div class="card w-100 shadow-xss rounded-xxl border-0 mb-3">
+        <!-- Blade template -->
         <div class="card-body d-flex align-items-center p-4">
             <h4 class="fw-700 mb-0 font-xssss text-grey-900">Friend Request</h4>
             <a href="{{ route('explorer.showAllUsers') }}" class="fw-600 ms-auto font-xssss text-primary">See all</a>
@@ -23,9 +24,11 @@
                         class="shadow-sm rounded-circle w50">
                 @endif
             </figure>
-           <a href="{{ route('user.profile', $currentUser->id) }}"><h4 class="fw-700 text-grey-900 font-xssss mt-1 d-flex align-items-center">
-            {{ $currentUser->first_name }} <span class="text-grey-500 ms-2">(You)</span>
-        </h4></a>
+            <a href="{{ route('user.profile', $currentUser->id) }}">
+                <h4 class="fw-700 text-grey-900 font-xssss mt-1 d-flex align-items-center">
+                    {{ $currentUser->first_name }} <span class="text-grey-500 ms-2">(You)</span>
+                </h4>
+            </a>
         </div>
 
         {{-- Bagian "All Friends" --}}
@@ -46,9 +49,11 @@
                     @endif
                 </figure>
                 <div>
-                    <a href="{{ route('user.profile', $user->id) }}"><h4 class="fw-700 text-grey-900 font-xssss mt-1 d-flex align-items-center">
-                        {{ $user->first_name }}
-                    </h4></a>
+                    <a href="{{ route('user.profile', $user->id) }}">
+                        <h4 class="fw-700 text-grey-900 font-xssss mt-1 d-flex align-items-center">
+                            {{ $user->first_name }}
+                        </h4>
+                    </a>
                     {{-- Tambahkan informasi mutual friends --}}
                     <span class="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">12 mutual friends</span>
                 </div>

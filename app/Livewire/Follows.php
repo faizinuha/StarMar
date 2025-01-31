@@ -26,10 +26,10 @@ class Follows extends Component
     
         if ($this->isFollowing) {
             // unfollow
-            $follower->followings()->detach($this->user->id);
+            $follower->followings->detach($this->user->id);
         } else {
             // follow
-            $follower->followings()->attach($this->user->id);
+            $follower->followings->attach($this->user->id);
     
             // Kirim notifikasi kepada pengguna yang di-follow
             $this->user->notify(new NewFollowerNotification($follower));
