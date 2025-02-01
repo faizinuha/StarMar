@@ -214,7 +214,56 @@
                                             </div>
                                         </div>
                                     @endif
-
+                                    @if ($post->video)
+                                    <div class="mb-4">
+                                    <video src="{{asset('storage/' . $post->video)}}">
+                                        
+                                    </video>
+                                        @if (Auth::check() && Auth::id() === $post->user_id)
+                                            <div class="dropdown position-absolute top-0 end-0 p-2">
+                                                <button class="btn btn-light btn-sm dropdown-toggle" type="button"
+                                                    id="postMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fas fa-ellipsis-v"></i>
+                                                </button>
+                                                <ul class="dropdown-menu" aria-labelledby="postMenu">
+                                                    <li><a class="dropdown-item"
+                                                            href="{{ route('posts.edit', $post->id) }}">Edit</a></li>
+                                                    <li>
+                                                        <form action="{{ route('posts.destroy', $post->id) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit"
+                                                                class="dropdown-item text-danger">Delete</button>
+                                                        </form>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        @endif
+                                        <!-- Menu yang tampil untuk semua pengguna -->
+                                        <div class="dropdown position-absolute top-0 end-0 p-2">
+                                            <button class="btn btn-light btn-sm dropdown-toggle" type="button"
+                                                id="postMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="fas fa-ellipsis-v"></i>
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="postMenu">
+                                                <li>
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('report.create', ['type' => 'post', 'id' => $post->id]) }}">
+                                                        <i class="fas fa-flag text-warning"></i> Laporkan
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item"
+                                                        href="{{ asset('storage/' . $post->image) }}"
+                                                        download="{{ $post->content }}.jpg">
+                                                        <i class="fas fa-download text-success"></i> Download Gambar
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                @endif
                                     <!-- Post Content -->
                                     <p class="fw-500 text-grey-500 lh-26 font-xsss mb-3">{{ $post->content }}</p>
                                     {{-- @if ($post->hashtags)

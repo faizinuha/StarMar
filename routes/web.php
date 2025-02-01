@@ -92,6 +92,6 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     // Halaman Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/Account', [AccountController::class, 'index'])->name('Account.index');
-    Route::post('admin/reports/{report}/action', [AdminController::class, 'takeAction'])->name('admin.reports.action');
-    Route::get('admin/reports/{report}/action', [AdminController::class, 'actionPage'])->name('admin.reports.actionPage');
+    Route::post('reports/{report}/action', [AdminController::class, 'takeAction'])->name('admin.reports.action');
+    Route::get('reports/{report}/action', [AdminController::class, 'actionPage'])->name('admin.reports.actionPage');
 });
