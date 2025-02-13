@@ -16,6 +16,7 @@
             font-size: 30px;
         }
     </style>
+    {{-- test --}}
     @if (session('success'))
         <div class="alert alert-success">
             {{ session('success') }}

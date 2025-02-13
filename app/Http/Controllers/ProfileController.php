@@ -37,8 +37,10 @@ class ProfileController extends Controller
         // Menghitung jumlah post
         $postCount = $posts->count();
 
-        return view('users.setting.profile.user-profile', 
-            compact('user', 'posts', 'postCount', 'followersCount', 'followingCount'));
+        return view(
+            'profile.user-profile',
+            compact('user', 'posts', 'postCount', 'followersCount', 'followingCount')
+        );
     }
 
     public function profile()
@@ -50,16 +52,18 @@ class ProfileController extends Controller
 
         $followersCount = $user->followers()->count();
         $followingCount = $user->followings()->count();
-        
+
         $posts = Post::where('user_id', $user->id)->get();
         $postCount = $posts->count();
         $pos = Post::with('user')
             ->where('user_id', $user->id)
-            ->select('image', 'video', 'video_short', 'filter', 'crop', 'content')
+            ->select('image', 'video', 'filter', 'crop', 'content')
             ->get();
 
-        return view('users.setting.profile.user-profile', 
-            compact('followersCount', 'postCount', 'pos', 'followingCount', 'posts', 'user', 'profilePhoto'));
+        return view(
+            'profile.user-profile',
+            compact('followersCount', 'postCount', 'pos', 'followingCount', 'posts', 'user', 'profilePhoto')
+        );
     }
 
     public function updateProfilePicture(Request $request)
@@ -89,21 +93,28 @@ class ProfileController extends Controller
     {
         return 'users/Avatar.png'; // Path foto profil default
     }
-    
-    public function about() {
+
+    public function about()
+    {
         return view('profile.about');
     }
-    
-    public function membership() {
-        return view('profile.membership');
+
+    public function membership()
+    {
+        $user = Auth::user(); // Assign the $user variable first
+        $followersCount = $user->followers()->count();
+        $followingCount = $user->followings()->count();
+        $posts = Post::where('user_id', $user->id)->get();
+        $postCount = $posts->count();
+        return view('profile.membership', compact('postCount','posts', 'followersCount', 'followingCount'));
     }
-    
+
     public function showcontent()
     {
         $user = Auth::user();
         $pos = Post::with('user')
             ->where('user_id', $user->id)
-            ->select('image', 'video', 'video_short', 'filter', 'crop', 'content')
+            ->select('image', 'video', 'filter', 'crop', 'content')
             ->get();
         return view('users.setting.profile.user-profile', compact('pos'));
     }
