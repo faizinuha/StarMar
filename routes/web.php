@@ -47,12 +47,7 @@ Route::post('/notifications/mark-as-read', [NotificationController::class, 'mark
 |  KHUSUS USERS
 ============================= */
 Route::middleware(['auth',])->group(function () {
-    // Halaman Beranda
-    // Manajemen Postingan
-
-    // Maintenance
-
-
+    // Halaman Beranda && pow 
     Route::prefix('posts')->group(function () {
         Route::get('/', [PostController::class, 'index'])->name('posts.index');
         Route::get('/uploads', [PostController::class, 'create'])->name('posts.create');

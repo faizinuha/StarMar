@@ -69,3 +69,4 @@ Tim moderasi akan meninjau laporan dalam waktu 48 jam dan memberikan pembaruan k
 ---
 
 _Dengan kebijakan ini, platform kami berkomitmen untuk menciptakan komunitas yang aman, sehat, dan ramah untuk semua pengguna._
+<!-- tes -->
