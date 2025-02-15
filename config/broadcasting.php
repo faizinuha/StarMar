@@ -16,7 +16,6 @@ return [
     */
 // test
     'default' => env('BROADCAST_CONNECTION', 'null'),
-
     /*
     |--------------------------------------------------------------------------
     | Broadcast Connections

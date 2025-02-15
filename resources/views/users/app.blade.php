@@ -77,7 +77,6 @@
         });
     </script> --}}
     @stack('js')
-    blade
 </body>
 
 </html>

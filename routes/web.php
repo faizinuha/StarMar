@@ -15,8 +15,7 @@ use App\Http\Controllers\AccountController,
     App\Http\Controllers\AdminController,
     App\Http\Controllers\ExplorerController,
     App\Http\Controllers\StoryController,
-    App\Http\Controllers\PemberitahuanController,
-    App\Http\Controllers\admin\MaintenanceController;
+    App\Http\Controllers\AiGeminiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +37,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/unfollow/{user}', [FollowController::class, 'unfollow'])->name('unfollow');
     Route::delete('/friend/{user}', [FollowController::class, 'deleteFriend'])->name('delete.friend');
     Route::get('/hashtags/suggest', [HashtagController::class, 'suggest'])->name('hashtags.suggest');
+
+    // Gemini
+    Route::get('/Ai-Gemini', [AiGeminiController::class, 'index'])->name('ai-gemini.index');
+    Route::post('/Ai-Gemini/chat', [AiGeminiController::class, 'chat'])->name('ai-gemini.chat');
 });
 
 Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
@@ -61,7 +64,7 @@ Route::middleware(['auth',])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/profile.php/{id}', [ProfileController::class, 'users'])->name('user.profile');
+    Route::get('/profile.php/{id]]}', [ProfileController::class, 'users'])->name('user.profile');
     Route::post('/profile/update-picture', [ProfileController::class, 'updateProfilePicture'])->name('profile.update_picture');
     Route::get('Profile', [ProfileController::class, 'profile'])->name('profile');
     Route::get('/profile/about', [ProfileController::class, 'about'])->name('profile.about');
