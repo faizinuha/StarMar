@@ -18,7 +18,7 @@ StarMar adalah proyek **platform media sosial** yang terinspirasi dari Instagram
 | **Satria**        | Backend Developer  | ![Satria](https://avatars.githubusercontent.com/u/167852917?v=4)                                                      |
 | **Laravel-shift** | Tolls              | ![Laravel-shift](https://avatars.githubusercontent.com/u/15991828?v=43)                                               |
 
-_(Ganti `link_foto_X` dengan link foto masing-masing anggota)_
+
 
 ## 🔥 Cara Berkontribusi
 
@@ -71,21 +71,20 @@ Jika Anda ingin berkontribusi dalam proyek ini, ikuti langkah-langkah berikut:
     ```sh
     git push origin fitur-anda
     ```
+4.Set Up  Gemini Ai
+   ```
+    1.Link:https://aistudio.google.com/apikey
+    2.Buat Apikey
+    3.Buka .env
+    4.contoh: Gemini_Api:Your_Api_Create Ai studio
+    5.test
+   ```   
 
 ### 4️⃣ Buat Pull Request (PR)
 
 1. Buka repositori **StarMar** asli di GitHub.
 2. Klik **"Compare & pull request"**.
 3. Isi deskripsi PR dengan jelas dan ajukan.
-
-## 📧 Notifikasi Login di Perangkat Baru
-
-Sistem akan mengirimkan email notifikasi jika akun Anda login dari **perangkat atau browser baru** (contoh: login di Chrome lalu login di Edge). Informasi yang dikirim mencakup:
-
--   **Perangkat & Browser** yang digunakan.
--   **Alamat IP**.
--   **Waktu Login**.
--   **Lokasi Perkiraan** _(jika tersedia)_.
 
 ## 📜 Lisensi
 
