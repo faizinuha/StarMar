@@ -28,10 +28,10 @@
                                     <div class="d-flex align-items-center gap-3">
                                         <img src="{{ asset('storage/' . $user->photo_profile) }}"
                                             alt="{{ $user->first_name }}" class="rounded-circle"
-                                            style="width: 50px; height: 50px; object-fit: cover;">
+                                            style="width: 50px; height: 50px; object-fit: cover;" onclick="window.location.href='{{ route('profile', $user->id) }}'">
                                         <div>
-                                            <p class="mb-0 fw-600 text-grey-900">{{ $user->first_name }}
-                                                {{ $user->last_name }}</p>
+                                            <p class="mb-0 fw-600 text-grey-900"><a href="{{route('profile', $user->id)}}">{{ $user->first_name }}</a>
+                                                {{-- {{ $user->last_name }}</p> --}}
                                             <small class="text-grey-500">{{ $user->bio }}</small>
                                         </div>
                                     </div>

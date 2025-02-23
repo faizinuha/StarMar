@@ -66,7 +66,7 @@ Route::middleware(['auth',])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/profile.php/{id]]}', [ProfileController::class, 'users'])->name('user.profile');
     Route::post('/profile/update-picture', [ProfileController::class, 'updateProfilePicture'])->name('profile.update_picture');
-    Route::get('Profile', [ProfileController::class, 'profile'])->name('profile');
+    Route::get('Profile.php/', [ProfileController::class, 'profile'])->name('profile');
     Route::get('/profile/about', [ProfileController::class, 'about'])->name('profile.about');
     Route::get('/profile/membership', [ProfileController::class, 'membership'])->name('profile.membership');
 

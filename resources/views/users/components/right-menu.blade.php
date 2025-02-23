@@ -6,7 +6,7 @@
     $users = App\Models\User::where('id', '!=', Auth::id())->get();
 @endphp
 
-<div class="col-xl-4 col-xxl-3 col-lg-4 ps-lg-0">
+<div class="col-xl-4 col-xxl-3 col-lg-9 ps-lg-0">
     <div class="card w-100 shadow-xss rounded-xxl border-0 mb-3">
         <!-- Blade template -->
         <div class="card-body d-flex align-items-center p-4">
@@ -24,7 +24,7 @@
                         class="shadow-sm rounded-circle w50">
                 @endif
             </figure>
-            <a href="{{ route('user.profile', $currentUser->id) }}">
+            <a href="{{ route('profile', $currentUser->id) }}">
                 <h4 class="fw-700 text-grey-900 font-xssss mt-1 d-flex align-items-center">
                     {{ $currentUser->first_name }} <span class="text-grey-500 ms-2">(You)</span>
                 </h4>

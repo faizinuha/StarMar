@@ -14,7 +14,8 @@
         <div class="max-w-md w-full bg-white shadow-lg rounded-lg p-6">
             <div class="text-center mb-4">
                 <h2 class="text-2xl font-semibold text-gray-800">{{ __('Forgot your password?') }}</h2>
-                <p class="mt-2 text-sm text-gray-600">{{ __('Demi Keamana Bersama Mohon Untuk Memasukan Email anda Untuk.') }}</p>
+                <p class="mt-2 text-sm text-gray-600">{{ __('Demi Keamana 
+                Bersama Mohon Untuk Memasukan Email anda Untuk Melakukan Reset password...') }}</p>
             </div>
 
             <!-- Session Status -->
