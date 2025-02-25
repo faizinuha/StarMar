@@ -28,7 +28,6 @@ class AccountController extends Controller
 
         // Eksekusi query untuk mendapatkan data user
         $users = $usersQuery->get();
-
         // Kirim data ke view
         return view('account-users.Database', compact('users'));
     }
