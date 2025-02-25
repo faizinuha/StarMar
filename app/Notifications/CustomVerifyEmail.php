@@ -14,7 +14,7 @@ class CustomVerifyEmail extends BaseVerifyEmail
     
         return (new MailMessage)
             ->subject('Verifikasi Email Anda')
-            ->greeting('Halo ' . $notifiable->first_name . ',')
+            ->greeting('Halo ' . $notifiable->first_name . '!')
             ->line('Terima kasih telah bergabung! Klik tombol di bawah untuk memverifikasi email Anda.')
             ->action('Verifikasi Email', $url)
             ->line('Jika Anda tidak mendaftar, abaikan email ini.');
