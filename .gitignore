@@ -22,4 +22,5 @@ yarn-error.log
 /.nova
 /.vscode
 /.
+/vendor
 # 
