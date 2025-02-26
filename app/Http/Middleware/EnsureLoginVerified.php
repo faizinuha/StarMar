@@ -10,22 +10,18 @@ use Symfony\Component\HttpFoundation\Response;
 
 class EnsureLoginVerified
 {
-    public function handle(Request $request, Closure $next): Response
+    public function handle($request, Closure $next)
     {
         $user = Auth::user();
-
-        if ($user) {
-            $browser = $request->header('User-Agent');
-            $device = $request->ip(); // Bisa ditambahkan pendeteksi perangkat
-
-            $sessionKey = "login_attempt_{$user->id}_{$browser}_{$device}";
-
-            // Cek apakah pengguna sudah memasukkan kode verifikasi
-            if (Cache::has($sessionKey)) {
-                return redirect()->route('cheaker.account');
-            }
+        $sessionKey = "login_verified_{$user->id}";
+    
+        // Jika sudah diverifikasi, lanjutkan akses tanpa perlu kode lagi
+        if (Cache::has($sessionKey)) {
+            return $next($request);
         }
-
-        return $next($request);
+    
+        // Jika belum diverifikasi, arahkan ke halaman input kode
+        return redirect()->route('cheaker.account');
     }
+    
 }

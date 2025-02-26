@@ -24,8 +24,8 @@ class LoginVerificationController extends Controller
             // Jika kode cocok, hapus dari database dan buat sesi
             DB::table('login_verifications')->where('user_id', $user->id)->delete();
             session(["login_verified_{$user->id}" => true]);
-
-            return redirect()->route('dashboard');
+            
+            return redirect()->route('beranda');
         }
 
         return back()->withErrors(['code' => 'Kode yang dimasukkan salah.']);

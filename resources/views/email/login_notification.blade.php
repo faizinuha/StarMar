@@ -20,7 +20,7 @@
         <p class="mb-4">Jika ini memang Anda, masukkan kode berikut:</p>
         <h2 class="text-3xl font-bold text-center bg-gray-200 p-4 rounded-lg mb-4">{{ $verificationCode }}</h2>
         <p class="text-red-500">Jika bukan Anda, segera ubah kata sandi Anda.</p>
-        <a href="{{ route('password.reset', ['token'  => $token]) }}" class="block text-center mt-4 underline">Ubah Kata Sandi</a>
+        {{-- <a href="{{ route('password.reset', ['token'  => $token]) }}" class="block text-center mt-4 underline">Ubah Kata Sandi</a> --}}
     </div>
 </body>
 
