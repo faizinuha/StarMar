@@ -4,16 +4,13 @@ namespace App\Listeners;
 
 use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Cache;
 use App\Mail\LoginNotificationMail;
 use Jenssegers\Agent\Agent;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 
-class LoginListener implements ShouldQueue
+class LoginListener
 {
-    use InteractsWithQueue;
-
     public function handle(Login $event)
     {
         $user = $event->user;
@@ -24,11 +21,17 @@ class LoginListener implements ShouldQueue
         $platform = $agent->platform();
         $ip = request()->ip();
 
-        $sessionKey = "login_attempt_{$user->id}_{$browser}_{$device}";
+        $sessionKey = "login_verified_{$user->id}";
+        $verificationCode = rand(100000, 999999);
 
         if (!Cache::has($sessionKey)) {
-            $verificationCode = rand(100000, 999999);
-            Cache::put($sessionKey, $verificationCode, now()->addMinutes(10));
+            // Simpan kode verifikasi di database
+            DB::table('login_verifications')->updateOrInsert(
+                ['user_id' => $user->id],
+                ['code' => $verificationCode, 'created_at' => now()]
+            );
+
+            // Kirim email notifikasi
             Mail::to($user->email)->send(new LoginNotificationMail($user, $browser, $device, $platform, $ip, $verificationCode));
         }
     }

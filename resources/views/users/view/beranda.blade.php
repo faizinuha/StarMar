@@ -133,8 +133,6 @@
                             </div>
                         </div>
 
-
-
                         <!-- Display posts -->
                         @foreach ($posts as $post)
                             <div class="card w-100 shadow-sm rounded-xxl border-0 p-3 mb-3">
@@ -214,10 +212,10 @@
                                             </div>
                                         </div>
                                     @endif
+                                    
                                     @if ($post->video)
                                     <div class="mb-4">
                                     <video src="{{asset('storage/' . $post->video)}}">
-                                        
                                     </video>
                                         @if (Auth::check() && Auth::id() === $post->user_id)
                                             <div class="dropdown position-absolute top-0 end-0 p-2">

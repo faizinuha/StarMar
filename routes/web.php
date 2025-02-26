@@ -15,7 +15,8 @@ use App\Http\Controllers\AccountController,
     App\Http\Controllers\AdminController,
     App\Http\Controllers\ExplorerController,
     App\Http\Controllers\StoryController,
-    App\Http\Controllers\AiGeminiController;
+    App\Http\Controllers\AiGeminiController,
+    App\Http\Controllers\LoginVerificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,7 +30,7 @@ use App\Http\Controllers\AccountController,
 
 // Rute untuk autentikasi (Laravel Breeze)
 require __DIR__ . '/auth.php';
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'login.verified'])->group(function () {
     Route::get('/', [BerandaController::class, 'index'])->name('beranda');
     Route::post('/like', [LikesController::class, 'likePost'])->name('post.like');
     Route::resource('comments', CommentController::class);
@@ -64,7 +65,8 @@ Route::middleware(['auth',])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/profile.php/{id]]}', [ProfileController::class, 'users'])->name('user.profile');
+    // Route::get('/profile.php/{id]]}', [ProfileController::class, 'users'])->name('user.profile');
+    Route::get('/profile.php/{id}', [ProfileController::class, 'users'])->name('user.profile');
     Route::post('/profile/update-picture', [ProfileController::class, 'updateProfilePicture'])->name('profile.update_picture');
     Route::get('Profile.php/', [ProfileController::class, 'profile'])->name('profile');
     Route::get('/profile/about', [ProfileController::class, 'about'])->name('profile.about');
@@ -86,10 +88,15 @@ Route::middleware(['auth',])->group(function () {
 /* ============================
 |  KHUSUS ADMIN
 ============================= */
-Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
+Route::middleware(['auth', 'role:admin', 'ensure.login.verified'])->prefix('admin')->group(function () {
     // Halaman Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/Account', [AccountController::class, 'index'])->name('Account.index');
     Route::post('reports/{report}/action', [AdminController::class, 'takeAction'])->name('admin.reports.action');
     Route::get('reports/{report}/action', [AdminController::class, 'actionPage'])->name('admin.reports.actionPage');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/cheaker/account', [LoginVerificationController::class, 'showVerificationForm'])->name('cheaker.account');
+    Route::post('/cheaker/account', [LoginVerificationController::class, 'verifyCode'])->name('cheaker.account.post');
 });
