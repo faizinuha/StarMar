@@ -2,22 +2,20 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountController,
-    App\Http\Controllers\BerandaController,
-    App\Http\Controllers\CommentController,
-    App\Http\Controllers\DashboardController,
-    App\Http\Controllers\PostController,
-    App\Http\Controllers\ProfileController,
-    App\Http\Controllers\HashtagController,
-    App\Http\Controllers\LikesController,
-    App\Http\Controllers\FollowController,
-    App\Http\Controllers\ReportController,
-    App\Http\Controllers\NotificationController,
-    App\Http\Controllers\AdminController,
-    App\Http\Controllers\ExplorerController,
-    App\Http\Controllers\StoryController,
-    App\Http\Controllers\PemberitahuanController,
-    App\Http\Controllers\admin\MaintenanceController;
-
+App\Http\Controllers\BerandaController,
+App\Http\Controllers\CommentController,
+App\Http\Controllers\DashboardController,
+App\Http\Controllers\PostController,
+App\Http\Controllers\ProfileController,
+App\Http\Controllers\HashtagController,
+App\Http\Controllers\LikesController,
+App\Http\Controllers\FollowController,
+App\Http\Controllers\ReportController,
+App\Http\Controllers\NotificationController,
+App\Http\Controllers\AdminController,
+App\Http\Controllers\ExplorerController,
+App\Http\Controllers\StoryController,
+App\Http\Controllers\AiGeminiController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,7 +28,7 @@ use App\Http\Controllers\AccountController,
 
 // Rute untuk autentikasi (Laravel Breeze)
 require __DIR__ . '/auth.php';
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::get('/', [BerandaController::class, 'index'])->name('beranda');
     Route::post('/like', [LikesController::class, 'likePost'])->name('post.like');
     Route::resource('comments', CommentController::class);
@@ -38,6 +36,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/unfollow/{user}', [FollowController::class, 'unfollow'])->name('unfollow');
     Route::delete('/friend/{user}', [FollowController::class, 'deleteFriend'])->name('delete.friend');
     Route::get('/hashtags/suggest', [HashtagController::class, 'suggest'])->name('hashtags.suggest');
+
+    // Gemini
+    Route::get('/Ai-Gemini', [AiGeminiController::class, 'index'])->name('ai-gemini.index');
+    Route::post('/Ai-Gemini/chat', [AiGeminiController::class, 'chat'])->name('ai-gemini.chat');
 });
 
 Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
@@ -47,12 +49,7 @@ Route::post('/notifications/mark-as-read', [NotificationController::class, 'mark
 |  KHUSUS USERS
 ============================= */
 Route::middleware(['auth',])->group(function () {
-    // Halaman Beranda
-    // Manajemen Postingan
-
-    // Maintenance
-
-
+    // Halaman Beranda && pow 
     Route::prefix('posts')->group(function () {
         Route::get('/', [PostController::class, 'index'])->name('posts.index');
         Route::get('/uploads', [PostController::class, 'create'])->name('posts.create');
@@ -66,9 +63,10 @@ Route::middleware(['auth',])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    // Route::get('/profile.php/{id]]}', [ProfileController::class, 'users'])->name('user.profile');
     Route::get('/profile.php/{id}', [ProfileController::class, 'users'])->name('user.profile');
     Route::post('/profile/update-picture', [ProfileController::class, 'updateProfilePicture'])->name('profile.update_picture');
-    Route::get('Profile', [ProfileController::class, 'profile'])->name('profile');
+    Route::get('Profile.php/', [ProfileController::class, 'profile'])->name('profile');
     Route::get('/profile/about', [ProfileController::class, 'about'])->name('profile.about');
     Route::get('/profile/membership', [ProfileController::class, 'membership'])->name('profile.membership');
 

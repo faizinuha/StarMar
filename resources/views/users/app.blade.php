@@ -37,7 +37,7 @@
             @include('users.components.navbar')
             @include('users.components.navleft')
             @include('footer.footer')
-            @include('loading.loading')
+            {{-- @include('loading.loading') --}}
             <!-- Main content -->
             @yield('content')
         </div>
@@ -77,7 +77,6 @@
         });
     </script> --}}
     @stack('js')
-    blade
 </body>
 
 </html>

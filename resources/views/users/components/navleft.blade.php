@@ -11,9 +11,8 @@
                     <li><a href="{{ route('explorer.index') }}" class="nav-content-bttn open-font"><i
                                 class="feather-award btn-round-md bg-red-gradiant me-3"></i><span>Explorer</span></a>
                     </li>
-                    <li><a href="default-storie.html" class="nav-content-bttn open-font"><i
-                                class="feather-globe btn-round-md bg-gold-gradiant me-3"></i><span>Video
-                                Stories</span></a></li>
+                    <li><a href="{{route('ai-gemini.index')}}" class="nav-content-bttn open-font"><i
+                                class="feather-globe btn-round-md bg-gold-gradiant me-3"></i><span>Ai Gemini</span></a></li>
                     <li>
                         <a href="{{ route('chatify') }}" class="nav-content-bttn open-font">
                             <i class="feather-zap btn-round-md bg-mini-gradiant me-3"></i>

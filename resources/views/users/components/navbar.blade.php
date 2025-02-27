@@ -1,17 +1,17 @@
 <div class="nav-header bg-white shadow-xs border-0">
     <div class="nav-top">
         {{-- <i class="feather-zap text-success display1-size me-2 ms-0"> --}}
-        <a href="{{ route('beranda') }}"><img src="{{ asset('StarMar/StarMar-.png') }} "
-                class="display1-size text-success me-2 ms-0 w50 " alt="Logo"><span
-                class="d-inline-block fredoka-font ls-3 fw-600 text-current font-xxl logo-text mb-0">StarMar.
-            </span> </a>
-        <a href="#" class="mob-menu ms-auto me-2 chat-active-btn"><i
-                class="feather-message-circle text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
-        <a href="default-video.html" class="mob-menu me-2"><i
-                class="feather-video text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
-        <a href="#" class="me-2 menu-search-icon mob-menu"><i
-                class="feather-search text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
-        <button class="nav-menu me-0 ms-2"></button>
+            <a href="{{ route('beranda') }}"><img src="{{ asset('StarMar/StarMar-.png') }} "
+                    class="display1-size text-success me-2 ms-0 w50 " alt="Logo"><span
+                    class="d-inline-block fredoka-font ls-3 fw-600 text-current font-xxl logo-text mb-0">StarMar.
+                </span> </a>
+            <a href="#" class="mob-menu ms-auto me-2 chat-active-btn"><i
+                    class="feather-message-circle text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
+            <a href="default-video.html" class="mob-menu me-2"><i
+                    class="feather-video text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
+            <a href="#" class="me-2 menu-search-icon mob-menu"><i
+                    class="feather-search text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
+            <button class="nav-menu me-0 ms-2"></button>
     </div>
 
     <form action="#" class="float-left header-search">
@@ -21,8 +21,17 @@
                 class="bg-grey border-0 lh-32 pt-2 pb-2 ps-5 pe-3 font-xssss fw-500 rounded-xl w350 theme-dark-bg">
         </div>
     </form>
-    <a href="{{ route('beranda') }}" class="p-2 text-center ms-3 menu-icon center-menu-icon"><i
-            class="feather-home font-lg alert-primary btn-round-lg theme-dark-bg text-current "></i></a>
+    @if(auth()->user()->hasRole('admin'))
+        <a href="{{ route('dashboard') }}" class="p-2 text-center ms-3 menu-icon center-menu-icon">
+            <i class="feather-home font-lg alert-primary btn-round-lg theme-dark-bg text-current"></i>
+        </a>
+    @elseif(auth()->user()->hasRole('user'))
+        <a href="{{ route('beranda') }}" class="p-2 text-center ms-3 menu-icon center-menu-icon">
+            <i class="feather-home font-lg alert-primary btn-round-lg theme-dark-bg text-current"></i>
+        </a>
+    @else
+        <p>Role tidak dikenal</p>
+    @endif
     <!-- Tombol yang memicu modal -->
     <a href="javascript:void(0);" class="p-2 text-center ms-3 menu-icon center-menu-icon" data-bs-toggle="modal"
         data-bs-target="#postModal">
@@ -78,23 +87,23 @@
         <h4 class="fw-700 font-xss mb-4">Notification</h4>
 
         @foreach (Auth::user()->unreadNotifications as $notification)
-            <div class="card bg-transparent-card w-100 border-0 ps-5 mb-3">
-                <img src="{{ asset('dist2/images/user-8.png') }}" alt="user" class="w40 position-absolute left-0">
-                <h5 class="font-xsss text-grey-900 mb-1 mt-0 fw-700 d-block">
-                    {{ $notification->data['follower_name'] }}
-                    <span class="text-grey-400 font-xsssss fw-600 float-right mt-1">
-                        {{ $notification->created_at->diffForHumans() }} <!-- Waktu relatif -->
-                    </span>
-                </h5>
-                <h6 class="text-grey-500 fw-500 font-xssss lh-4">
-                    {{ $notification->data['message'] ?? 'Anda memiliki pengikut baru.' }}
-                </h6>
-            </div>
+                <div class="card bg-transparent-card w-100 border-0 ps-5 mb-3">
+                    <img src="{{ asset('dist2/images/user-8.png') }}" alt="user" class="w40 position-absolute left-0">
+                    <h5 class="font-xsss text-grey-900 mb-1 mt-0 fw-700 d-block">
+                        {{ $notification->data['follower_name'] }}
+                        <span class="text-grey-400 font-xsssss fw-600 float-right mt-1">
+                            {{ $notification->created_at->diffForHumans() }} <!-- Waktu relatif -->
+                        </span>
+                    </h5>
+                    <h6 class="text-grey-500 fw-500 font-xssss lh-4">
+                        {{ $notification->data['message'] ?? 'Anda memiliki pengikut baru.' }}
+                    </h6>
+                </div>
 
-            <!-- Menandai notifikasi sebagai telah dibaca -->
-            @php
-                $notification->markAsRead();
-            @endphp
+                <!-- Menandai notifikasi sebagai telah dibaca -->
+                @php
+                    $notification->markAsRead();
+                @endphp
         @endforeach
 
         @if (Auth::user()->unreadNotifications->isEmpty())
@@ -125,8 +134,7 @@
                 </li>
                 <li>
                     <label class="item-radio item-content">
-                        <input type="radio" name="color-radio" value="blue" checked=""><i
-                            class="ti-check"></i>
+                        <input type="radio" name="color-radio" value="blue" checked=""><i class="ti-check"></i>
                         <span class="circle-color bg-blue" style="background-color: #132977;"></span>
                     </label>
                 </li>
@@ -149,15 +157,13 @@
             <div class="card bg-transparent-card border-0 d-block mt-3">
                 <h4 class="d-inline font-xssss mont-font fw-700">Menu Position</h4>
                 <div class="d-inline float-right mt-1">
-                    <label class="toggle toggle-menu"><input type="checkbox"><span
-                            class="toggle-icon"></span></label>
+                    <label class="toggle toggle-menu"><input type="checkbox"><span class="toggle-icon"></span></label>
                 </div>
             </div>
             <div class="card bg-transparent-card border-0 d-block mt-3">
                 <h4 class="d-inline font-xssss mont-font fw-700">Dark Mode</h4>
                 <div class="d-inline float-right mt-1">
-                    <label class="toggle toggle-dark"><input type="checkbox"><span
-                            class="toggle-icon"></span></label>
+                    <label class="toggle toggle-dark"><input type="checkbox"><span class="toggle-icon"></span></label>
                 </div>
             </div>
 
@@ -174,8 +180,7 @@
             <img src="{{ asset('storage/' . $photoPath) }}" alt="user" style="border-radius: 50px"
                 class="rounded-sm w40 mt--1">
         @else
-            <img src="{{ asset('users/avatar.png') }}" alt="user" style="border-radius: 50px"
-                class="rounded-sm w40 mt--1">
+            <img src="{{ asset('users/avatar.png') }}" alt="user" style="border-radius: 50px" class="rounded-sm w40 mt--1">
         @endif
     </a>
 

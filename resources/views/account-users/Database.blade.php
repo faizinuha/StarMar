@@ -16,17 +16,17 @@
 
             <!-- Filter Section -->
             @if (session('success'))
-            <div class="bg-green-100 text-green-700 px-4 py-2 rounded-lg mb-4">
-                {{ session('success') }}
-            </div>
-        @endif
-        
-        @if ($errors->any())
-            <div class="bg-red-100 text-red-700 px-4 py-2 rounded-lg mb-4">
-                {{ implode(', ', $errors->all()) }}
-            </div>
-        @endif
-        
+                <div class="bg-green-100 text-green-700 px-4 py-2 rounded-lg mb-4">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if ($errors->any())
+                <div class="bg-red-100 text-red-700 px-4 py-2 rounded-lg mb-4">
+                    {{ implode(', ', $errors->all()) }}
+                </div>
+            @endif
+
             <div class="flex justify-between items-center mb-6">
                 <form action="{{ route('Account.index') }}" method="GET" class="flex items-center space-x-4">
                     <label for="filter" class="text-gray-700 font-semibold">Filter:</label>
@@ -51,6 +51,7 @@
                         <tr class="bg-blue-100">
                             <th class="px-6 py-3 text-left font-semibold text-gray-700">ID</th>
                             <th class="px-6 py-3 text-left font-semibold text-gray-700">Name</th>
+                            <th class="px-6 py-3 text-left font-semibold text-gray-700">pictures</th>
                             <th class="px-6 py-3 text-left font-semibold text-gray-700">Bio</th>
                             <th class="px-6 py-3 text-left font-semibold text-gray-700">Role</th>
                             <th class="px-6 py-3 text-left font-semibold text-gray-700">Email</th>
@@ -62,6 +63,10 @@
                             <tr class="hover:bg-blue-50">
                                 <td class="px-6 py-3">{{ $index + 1 }}</td> <!-- Menggunakan indeks untuk ID -->
                                 <td class="px-6 py-3">{{ $p->first_name }}</td>
+                                <td class="px-6 py-3">
+                                    <img src="{{ asset('storage/' . $p->photo_profile) }}" alt="Profile Photo"
+                                        class="w-16 h-16 rounded-full">
+                                </td>
                                 <td class="px-6 py-3">{{ $p->bio ?? 'N/A' }}</td>
                                 <td class="px-6 py-3">
                                     @if ($p->hasRole('admin'))

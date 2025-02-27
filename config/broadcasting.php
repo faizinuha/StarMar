@@ -14,9 +14,8 @@ return [
     | Supported: "reverb", "pusher", "ably", "redis", "log", "null"
     |
     */
-
+// test
     'default' => env('BROADCAST_CONNECTION', 'null'),
-
     /*
     |--------------------------------------------------------------------------
     | Broadcast Connections
