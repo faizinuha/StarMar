@@ -2,22 +2,20 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountController,
-    App\Http\Controllers\BerandaController,
-    App\Http\Controllers\CommentController,
-    App\Http\Controllers\DashboardController,
-    App\Http\Controllers\PostController,
-    App\Http\Controllers\ProfileController,
-    App\Http\Controllers\HashtagController,
-    App\Http\Controllers\LikesController,
-    App\Http\Controllers\FollowController,
-    App\Http\Controllers\ReportController,
-    App\Http\Controllers\NotificationController,
-    App\Http\Controllers\AdminController,
-    App\Http\Controllers\ExplorerController,
-    App\Http\Controllers\StoryController,
-    App\Http\Controllers\AiGeminiController,
-    App\Http\Controllers\LoginVerificationController;
-
+App\Http\Controllers\BerandaController,
+App\Http\Controllers\CommentController,
+App\Http\Controllers\DashboardController,
+App\Http\Controllers\PostController,
+App\Http\Controllers\ProfileController,
+App\Http\Controllers\HashtagController,
+App\Http\Controllers\LikesController,
+App\Http\Controllers\FollowController,
+App\Http\Controllers\ReportController,
+App\Http\Controllers\NotificationController,
+App\Http\Controllers\AdminController,
+App\Http\Controllers\ExplorerController,
+App\Http\Controllers\StoryController,
+App\Http\Controllers\AiGeminiController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,7 +28,7 @@ use App\Http\Controllers\AccountController,
 
 // Rute untuk autentikasi (Laravel Breeze)
 require __DIR__ . '/auth.php';
-Route::middleware(['auth', 'login.verified'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::get('/', [BerandaController::class, 'index'])->name('beranda');
     Route::post('/like', [LikesController::class, 'likePost'])->name('post.like');
     Route::resource('comments', CommentController::class);
@@ -88,15 +86,10 @@ Route::middleware(['auth',])->group(function () {
 /* ============================
 |  KHUSUS ADMIN
 ============================= */
-Route::middleware(['auth', 'role:admin', 'ensure.login.verified'])->prefix('admin')->group(function () {
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     // Halaman Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/Account', [AccountController::class, 'index'])->name('Account.index');
     Route::post('reports/{report}/action', [AdminController::class, 'takeAction'])->name('admin.reports.action');
     Route::get('reports/{report}/action', [AdminController::class, 'actionPage'])->name('admin.reports.actionPage');
-});
-
-Route::middleware('auth')->group(function () {
-    Route::get('/cheaker/account', [LoginVerificationController::class, 'showVerificationForm'])->name('cheaker.account');
-    Route::post('/cheaker/account', [LoginVerificationController::class, 'verifyCode'])->name('cheaker.account.post');
 });
