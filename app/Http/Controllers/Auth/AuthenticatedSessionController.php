@@ -23,10 +23,6 @@ class AuthenticatedSessionController extends Controller
         return view('auth.login');
     }
 
-    protected function authenticated(Request $request, $user)
-    {
-        event(new Login($user));
-    }
 
     /**
      * Handle an incoming authentication request.
@@ -41,16 +37,11 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        $user = Auth::user();
-        $browser = $request->header('User-Agent');
-        $sessionKey = "verified_login_{$user->id}_{$browser}";
-
-        // Jika login dari browser baru, redirect ke halaman verifikasi
-        if (!session()->has('verified_device')) {
-            return redirect()->route('cheaker.account');
+        if (Auth::user()->hasRole('admin')) {
+            return redirect()->route('dashboard');
+        } else {
+            return redirect()->route('beranda')->with('success', 'Selamat datang, ' . Auth::user()->first_name . '!');
         }
-
-        return $user->hasRole('admin') ? redirect()->route('dashboard') : redirect()->route('beranda');
     }
 
 
