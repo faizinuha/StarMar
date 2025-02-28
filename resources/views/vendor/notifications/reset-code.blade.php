@@ -82,7 +82,7 @@
             <h1>Reset Password</h1>
         </div>
         <div class="content">
-            <p>Halo, {{ $user->first_name  }}</p>
+            <p>Halo, {{ Auth::user() ? Auth::user()->first_name : 'Pengguna' }}</p>
             <p>Anda menerima email ini karena kami menerima permintaan reset password Anda.</p>
             <!-- <p>Kode reset password Anda adalah: {{ $token }}</p> -->
             <form action="{{ route('password.confirm') }}" method="post">

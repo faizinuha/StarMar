@@ -1,21 +1,19 @@
-@extends('auth.layouts.main')
 
-@section('content')
     <!DOCTYPE html>
     <html lang="id">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>@yield('title', 'Judul Default')</title>
+        <title>@yield('title', 'Forgot-Password')</title>
         <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
         @stack('styles')
     </head>
     <body class="bg-gray-100 flex items-center justify-center min-h-screen">
         <div class="max-w-md w-full bg-white shadow-lg rounded-lg p-6">
             <div class="text-center mb-4">
+                <img src="{{asset('StarMar/StarMar-.png')}}" class="w-20 h-20 mx-auto" alt="StarMar">
                 <h2 class="text-2xl font-semibold text-gray-800">{{ __('Forgot your password?') }}</h2>
-                <p class="mt-2 text-sm text-gray-600">{{ __('Demi Keamana 
-                Bersama Mohon Untuk Memasukan Email anda Untuk Melakukan Reset password...') }}</p>
+                <p class="mt-2 text-sm text-gray-600">{{ __('Demi Keamanan Bersama Mohon Untuk Memasukkan Email Anda Untuk Melakukan Reset Password...') }}</p>
             </div>
 
             <!-- Session Status -->
@@ -44,8 +42,11 @@
                         {{ __('Reset password') }}
                     </button>
                 </div>
+                 <!-- Opsi jika lupa email -->
+                 <a href="#" class="text-sm text-indigo-600 hover:text-indigo-500 mt-2 block text-center">
+                    {{ __('Lupa email? Klik di sini untuk bantuan') }}
+                </a>
             </form>
         </div>
     </body>
     </html>
-@endsection
