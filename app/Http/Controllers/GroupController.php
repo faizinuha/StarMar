@@ -58,18 +58,19 @@ class GroupController extends Controller
 
     public function joinGroup(Group $group)
     {
-        $status = $group->privacy == 'private' ? 'pending' : 'approved';
-
+        // $status = $group->privacy == 'private' ? 'pending' : 'approved';
+    
         GroupMember::firstOrCreate([
             'group_id' => $group->id,
             'user_id' => auth()->id(),
         ], [
             'role' => 'member',
-            'status' => $status,
+            // 'status' => $status,
         ]);
-
+    
         return redirect()->route('groups.show', $group->id)->with('success', 'Permintaan bergabung dikirim!');
     }
+    
 
     public function approveMember(GroupMember $member)
     {

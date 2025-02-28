@@ -84,6 +84,7 @@
                                 </a>
                             </div>
                             <div class="card-body p-0 mt-3 position-relative">
+                                @if(auth()->user()->isMemberOf($group))
                                 @if ($photoExists)
                                     <figure class="avatar position-absolute ms-2 mt-1 top-5">
                                         <img src="{{ asset('storage/' . $photoPath) }}" alt="image"
@@ -95,21 +96,30 @@
                                             class="shadow-sm rounded-circle w30">
                                     </figure>
                                 @endif
-                                <textarea name="message"
-                                    class="h100 bor-0 w-100 rounded-xxl p-2 ps-5 font-xssss text-grey-500 fw-500 border-light-md theme-dark-bg"
-                                    cols="30" rows="10" placeholder="Apa yang sedang kamu pikirkan?"></textarea>
+                                    <form action="{{ route('posts.store') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="group_id" value="{{ $group->id }}">
+                                        <textarea name="message"
+                                        class="h100 bor-0 w-100 rounded-xxl p-2 ps-5 font-xssss text-grey-500 fw-500 border-light-md theme-dark-bg"
+                                        cols="30" rows="10" placeholder="Apa yang sedang kamu pikirkan?"></textarea>
+                                        <button type="submit" class="btn btn-primary mt-3">Kirim</button>
+                                    </form>
+                                @else
+                                    <p style="text-decoration: underline;">Anda harus bergabung dengan grup untuk membuat postingan.</p>
+                                @endif
+
                             </div>
                         </div>
 
                         <!-- Daftar Postingan -->
-                        {{-- @foreach($group->posts as $post)
+                        {{-- @foreach($group as $post)
                         <div class="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-4">
                             <div class="card-body p-0 d-flex">
                                 <figure class="avatar me-3">
                                     <img src="{{ asset('images/user-avatar.jpg') }}" alt="image"
                                         class="shadow-sm rounded-circle w45">
                                 </figure>
-                                <h4 class="fw-700 text-grey-900 font-xssss mt-1">{{ $post->user->name }}
+                                <h4 class="fw-700 text-grey-900 font-xssss mt-1">{{ $post->frist_name }}
                                     <span class="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">{{
                                         $post->created_at->diffForHumans() }}</span>
                                 </h4>

@@ -92,15 +92,16 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Story::class);
     }
 
-    public function groups()
-    {
-        return $this->hasMany(Group::class);
-    }
-    public function isMemberOf()
-    {
-        return $this->belongsTo(GroupMember::class);
-    }
-    
+   // Di dalam model User
+public function isMemberOf(Group $group)
+{
+    return $this->groupMembers()->where('group_id', $group->id)->exists();
+}
+
+public function groupMembers()
+{
+    return $this->hasMany(GroupMember::class, 'user_id');
+}
 
     // verify
     public function sendEmailVerificationNotification()
