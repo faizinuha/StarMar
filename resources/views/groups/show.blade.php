@@ -8,19 +8,19 @@
                 <div class="row">
                     <!-- Sidebar Kiri -->
                     @php
-                    $photoPath = $group->owner->photo_profile; // Ambil foto dari pemilik grup
-                    $photoExists = $photoPath && file_exists(public_path('storage/' . $photoPath)); 
-                @endphp
+                        $photoPath = $group->owner->photo_profile; // Ambil foto dari pemilik grup
+                        $photoExists = $photoPath && file_exists(public_path('storage/' . $photoPath)); 
+                    @endphp
                     <div class="col-xl-4 col-xxl-3 col-lg-4 pe-0">
                         <div class="card w-100 shadow-xss rounded-xxl overflow-hidden border-0 mb-3 mt-3 pb-3">
                             <div class="card-body position-relative h150 bg-image-cover bg-image-center"
                                 style="background-image: url({{ asset('images/group-bg.jpg') }});"></div>
                             <div class="card-body d-block pt-4 text-center">
                                 @if ($photoExists)
-                                <figure class="avatar mt--6 position-relative w75 z-index-1 w100 ms-auto me-auto">
-                                    <img src="{{ asset('storage/' . $photoPath) }}" alt="image"
-                                        class="p-1 bg-white rounded-xl w-100">
-                                </figure>
+                                    <figure class="avatar mt--6 position-relative w75 z-index-1 w100 ms-auto me-auto">
+                                        <img src="{{ asset('storage/' . $photoPath) }}" alt="image"
+                                            class="p-1 bg-white rounded-xl w-100">
+                                    </figure>
                                 @else
                                     <figure class="avatar mt--6 position-relative w75 z-index-1 w100 ms-auto me-auto">
                                         <img src="{{ asset('users/avatar.png') }}" alt="image"
@@ -34,16 +34,27 @@
                             </div>
 
                             <!-- Tombol Join/Leave Grup -->
+                            @if(session('success'))
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
+
+                            @if(session('error'))
+                                <div class="alert alert-danger">
+                                    {{ session('error') }}
+                                </div>
+                            @endif
                             <div class="card-body d-flex align-items-center justify-content-center ps-4 pe-4 pt-0">
                                 @if(auth()->user()->isMemberOf($group))
-                                 <form action="{{ route('groups.join', $group->id) }}" method="POST">
-                                        @csrf
-                                        <button class="btn btn-success">Gabung Grup</button>
-                                    </form>
-                                    @else
                                     <form action="{{ route('groups.leave', $group->id) }}" method="POST">
                                         @csrf
                                         <button class="btn btn-danger">Keluar Grup</button>
+                                    </form>
+                                @else
+                                    <form action="{{ route('groups.join', $group->id) }}" method="POST">
+                                        @csrf
+                                        <button class="btn btn-success">Gabung Grup</button>
                                     </form>
                                 @endif
                             </div>
@@ -74,15 +85,15 @@
                             </div>
                             <div class="card-body p-0 mt-3 position-relative">
                                 @if ($photoExists)
-                                <figure class="avatar position-absolute ms-2 mt-1 top-5">
-                                    <img src="{{ asset('storage/'. $photoPath) }}" alt="image"
-                                        class="shadow-sm rounded-circle w30">
-                                </figure>
+                                    <figure class="avatar position-absolute ms-2 mt-1 top-5">
+                                        <img src="{{ asset('storage/' . $photoPath) }}" alt="image"
+                                            class="shadow-sm rounded-circle w30">
+                                    </figure>
                                 @else
-                                <figure class="avatar position-absolute ms-2 mt-1 top-5">
-                                    <img src="{{ asset('users/avatar.png') }}" alt="image"
-                                        class="shadow-sm rounded-circle w30">
-                                </figure>
+                                    <figure class="avatar position-absolute ms-2 mt-1 top-5">
+                                        <img src="{{ asset('users/avatar.png') }}" alt="image"
+                                            class="shadow-sm rounded-circle w30">
+                                    </figure>
                                 @endif
                                 <textarea name="message"
                                     class="h100 bor-0 w-100 rounded-xxl p-2 ps-5 font-xssss text-grey-500 fw-500 border-light-md theme-dark-bg"

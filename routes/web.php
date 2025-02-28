@@ -98,11 +98,11 @@ use App\Http\Controllers\GroupController;
 Route::middleware(['auth'])->group(function () {
     Route::get('/groups', [GroupController::class, 'index'])->name('groups.index');
     Route::get('/groups/create', [GroupController::class, 'create'])->name('groups.create');
-    Route::post('/groups', [GroupController::class, 'store'])->name('groups.store'); // Pastikan ini ada!
+    Route::post('/groups', [GroupController::class, 'store'])->name('groups.store');
     Route::get('/groups/{group}', [GroupController::class, 'show'])->name('groups.show');
     Route::get('/groups/{group}/edit', [GroupController::class, 'edit'])->name('groups.edit');
     Route::put('/groups/{group}', [GroupController::class, 'update'])->name('groups.update');
     Route::delete('/groups/{group}', [GroupController::class, 'deleteGroup'])->name('groups.delete');
     Route::post('/groups/{group}/leave', [GroupController::class, 'leaveGroup'])->name('groups.leave');
-
+    Route::post('/groups/{group}/join', [GroupController::class, 'joinGroup'])->name('groups.join'); // Perbaikan di sini
 });
