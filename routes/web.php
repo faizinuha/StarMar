@@ -93,3 +93,16 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::post('reports/{report}/action', [AdminController::class, 'takeAction'])->name('admin.reports.action');
     Route::get('reports/{report}/action', [AdminController::class, 'actionPage'])->name('admin.reports.actionPage');
 });
+use App\Http\Controllers\GroupController;
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/groups', [GroupController::class, 'index'])->name('groups.index');
+    Route::get('/groups/create', [GroupController::class, 'create'])->name('groups.create');
+    Route::post('/groups', [GroupController::class, 'store'])->name('groups.store'); // Pastikan ini ada!
+    Route::get('/groups/{group}', [GroupController::class, 'show'])->name('groups.show');
+    Route::get('/groups/{group}/edit', [GroupController::class, 'edit'])->name('groups.edit');
+    Route::put('/groups/{group}', [GroupController::class, 'update'])->name('groups.update');
+    Route::delete('/groups/{group}', [GroupController::class, 'deleteGroup'])->name('groups.delete');
+    Route::post('/groups/{group}/leave', [GroupController::class, 'leaveGroup'])->name('groups.leave');
+
+});

@@ -10,15 +10,6 @@
                         class="d-inline-block fredoka-font ls-3 fw-600 text-current font-xxl logo-text mb-0">StarMar.</span>
                 </a>
             </div>
-            {{-- <div class="d-flex align-items-center">
-                <a href="#" class="mob-menu ms-auto me-2 chat-active-btn"><i
-                        class="feather-message-circle text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
-                <a href="default-video.html" class="mob-menu me-2"><i
-                        class="feather-video text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
-                <a href="#" class="me-2 menu-search-icon mob-menu"><i
-                        class="feather-search text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
-                <button class="nav-menu me-0 ms-2"></button>
-            </div> --}}
             <div>
                 <a href="{{ route('register') }}"
                     class="header-btn d-none d-lg-block bg-current fw-500 text-white font-xsss p-3 ms-2 w100 text-center lh-20 rounded-xl">Register</a>
@@ -34,7 +25,7 @@
                 <div class="card-body rounded-0 text-left">
                     <h2 class="fw-700 display1-size display2-md-size mb-3">Login into <br>your account</h2>
                     <div class="form-container">
-                        <form action="{{ route('login') }}" method="POST">
+                        <form action="{{ route('login') }}" method="POST" autocapitalize="off" autocomplete="on">
                             @csrf
                             <div class="form-group icon-input mb-3">
                                 <i class="font-sm ti-email text-grey-500 pe-0"></i>
@@ -55,7 +46,7 @@
                                 @enderror
                             </div>
                             <div class="form-check text-left mb-3">
-                                <input type="checkbox" class="form-check-input mt-2" id="exampleCheck5">
+                                <input type="checkbox" class="form-check-input mt-2" id="exampleCheck5" required>
                                 <label class="form-check-label font-xsss text-grey-500" for="exampleCheck5">Remember
                                     me</label>
                                 <a href="{{ route('password.request') }}"

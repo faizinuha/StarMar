@@ -68,7 +68,7 @@
             class="feather-zap font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 "></i></a> --}}
     <a href="default-video.html" class="p-2 text-center ms-0 menu-icon center-menu-icon"><i
             class="feather-video font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 "></i></a>
-    <a href="default-group.html" class="p-2 text-center ms-0 menu-icon center-menu-icon"><i
+    <a href="{{route('groups.index')}}" class="p-2 text-center ms-0 menu-icon center-menu-icon"><i
             class="feather-user font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 "></i></a>
     <a href="shop-2.html" class="p-2 text-center ms-0 menu-icon center-menu-icon"><i
             class="feather-shopping-bag font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 "></i></a>

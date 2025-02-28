@@ -92,6 +92,16 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Story::class);
     }
 
+    public function groups()
+    {
+        return $this->hasMany(Group::class);
+    }
+    public function isMemberOf()
+    {
+        return $this->belongsTo(GroupMember::class);
+    }
+    
+
     // verify
     public function sendEmailVerificationNotification()
     {

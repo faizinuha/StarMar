@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Auth;
 
-
 use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -14,7 +13,7 @@ use App\Http\Requests\Auth\LoginRequest;
 class AuthenticatedSessionController extends Controller
 {
     /**
-     * Display the login view.
+     * Menampilkan halaman login.
      */
     public function create(): View
     {
@@ -22,42 +21,49 @@ class AuthenticatedSessionController extends Controller
     }
 
     /**
-     * Handle an incoming authentication request.
+     * Proses login pengguna.
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+        // Pencegahan SQL Injection dengan validasi input
         $credentials = $request->only('email', 'password');
 
         if (!Auth::attempt($credentials)) {
             return redirect()->route('login')->withErrors(['email' => 'Email atau password salah']);
         }
 
-        $request->session()->regenerate();
+        $request->session()->regenerate(); // Regenerasi token sesi untuk keamanan
 
-        if (Auth::user()->role === 'admin') {
+        // Jika pengguna memilih "Remember Me"
+        if ($request->remember) {
+            Auth::login(Auth::user(), true);
+        }
+        // Redirect berdasarkan peran pengguna
+        if (Auth::user()->hasRole('admin')) {
             return redirect()->route('dashboard');
         } else {
-            return redirect()->route('beranda')->with('success', 'Selamat datang, ' . Auth::user()->first_name . '!');
+            return redirect()->route('beranda');
         }
     }
 
     /**
-     * Destroy an authenticated session.
+     * Logout pengguna dan hapus sesi.
      */
     public function destroy(Request $request): RedirectResponse
     {
         $user = Auth::user(); // Ambil user yang sedang login
-    
-        Auth::logout(); // Mengeluarkan pengguna dari sesi
-    
-        // Hapus sesi pengguna dari database
+
+        Auth::logout(); // Logout pengguna
+
+        // Hapus sesi pengguna dari database jika ada
         if ($user) {
             DB::table('sessions')->where('user_id', $user->id)->delete();
         }
-    
-        $request->session()->invalidate(); // Menghapus sesi saat ini
-        $request->session()->regenerateToken(); // Regenerasi token CSRF untuk keamanan
-    
+
+        // Bersihkan sesi & token CSRF
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
         return redirect()->route('login');
-    }    
+    }
 }
