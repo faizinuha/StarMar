@@ -10,10 +10,10 @@
                         class="d-inline-block fredoka-font ls-3 fw-600 text-current font-xxl logo-text mb-0">StarMar.</span>
                 </a>
             </div>
-            <div>
+            {{-- <div>
                 <a href="{{ route('register') }}"
                     class="header-btn d-none d-lg-block bg-current fw-500 text-white font-xsss p-3 ms-2 w100 text-center lh-20 rounded-xl">Register</a>
-            </div>
+            </div> --}}
         </div>
     </div>
 
