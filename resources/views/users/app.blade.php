@@ -19,12 +19,13 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     {{-- owl-coursel --}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
-
-    <link rel="stylesheet" href="path/to/owl.carousel.min.css">
-    <link rel="stylesheet" href="path/to/owl.theme.default.min.css">
+        
+    {{-- Remove --}}
+    {{-- {{-- <link rel="stylesheet" href="path/to/owl.carousel.min.css"> --}}
+    {{-- <link rel="stylesheet" href="path/to/owl.theme.default.min.css"> --}}
     @stack('css')
 </head>
 
@@ -44,6 +45,7 @@
     </div>
 
     <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="{{ asset('dist2/js/plugin.js') }}"></script>
     <script src="{{ asset('dist2/js/lightbox.js') }}"></script>
     <script src="{{ asset('dist2/js/scripts.js') }}"></script>
@@ -59,24 +61,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
-    {{-- <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            if (Notification.permission === 'granted') {
-                new Notification('Selamat Datang!', {
-                    body: '{{ session('notification') }}',
-                    icon: 'path/to/icon.png'
-                });
-            }
-        })
-        Notification.requestPermission().then(function(permission) {
-            if (permission === 'granted') {
-                console.log('Izin notifikasi diberikan.');
-            } else {
-                console.log('Izin notifikasi ditolak.');
-            }
-        });
-    </script> --}}
     @stack('js')
+    
 </body>
 
 </html>

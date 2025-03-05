@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
-<!-- Mirrored from demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/html/main/app-invoice.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 06 Jul 2023 01:59:15 GMT -->
-
 <head>
     <!-- --------------------------------------------------- -->
     <!-- Title -->
     <!-- --------------------------------------------------- -->
-    <title>Mordenize</title>
+    <title>StarMar</title>
 
     <!-- --------------------------------------------------- -->
     <!-- Required Meta Tag -->
@@ -26,9 +23,7 @@
     <!-- --------------------------------------------------- -->
     <!-- Favicon -->
     <!-- --------------------------------------------------- -->
-    <link rel="shortcut icon" type="image/png"
-        href="https://demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/dist/images/logos/favicon.ico" />
-
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('dist2/images/favicon.png') }}">
 
     <!-- --------------------------------------------------- -->
     <!-- Core Css -->
