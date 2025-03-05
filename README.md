@@ -10,16 +10,6 @@ StarMar adalah proyek **platform media sosial** yang terinspirasi dari Instagram
 -   **JavaScript (Alpine.js / Vue.js)** - Interaksi dinamis.
 -   **Bootstrap Icons & Boxicons** - Ikon UI.
 
-## 👨‍💻 Tim Pengembang
-
-| Nama              | Peran              | Foto                                                                                                                  |
-| ----------------- | ------------------ | --------------------------------------------------------------------------------------------------------------------- |
-| **FrontierMar**   | Frontend Developer | ![FrontierMar](https://avatars.githubusercontent.com/u/70107300?s=400&u=0b18de9f007f8766580a4743eaedd553dd079fa2&v=4) |
-| **Satria**        | Backend Developer  | ![Satria](https://avatars.githubusercontent.com/u/167852917?v=4)                                                      |
-| **Laravel-shift** | Tolls              | ![Laravel-shift](https://avatars.githubusercontent.com/u/15991828?v=43)                                               |
-
-
-
 ## 🔥 Cara Berkontribusi
 
 Jika Anda ingin berkontribusi dalam proyek ini, ikuti langkah-langkah berikut:
