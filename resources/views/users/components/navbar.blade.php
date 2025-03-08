@@ -33,37 +33,10 @@
         <p>Role tidak dikenal</p>
     @endif
     <!-- Tombol yang memicu modal -->
-    <a href="javascript:void(0);" class="p-2 text-center ms-3 menu-icon center-menu-icon" data-bs-toggle="modal"
-        data-bs-target="#postModal">
+    <a href="{{route('posts.create')}}" class="p-2 text-center ms-3 menu-icon center-menu-icon">
         <i class="feather-plus font-lg alert-primary btn-round-lg theme-dark-bg text-current"></i>
     </a>
-    <style>
-        /* Menyesuaikan tampilan modal dengan kelas custom-modal */
-        .custom-modal .modal-backdrop {
-            background-color: rgba(0, 0, 0, 0.1);
-            /* Ubah menjadi lebih terang */
-        }
-    </style>
-    <!-- Modal -->
-    <!-- Modal dengan backdrop yang dinonaktifkan -->
-    <div class="modal fade mx-l" id="postModal" tabindex="-1" aria-labelledby="postModalLabel" aria-hidden="true"
-        data-bs-backdrop="false">
-        <div class="modal-dialog modal-lg modal-dialog-scrollable"> <!-- Tambahkan kelas modal-lg atau modal-xl -->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="postModalLabel">Create Post</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <!-- Form to create post -->
-                    @include('posts.create')
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
+ 
     {{-- <a href="default-storie.html" class="p-2 text-center ms-0 menu-icon center-menu-icon"><i
             class="feather-zap font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 "></i></a> --}}
     <a href="default-video.html" class="p-2 text-center ms-0 menu-icon center-menu-icon"><i

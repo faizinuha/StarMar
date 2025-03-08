@@ -8,10 +8,6 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-// use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
-// use Intervention\Image\Facades\Image;
-use Intervention\Image\Facades\Image;
-use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
 
 class PostController extends Controller
 {
@@ -19,7 +15,6 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::with('user')->latest()->get();
-        // dd(Post::latest()->first());
         return view('posts.index', compact('posts'));
     }
 
@@ -80,9 +75,8 @@ class PostController extends Controller
             }
         }
     
-        return redirect()->route('beranda')->with('success', 'Post berhasil ditambahkan!');
+        return redirect()->route('posts.index')->with('success', 'Post berhasil ditambahkan!');
     }
-    
     
     public function update(Request $request, $id)
     {
@@ -148,11 +142,8 @@ class PostController extends Controller
             }
         }
     
-        return redirect()->route('beranda')->with('success', 'Post berhasil diperbarui!');
+        return redirect()->route('posts.index')->with('success', 'Post berhasil diperbarui!');
     }
-    
-    
-
 
     // Menghapus postingan
     public function destroy($id)
@@ -169,6 +160,7 @@ class PostController extends Controller
 
         return redirect()->route('beranda')->with('success', 'Post berhasil dihapus!');
     }
+
     public function likePost(Request $request)
     {
         $post = Post::find($request->post_id);
@@ -180,10 +172,10 @@ class PostController extends Controller
 
         // Cek apakah user sudah menyukai postingan
         if ($post->likedByUsers()->where('user_id', $user->id)->exists()) {
-            $post->likedByUsers()->detach($user->id); // Hapus like
+            $post->likedByUsers()->detach($user->id);
             return response()->json(['status' => 'unliked']);
         } else {
-            $post->likedByUsers()->attach($user->id); // Tambahkan like
+            $post->likedByUsers()->attach($user->id);
             return response()->json(['status' => 'liked']);
         }
     }

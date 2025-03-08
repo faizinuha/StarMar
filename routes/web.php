@@ -8,7 +8,7 @@ App\Http\Controllers\DashboardController,
 App\Http\Controllers\PostController,
 App\Http\Controllers\ProfileController,
 App\Http\Controllers\HashtagController,
-App\Http\Controllers\LikesController,
+// App\Http\Controllers\LikesController,
 App\Http\Controllers\FollowController,
 App\Http\Controllers\ReportController,
 App\Http\Controllers\NotificationController,
@@ -30,7 +30,7 @@ App\Http\Controllers\AiGeminiController;
 require __DIR__ . '/auth.php';
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [BerandaController::class, 'index'])->name('beranda');
-    Route::post('/like', [LikesController::class, 'likePost'])->name('post.like');
+    // Route::post('/like', [LikesController::class, 'likePost'])->name('post.like');
     Route::resource('comments', CommentController::class);
     Route::post('/follow/{user}', [FollowController::class, 'follow'])->name('follow');
     Route::delete('/unfollow/{user}', [FollowController::class, 'unfollow'])->name('unfollow');
