@@ -1,4 +1,4 @@
-# StarMar 🚀
+# StarMar, 🚀
 
 StarMar adalah proyek **platform media sosial** yang terinspirasi dari Instagram dan Facebook. Proyek ini dikembangkan oleh tim kami untuk memberikan pengalaman terbaik dalam **belajar dan memahami dunia pengembangan web, khususnya di bidang media sosial**.
 
